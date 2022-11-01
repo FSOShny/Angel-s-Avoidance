@@ -1,23 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CameraBehavior : MonoBehaviour
 {
-    public Vector3 playerDist = new Vector3(0f, 0f, -3.0f);
-
     private Transform player;
+    private Vector2 lastMousePos;
+    private Vector2 newAngle;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        // プレイヤーの位置を取得する
         player = GameObject.Find("Player").transform;
     }
 
     private void LateUpdate()
     {
+        // カメラの位置をプレイヤーの位置に合わせる
         transform.position = player.position;
-        transform.rotation = player.rotation;
+
+        if (Input.GetMouseButtonDown(0)) // マウスを左クリックすると
+        {
+            // 現在のカメラの角度を格納する
+            newAngle = transform.localEulerAngles;
+            // 現在のマウスの位置を格納する
+            lastMousePos = Input.mousePosition;
+        }
+        else if (Input.GetMouseButton(0)) // そのまま左クリックを続けていると
+        {
+            // 格納されているマウスの位置と現在のマウスの位置からカメラの回転角度を求める
+            newAngle.x += (lastMousePos.y - Input.mousePosition.y);
+            newAngle.y += (Input.mousePosition.x - lastMousePos.x);
+            // カメラを回転させる
+            transform.localEulerAngles = newAngle;
+            // 格納するマウスの位置を更新する
+            lastMousePos = Input.mousePosition;
+        }
     }
 }

@@ -1,65 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float moveSpeed = 10f;
-    public float rotateSpeed = 1f;
+    public float moveSpeed = 10f; // プレイヤーの移動速度
 
+    private new Camera camera;
     private Rigidbody rb;
     private float hInput;
     private float vInput;
     private bool depthSwitch = true;
-    private Vector3 lastMousePosition;
-    private Vector3 newAngle = new Vector3(0, 0, 0);
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        // カメラの角度を取得
+        camera = Camera.main;
+        // リジッドボディーコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        // プレイヤーの前後（上下）の移動量を求める
         hInput = Input.GetAxis("Horizontal") * moveSpeed;
+        // プレイヤーの左右の移動量を求める
         vInput = Input.GetAxis("Vertical") * moveSpeed;
 
+        // 移動タイプを変更する
         if (Input.GetKeyDown(KeyCode.E))
         {
             depthSwitch = !depthSwitch;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            newAngle = transform.localEulerAngles;
-            lastMousePosition = Input.mousePosition;
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            newAngle.y += (Input.mousePosition.x - lastMousePosition.x) * rotateSpeed;
-            newAngle.x -= (Input.mousePosition.y - lastMousePosition.y) * rotateSpeed;
-            transform.localEulerAngles = newAngle;
-            lastMousePosition = Input.mousePosition;
         }
     }
 
     private void FixedUpdate()
     {
-        if (depthSwitch)
+        if (depthSwitch) // 移動タイプが「前後」である場合
         {
             NormalMove(0, 1);
         }
-        else
+        else // 移動タイプが「上下」である場合
         {
             NormalMove(1, 0);
         }
+
+        // プレイヤーの角度をカメラの角度に合わせる
+        transform.rotation = camera.transform.rotation;
     }
 
     public void NormalMove(int Y, int Z)
     {
+        // プレイヤーを移動させる
         rb.MovePosition(transform.position +
                 transform.right * hInput * Time.fixedDeltaTime +
                 transform.up * vInput * Time.fixedDeltaTime * Y +
