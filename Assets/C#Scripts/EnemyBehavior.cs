@@ -4,26 +4,62 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private Rigidbody rb;
-    private Vector3 norm = new Vector3(1.0f, 1.0f, 1.0f);
+    public int pow = 5; // 力の大きさ
 
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody rigid;
+    private bool firstBound = true;
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        // リジッドボディーコンポーネントを取得する
+        rigid = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if (firstBound) // ゾーンに衝突するまでは
+        {
+            // 直線的に動く
+            rigid.AddForce(pow, pow, pow);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Player")
+        // ゾーンに衝突するとダークボールがバウンドする
+        if (collision.gameObject.name == "Bottom")
         {
-            Debug.Log("hehehe");
+            Bounding(0, pow, 0);
+        }
+        else if (collision.gameObject.name == "Front")
+        {
+            Bounding(0, 0, -pow);
+        }
+        else if (collision.gameObject.name == "Left")
+        {
+            Bounding(pow, 0, 0);
+        }
+        else if (collision.gameObject.name == "Back")
+        {
+            Bounding(0, 0, pow);
+        }
+        else if (collision.gameObject.name == "Right")
+        {
+            Bounding(-pow, 0, 0);
+        }
+        else if (collision.gameObject.name == "Top")
+        {
+            Bounding(0, -pow, 0);
+        }
+    }
+
+    public void Bounding(int X, int Y, int Z)
+    {
+        rigid.AddForce(X, Y, Z, ForceMode.Impulse);
+
+        if (firstBound)
+        {
+            firstBound = false;
         }
     }
 }

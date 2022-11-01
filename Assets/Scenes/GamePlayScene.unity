@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 1328119020}
   - component: {fileID: 1328119021}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: EnemyGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 6846152868534232125, guid: a12c9970c54994449ba79fca98e8e159, type: 3}
-  term: 5
+  term: 10
 --- !u!1 &1413370539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546778996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1182,7 +1182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  invTime: 0
 --- !u!1 &1613634552
 GameObject:
   m_ObjectHideFlags: 0

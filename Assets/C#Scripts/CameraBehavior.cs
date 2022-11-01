@@ -10,7 +10,6 @@ public class CameraBehavior : MonoBehaviour
     private Vector2 lastMousePos;
     private Vector2 newAngle;
 
-    // Start is called before the first frame update
     private void Start()
     {
         // プレイヤーの位置を取得する
@@ -22,7 +21,7 @@ public class CameraBehavior : MonoBehaviour
         // カメラの位置をプレイヤーの位置に合わせる
         transform.position = player.position;
 
-        if (Input.GetMouseButtonDown(0)) // マウスを左クリックすると
+        if (Input.GetMouseButtonDown(0)) // マウスを左クリックした場合は
         {
             // 現在のカメラの角度を格納する
             newAngle = transform.localEulerAngles;
@@ -30,7 +29,7 @@ public class CameraBehavior : MonoBehaviour
             // 現在のマウスの位置を格納する
             lastMousePos = Input.mousePosition;
         }
-        else if (Input.GetMouseButton(0)) // そのまま左クリックを続けていると
+        else if (Input.GetMouseButton(0)) // そのまま左クリックを続けた場合は
         {
             // 格納されているマウスの位置と現在のマウスの位置からカメラの回転量を求める
             newAngle.x += (lastMousePos.y - Input.mousePosition.y) * rotateSpeed;
