@@ -1,10 +1,6 @@
-using Microsoft.Win32.SafeHandles;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -21,14 +17,6 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void FixedUpdate()
-    {
-        rb.MovePosition(transform.position +
-                transform.right * Time.fixedDeltaTime +
-                transform.up * Time.fixedDeltaTime +
-                transform.forward * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
+    public float rotateSpeed = 0.2f; // カメラの回転速度
+
     private Transform player;
     private Vector2 lastMousePos;
     private Vector2 newAngle;
@@ -24,16 +26,19 @@ public class CameraBehavior : MonoBehaviour
         {
             // 現在のカメラの角度を格納する
             newAngle = transform.localEulerAngles;
+
             // 現在のマウスの位置を格納する
             lastMousePos = Input.mousePosition;
         }
         else if (Input.GetMouseButton(0)) // そのまま左クリックを続けていると
         {
-            // 格納されているマウスの位置と現在のマウスの位置からカメラの回転角度を求める
-            newAngle.x += (lastMousePos.y - Input.mousePosition.y);
-            newAngle.y += (Input.mousePosition.x - lastMousePos.x);
+            // 格納されているマウスの位置と現在のマウスの位置からカメラの回転量を求める
+            newAngle.x += (lastMousePos.y - Input.mousePosition.y) * rotateSpeed;
+            newAngle.y += (Input.mousePosition.x - lastMousePos.x) * rotateSpeed;
+
             // カメラを回転させる
             transform.localEulerAngles = newAngle;
+
             // 格納するマウスの位置を更新する
             lastMousePos = Input.mousePosition;
         }

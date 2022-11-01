@@ -5,29 +5,29 @@ using UnityEngine;
 public class GameBehavior : MonoBehaviour
 {
     public GameObject enemy;
+    public float term = 5f;
 
-    private Vector3 initPos;
-    private float x;
-    private float y;
-    private float z;
+    private float delta = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        int judge = Random.Range(1, 4);
-        Judgement(judge, x, y, z);
-        Vector3 initPos = new Vector3(x, y, z);
-        Instantiate(enemy, initPos, Quaternion.identity);
+        Instantiate(enemy, new Vector3(10f, 20f, 10f), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        delta += Time.deltaTime;
 
-    public void Judgement(int rnd, float x, float y, float z)
-    {
-        y = Random.Range(2.5f, 27.5f);
+        if (delta > term)
+        {
+            float x = Random.Range(-11.9f, 11.9f);
+            float y = Random.Range(20f, 25f);
+            float z = Random.Range(-11.9f, 11.9f);
+            Vector3 initPos = new Vector3(x, y, z);
+            Instantiate(enemy, initPos, Quaternion.identity);
+            delta = 0f;
+        }
     }
 }
