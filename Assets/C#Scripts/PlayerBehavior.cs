@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class PlayerBehavior : MonoBehaviour
     private float hInput;
     private float vInput;
     private bool depthSwitch = true;
+    private bool avoidSwitch = false;
     private bool moveCan = true;
+    private Vector3 moveDir = new Vector3(0f, 0f, 1f);
     private float invTime = 0;
 
     private void Start()
@@ -37,6 +40,11 @@ public class PlayerBehavior : MonoBehaviour
             depthSwitch = !depthSwitch;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            avoidSwitch = true;
+        }
+
         if (invTime > 0) // 無敵時間中は
         {
             // 無敵時間を更新する
@@ -60,11 +68,21 @@ public class PlayerBehavior : MonoBehaviour
             {
                 // プレイヤーを前後左右に移動させる
                 NormalMove(0, 1);
+
+                if (avoidSwitch)
+                {
+                    AvoidMove(0, 1);
+                }
             }
             else // 移動タイプが「上下」である場合は
             {
                 // プレイヤーを上下左右に移動させる
                 NormalMove(1, 0);
+
+                if (avoidSwitch)
+                {
+                    AvoidMove(1, 0);
+                }
             }
         }
 
@@ -74,10 +92,18 @@ public class PlayerBehavior : MonoBehaviour
 
     public void NormalMove(int Y, int Z)
     {
-         rigid.MovePosition(transform.position + 
+        rigid.MovePosition(transform.position + 
              transform.right * hInput * Time.fixedDeltaTime + 
              transform.up * vInput * Time.fixedDeltaTime * Y + 
              transform.forward * vInput * Time.fixedDeltaTime * Z);
+    }
+
+    public void AvoidMove(int Y, int Z)
+    {
+        rigid.AddForce(hInput, vInput * Y, vInput * Z, ForceMode.Impulse);
+        invTime = 0.5f;
+        moveCan = false;
+        avoidSwitch = false;
     }
 
     private void OnCollisionEnter(Collision collision)
