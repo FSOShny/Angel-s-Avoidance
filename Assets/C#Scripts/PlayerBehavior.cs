@@ -9,13 +9,14 @@ public class PlayerBehavior : MonoBehaviour
 
     private new Camera camera;
     private Rigidbody rigid;
+    private GameDirector game;
     private float hInput;
     private float vInput;
     private bool depthSwitch = true;
     private bool avoidSwitch = false;
     private bool moveCan = true;
     private Vector3 moveDir = new Vector3(0f, 0f, 1f);
-    private float invTime = 0;
+    private float invTime = 0f;
 
     private void Start()
     {
@@ -24,6 +25,8 @@ public class PlayerBehavior : MonoBehaviour
 
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
+
+        game = GameObject.Find("Game Director").GetComponent<GameDirector>();
     }
 
     private void Update()
@@ -40,18 +43,20 @@ public class PlayerBehavior : MonoBehaviour
             depthSwitch = !depthSwitch;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             avoidSwitch = true;
         }
 
-        if (invTime > 0) // 無敵時間中は
+        if (invTime > 0f) // 無敵時間中は
         {
             // 無敵時間を更新する
             invTime -= Time.deltaTime;
         }
-        else if (invTime < 0) // 無敵時間終了時は
+        else if (invTime <= 0f) // 無敵時間終了時は
         {
+            invTime = 0f;
+
             // プレイヤーにかかっている速度をゼロにする
             rigid.velocity = Vector3.zero;
 
@@ -100,44 +105,51 @@ public class PlayerBehavior : MonoBehaviour
 
     public void AvoidMove(int Y, int Z)
     {
-        rigid.AddForce(hInput, vInput * Y, vInput * Z, ForceMode.Impulse);
-        invTime = 0.5f;
+        rigid.MovePosition(transform.position +
+             transform.right * hInput * Time.fixedDeltaTime * 10 +
+             transform.up * vInput * Time.fixedDeltaTime * Y  * 10 +
+             transform.forward * vInput * Time.fixedDeltaTime * Z * 10 );
+        invTime = 1f;
         moveCan = false;
         avoidSwitch = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ダメージゾーンに衝突するとプレイヤーがノックバックする
-        if (collision.gameObject.name == "Front")
+        if (invTime == 0) // 無敵時間がゼロである場合に
         {
-            KnockBack(0, 0, -1);
-        }
-        else if (collision.gameObject.name == "Left")
-        {
-            KnockBack(1, 0, 0);
-        }
-        else if (collision.gameObject.name == "Back")
-        {
-            KnockBack(0, 0, 1);
-        }
-        else if (collision.gameObject.name == "Right")
-        {
-            KnockBack(-1, 0, 0);
-        }
-        else if (collision.gameObject.name == "Top")
-        {
-            KnockBack(0, -1, 0);
-        }
-        else if (collision.gameObject.name == "Enemy(Clone)")
-        {
-            KnockBack(0, 0, 0);
+            // ダメージゾーンに衝突するとプレイヤーがノックバックする
+            if (collision.gameObject.name == "Front")
+            {
+                KnockBack(0, 0, -1);
+            }
+            else if (collision.gameObject.name == "Left")
+            {
+                KnockBack(1, 0, 0);
+            }
+            else if (collision.gameObject.name == "Back")
+            {
+                KnockBack(0, 0, 1);
+            }
+            else if (collision.gameObject.name == "Right")
+            {
+                KnockBack(-1, 0, 0);
+            }
+            else if (collision.gameObject.name == "Top")
+            {
+                KnockBack(0, -1, 0);
+            }
+            else if (collision.gameObject.name == "Enemy(Clone)")
+            {
+                KnockBack(0, 0, 0);
+            }
         }
     }
 
     public void KnockBack(int X, int Y, int Z)
     {
         rigid.AddForce(new Vector3(X, Y, Z), ForceMode.Impulse);
+        game.Life -= 1f;
         invTime = 2;
         moveCan = false;
     }
