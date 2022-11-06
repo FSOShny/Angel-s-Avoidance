@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    public GameObject enemy;
-    public float term = 10f; // 生成間隔
+    public GameObject enemy; // エネミープレハブ
+    public float term = 5f; // 生成間隔
 
     private float delta = 0f;
 
     private void Start()
     {
-        // 一体目を生成する
+        // 一体目のエネミーを生成する
         Instantiate(enemy, new Vector3(10f, 20f, 10f), Quaternion.identity);
     }
 
@@ -22,13 +22,13 @@ public class EnemyGenerator : MonoBehaviour
 
         if (delta > term) // 一定のデルタ時間になると
         {
-            // ランダムで生成位置を決める
+            // ランダムでエネミーの生成位置を決める
             float x = Random.Range(-11.9f, 11.9f);
             float y = Random.Range(20f, 25f);
             float z = Random.Range(-11.9f, 11.9f);
             Vector3 initPos = new Vector3(x, y, z);
 
-            // 二体目以降を生成する
+            // 二体目以降のエネミーを生成する
             Instantiate(enemy, initPos, Quaternion.identity);
 
             // デルタ時間を初期化する

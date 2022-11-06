@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlayerBehavior : MonoBehaviour
 {
     public float moveSpeed = 10f; // プレイヤーの移動速度
 
-    private new Camera camera;
     private Rigidbody rigid;
+    private new Camera camera;
     private GameDirector game;
     private float hInput;
     private float vInput;
     private bool depthSwitch = true;
-    private bool avoidSwitch = false;
+    private bool guardSwitch = false;
     private bool moveCan = true;
-    private Vector3 moveDir = new Vector3(0f, 0f, 1f);
     private float invTime = 0f;
+    private float stuckTime = 0f;
 
     private void Start()
     {
-        // カメラの角度を取得
-        camera = Camera.main;
-
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
 
+        // カメラの角度を取得
+        camera = Camera.main;
+
+        // ゲームディレクターを有効にする
         game = GameObject.Find("Game Director").GetComponent<GameDirector>();
     }
 
@@ -43,9 +43,10 @@ public class PlayerBehavior : MonoBehaviour
             depthSwitch = !depthSwitch;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        // ガードを「有効」にする
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            avoidSwitch = true;
+            guardSwitch = true;
         }
 
         if (invTime > 0f) // 無敵時間中は
@@ -55,12 +56,21 @@ public class PlayerBehavior : MonoBehaviour
         }
         else if (invTime <= 0f) // 無敵時間終了時は
         {
+            // 衝突判定を正常にするためにゼロを代入する
             invTime = 0f;
+        }
 
+        if (stuckTime > 0f) // 行動不能時間中は
+        {
+            // 行動不能時間を更新する
+            stuckTime -= Time.deltaTime;
+        }
+        else if (stuckTime <= 0f) // 行動不能時間終了時は
+        {
             // プレイヤーにかかっている速度をゼロにする
             rigid.velocity = Vector3.zero;
 
-            // 動ける状態にする
+            // 行動可能にする
             moveCan = true;
         }
     }
@@ -73,26 +83,22 @@ public class PlayerBehavior : MonoBehaviour
             {
                 // プレイヤーを前後左右に移動させる
                 NormalMove(0, 1);
-
-                if (avoidSwitch)
-                {
-                    AvoidMove(0, 1);
-                }
             }
             else // 移動タイプが「上下」である場合は
             {
                 // プレイヤーを上下左右に移動させる
                 NormalMove(1, 0);
+            }
 
-                if (avoidSwitch)
-                {
-                    AvoidMove(1, 0);
-                }
+            if (guardSwitch) // ガードが「有効」である場合は
+            {
+                // ガードアクションを実行させる
+                GuardMove();
             }
         }
 
         // プレイヤーの角度をカメラの角度に合わせる
-        transform.rotation = camera.transform.rotation;
+        rigid.rotation = camera.transform.rotation;
     }
 
     public void NormalMove(int Y, int Z)
@@ -103,22 +109,19 @@ public class PlayerBehavior : MonoBehaviour
              transform.forward * vInput * Time.fixedDeltaTime * Z);
     }
 
-    public void AvoidMove(int Y, int Z)
+    public void GuardMove()
     {
-        rigid.MovePosition(transform.position +
-             transform.right * hInput * Time.fixedDeltaTime * 10 +
-             transform.up * vInput * Time.fixedDeltaTime * Y  * 10 +
-             transform.forward * vInput * Time.fixedDeltaTime * Z * 10 );
         invTime = 1f;
+        stuckTime = 1f;
         moveCan = false;
-        avoidSwitch = false;
+        guardSwitch = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (invTime == 0) // 無敵時間がゼロである場合に
         {
-            // ダメージゾーンに衝突するとプレイヤーがノックバックする
+            // ダメージゾーンやエネミーに衝突するとプレイヤーがノックバックする
             if (collision.gameObject.name == "Front")
             {
                 KnockBack(0, 0, -1);
@@ -148,9 +151,10 @@ public class PlayerBehavior : MonoBehaviour
 
     public void KnockBack(int X, int Y, int Z)
     {
-        rigid.AddForce(new Vector3(X, Y, Z), ForceMode.Impulse);
+        rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
         game.Life -= 1f;
-        invTime = 2;
+        invTime = 4f;
+        stuckTime = 2f;
         moveCan = false;
     }
 }
