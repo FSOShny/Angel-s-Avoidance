@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public float moveSpeed = -10f;
+    public float moveSpeed = -10f; // エネミーの移動速度
 
     private Rigidbody rigid;
     private Vector3 velocity = new Vector3(1f, 1f, 1f);

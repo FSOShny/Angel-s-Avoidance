@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyGenerator : MonoBehaviour
 {
     public GameObject enemy; // エネミープレハブ
-    public float term = 5f; // 生成間隔
+    public float term = 5f; // エネミーの生成間隔
 
     private float delta = 0f;
 

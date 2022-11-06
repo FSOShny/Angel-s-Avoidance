@@ -54,7 +54,7 @@ public class PlayerBehavior : MonoBehaviour
             // 無敵時間を更新する
             invTime -= Time.deltaTime;
         }
-        else if (invTime <= 0f) // 無敵時間終了時は
+        else if (invTime < 0f) // 無敵時間終了時は
         {
             // 衝突判定を正常にするためにゼロを代入する
             invTime = 0f;
@@ -65,7 +65,7 @@ public class PlayerBehavior : MonoBehaviour
             // 行動不能時間を更新する
             stuckTime -= Time.deltaTime;
         }
-        else if (stuckTime <= 0f) // 行動不能時間終了時は
+        else if (stuckTime < 0f) // 行動不能時間終了時は
         {
             // プレイヤーにかかっている速度をゼロにする
             rigid.velocity = Vector3.zero;
