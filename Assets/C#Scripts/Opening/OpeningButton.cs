@@ -9,7 +9,6 @@ public class OpeningButton : MonoBehaviour,
 {
     private Image image;
     private OpeningDirector director;
-    private float animTime = 0f;
 
     private void Start()
     {
@@ -17,41 +16,32 @@ public class OpeningButton : MonoBehaviour,
         director = GameObject.Find("Opening Director").GetComponent<OpeningDirector>();
     }
 
-    private void Update()
-    {
-        if (animTime > 0f)
-        {
-            animTime = Time.deltaTime;
-        }
-        else if (animTime < 0f)
-        {
-            animTime = 0f;
-        }
-    }
-
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
+        if (director.AnimTime == 0f)
         {
             image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 
             if (name == "PC Button" || name == "Smart Phone Button")
             {
                 director.Opening = true;
-
-                animTime = 3.0f;
             }
 
             if (name == "Playing Button")
             {
                 director.Playing = true;
             }
+
+            if (name == "Options Button")
+            {
+                director.Options = true;
+            }
         }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
+        if (director.AnimTime == 0f)
         {
             image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
         }
@@ -59,7 +49,7 @@ public class OpeningButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
+        if (director.AnimTime == 0f)
         {
             image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }

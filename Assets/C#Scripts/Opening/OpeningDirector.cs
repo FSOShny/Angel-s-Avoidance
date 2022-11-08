@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +8,16 @@ public class OpeningDirector : MonoBehaviour
     [SerializeField] private GameObject platformUI;
     [SerializeField] private GameObject openingUI;
 
+    private static bool platform = true;
+    private float animTime = 0f;
     private bool opening = false;
     private bool playing = false;
+    private bool options = false;
+
+    public float AnimTime
+    {
+        get { return animTime; }
+    }
 
     public bool Opening
     {
@@ -24,43 +31,88 @@ public class OpeningDirector : MonoBehaviour
         set { playing = value; }
     }
 
+    public bool Options
+    {
+        get { return options; }
+        set { options = value; }
+    }
+
     void Start()
     {
-        platformUI.SetActive(true);
-        openingUI.SetActive(false);
+        if (platform)
+        {
+            platformUI.SetActive(true);
+            openingUI.SetActive(false);
+        }
+        else
+        {
+            platformUI.SetActive(false);
+            openingUI.SetActive(true);
+            animTime = 3.0f;
+        }
     }
 
     void Update()
     {
+        if (animTime > 0f)
+        {
+            animTime -= Time.deltaTime;
+        }
+        else if (animTime < 0f)
+        {
+            animTime = 0f;
+        }
+
         if (opening)
         {
-            StartCoroutine(ToOpening());
             opening = false;
+            platform = false;
+            StartCoroutine(ToOpening(0.3f, 0.5f));
         }
 
         if (playing)
         {
-            StartCoroutine(ToPlaying());
-            SceneManager.LoadScene("Game Playing");
-            opening = false;
+            playing = false;
+            StartCoroutine(ToPlaying(0.3f));
+        }
+
+        if (options)
+        {
+            options = false;
+            StartCoroutine(ToOptions(0.3f));
         }
     }
 
-    private IEnumerator ToOpening()
+    private IEnumerator ToOpening(float fWT, float sWT)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(fWT);
 
         platformUI.SetActive(false);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(sWT);
 
         openingUI.SetActive(true);
+
+        animTime = 3.0f;
+
+        yield break;
     }
 
-    private IEnumerator ToPlaying()
+    private IEnumerator ToPlaying(float fWT)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(fWT);
 
-        SceneManager.LoadScene("PlayingScene");
+        SceneManager.LoadScene("GamePlayingScene");
+
+        yield break;
+    }
+
+    private IEnumerator ToOptions(float fWT)
+    {
+        yield return new WaitForSeconds(fWT);
+
+        SceneManager.LoadScene("GameOptionsScene");
+
+        yield break;
     }
 }

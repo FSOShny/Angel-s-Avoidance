@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public float moveSpeed = -10f; // エネミーの移動速度
-
+    private float moveSpeed = 8f;
     private Rigidbody rigid;
     private Vector3 velocity = new Vector3(1f, 1f, 1f);
 
@@ -18,7 +17,7 @@ public class EnemyBehavior : MonoBehaviour
     private void FixedUpdate()
     {
         // 直線的に動く
-        rigid.MovePosition(transform.position + velocity * moveSpeed * Time.fixedDeltaTime);
+        rigid.MovePosition(transform.position + velocity * -moveSpeed * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)

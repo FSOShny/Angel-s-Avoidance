@@ -8,7 +8,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private Rigidbody rigid;
     private new Camera camera;
-    private GameDirector game;
+    private GamePlayingDirector director;
     private float hInput;
     private float vInput;
     private bool depthSwitch = true;
@@ -26,7 +26,7 @@ public class PlayerBehavior : MonoBehaviour
         camera = Camera.main;
 
         // ゲームディレクターを有効にする
-        game = GameObject.Find("Game Director").GetComponent<GameDirector>();
+        director = GameObject.Find("Game Playing Director").GetComponent<GamePlayingDirector>();
     }
 
     private void Update()
@@ -142,7 +142,7 @@ public class PlayerBehavior : MonoBehaviour
             {
                 KnockBack(0, -1, 0);
             }
-            else if (collision.gameObject.name == "Enemy(Clone)")
+            else if (collision.gameObject.name == "EnemyPrefab(Clone)")
             {
                 KnockBack(0, 0, 0);
             }
@@ -152,7 +152,7 @@ public class PlayerBehavior : MonoBehaviour
     public void KnockBack(int X, int Y, int Z)
     {
         rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
-        game.Life -= 1f;
+        director.NowLife -= 1f;
         invTime = 4f;
         stuckTime = 2f;
         moveCan = false;

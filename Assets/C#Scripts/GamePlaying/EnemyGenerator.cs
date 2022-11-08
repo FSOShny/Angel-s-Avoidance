@@ -1,38 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    public GameObject enemy; // エネミープレハブ
-    public float term = 5f; // エネミーの生成間隔
+    [SerializeField] private GameObject enemy; // エネミープレハブ
 
-    private float delta = 0f;
+    private GamePlayingDirector director;
 
     private void Start()
     {
-        // 一体目のエネミーを生成する
-        Instantiate(enemy, new Vector3(10f, 20f, 10f), Quaternion.identity);
+        director = GameObject.Find("Game Playing Director").GetComponent<GamePlayingDirector>();
+        StartCoroutine(EnemyGenerate(3.0f, 5.0f));
     }
 
-    private void Update()
+    private IEnumerator EnemyGenerate(float fWT, float sWT)
     {
-        // デルタ時間を更新する
-        delta += Time.deltaTime;
+        yield return new WaitForSeconds(fWT);
 
-        if (delta > term) // 一定のデルタ時間になると
+        Instantiate(enemy, new Vector3(10f, 20f, 10f), Quaternion.identity);
+
+        while (true)
         {
-            // ランダムでエネミーの生成位置を決める
+            yield return new WaitForSeconds(sWT);
+
             float x = Random.Range(-11.9f, 11.9f);
             float y = Random.Range(20f, 25f);
             float z = Random.Range(-11.9f, 11.9f);
             Vector3 initPos = new Vector3(x, y, z);
 
-            // 二体目以降のエネミーを生成する
             Instantiate(enemy, initPos, Quaternion.identity);
-
-            // デルタ時間を初期化する
-            delta = 0f;
         }
     }
 }
