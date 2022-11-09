@@ -4,45 +4,49 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameOptionsButton : MonoBehaviour, 
+public class GameOptionsButton : MonoBehaviour,
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Image image;
     private GameOptionsDirector director;
-    private float animTime;
 
     private void Start()
     {
+        // イメージコンポーネントを取得する
         image = GetComponent<Image>();
+
+        // オープニングディレクターを取得する
         director = GameObject.Find("Game Options Director").GetComponent<GameOptionsDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
-        {
-            image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+        // ボタンを押した場合は
 
-            if (name == "Opening Button")
-            {
-                director.Opening = true;
-            }
+        // ボタンを灰色に変化させる
+        image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+
+        // オープニングボタンであれば
+        if (name == "Opening Button")
+        {
+            // オープニングへの遷移判定を有効にする
+            director.Opening = true;
         }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
-        {
-            image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
-        }
+        // ボタンにカーソルを当てた場合は
+
+        // ボタンを白っぽい灰色に変化させる
+        image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (animTime == 0f)
-        {
-            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        }
+        // ボタンからカーソルを外した場合は
+
+        // ボタンを白色に変化させる（元の色に戻す）
+        image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 }

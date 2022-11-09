@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOptionsDirector : MonoBehaviour
 {
-    private bool opening = false;
+    private bool opening = false; // オープニングへ遷移するかどうか
 
     public bool Opening
     {
@@ -15,19 +15,20 @@ public class GameOptionsDirector : MonoBehaviour
 
     void Update()
     {
+        /* オープニングへ遷移する（1回の待機あり） */
         if (opening)
         {
             opening = false;
+
             StartCoroutine(ToOpening(0.3f));
         }
     }
 
     private IEnumerator ToOpening(float fWT)
     {
+        // 1回目の待機
         yield return new WaitForSeconds(fWT);
 
         SceneManager.LoadScene("OpeningScene");
-
-        yield break;
     }
 }

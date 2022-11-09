@@ -4,18 +4,55 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float moveSpeed = 10f; // プレイヤーの移動速度
+    public float playerMoveSpeed = 10f; // プレイヤーの移動速度
 
     private Rigidbody rigid;
-    private new Camera camera;
+    private new Transform camera;
     private GamePlayingDirector director;
-    private float hInput;
-    private float vInput;
-    private bool depthSwitch = true;
-    private bool guardSwitch = false;
-    private bool moveCan = true;
-    private float invTime = 0f;
-    private float stuckTime = 0f;
+    private bool canMove = true; // 動ける状態であるかどうか
+    private float hInput; // 前後（上下）の移動速度
+    private float vInput; // 左右の移動速度
+    private bool depthSwitch = true; // 移動タイプが「前後」かどうか
+    private bool guardSwitch = false; // ガードアクションを実行するどうか
+    private float stuckTime = 0f; // 行動不能時間
+    private float invTime = 0f; // 無敵時間
+
+    private void NormalAct(int Y, int Z)
+    {
+        rigid.MovePosition(transform.position +
+             transform.right * hInput * Time.fixedDeltaTime +
+             transform.up * vInput * Time.fixedDeltaTime * Y +
+             transform.forward * vInput * Time.fixedDeltaTime * Z);
+    }
+
+    private void GuardAct()
+    {
+        // 行動不能時間を設定する
+        stuckTime = 1.0f;
+
+        // 行動可能状態を無効にする
+        canMove = false;
+
+        // 無敵時間を設定する
+        invTime = 1.0f;
+    }
+
+    private void KnockBack(int X, int Y, int Z)
+    {
+        rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
+
+        // プレイヤーの体力を減らす
+        director.NowPlayerLife -= 1.0f;
+
+        // 行動不能時間を設定する
+        stuckTime = 2.0f;
+
+        // 行動可能状態を無効にする
+        canMove = false;
+
+        // 無敵時間を設定する
+        invTime = 4.0f;
+    }
 
     private void Start()
     {
@@ -23,106 +60,110 @@ public class PlayerBehavior : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
 
         // カメラの角度を取得
-        camera = Camera.main;
+        camera = GameObject.Find("Main Camera").transform;
 
-        // ゲームディレクターを有効にする
+        // ゲームプレイディレクターを取得する
         director = GameObject.Find("Game Playing Director").GetComponent<GamePlayingDirector>();
     }
 
     private void Update()
     {
-        // プレイヤーの前後（上下）の移動量を求める
-        hInput = Input.GetAxis("Horizontal") * moveSpeed;
+        // W, S, ↑, ↓キーでプレイヤーの前後（上下）の移動量を求める
+        hInput = Input.GetAxis("Horizontal") * playerMoveSpeed;
 
-        // プレイヤーの左右の移動量を求める
-        vInput = Input.GetAxis("Vertical") * moveSpeed;
+        // A, D, ←, →キーでプレイヤーの左右の移動量を求める
+        vInput = Input.GetAxis("Vertical") * playerMoveSpeed;
 
-        // 移動タイプを変更する
-        if (Input.GetKeyDown(KeyCode.E))
+        if (director.CanUseInterf)
         {
-            depthSwitch = !depthSwitch;
+            // Eキーで移動タイプを変更する
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                depthSwitch = !depthSwitch;
+            }
+
+            // スペースキーでガードアクションを有効にする
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                guardSwitch = true;
+            }
         }
 
-        // ガードを「有効」にする
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 行動不能時間中は
+        if (stuckTime > 0f)
         {
-            guardSwitch = true;
-        }
-
-        if (invTime > 0f) // 無敵時間中は
-        {
-            // 無敵時間を更新する
-            invTime -= Time.deltaTime;
-        }
-        else if (invTime < 0f) // 無敵時間終了時は
-        {
-            // 衝突判定を正常にするためにゼロを代入する
-            invTime = 0f;
-        }
-
-        if (stuckTime > 0f) // 行動不能時間中は
-        {
-            // 行動不能時間を更新する
+            // 時間を経過させる
             stuckTime -= Time.deltaTime;
         }
-        else if (stuckTime < 0f) // 行動不能時間終了時は
+        // 行動不能時間終了時は
+        else if (stuckTime < 0f)
         {
+            // 時間を初期化する（正常な処理のため）
+            stuckTime = 0f;
+
             // プレイヤーにかかっている速度をゼロにする
             rigid.velocity = Vector3.zero;
 
-            // 行動可能にする
-            moveCan = true;
+            // 行動可能判定を有効にする
+            canMove = true;
+        }
+
+        // 無敵時間中は
+        if (invTime > 0f)
+        {
+            // 時間を経過させる
+            invTime -= Time.deltaTime;
+        }
+        // 無敵時間終了時は
+        else if (invTime < 0f)
+        {
+            // 時間を初期化する（正常な処理のため）
+            invTime = 0f;
         }
     }
 
     private void FixedUpdate()
     {
-        if (moveCan) // 動ける状態であり
+        if (canMove)
         {
-            if (depthSwitch) // 移動タイプが「前後」である場合は
+            // 移動タイプが「前後」であれば
+            if (depthSwitch)
             {
                 // プレイヤーを前後左右に移動させる
-                NormalMove(0, 1);
+                NormalAct(0, 1);
             }
-            else // 移動タイプが「上下」である場合は
+            // 移動タイプが「上下」であれば
+            else
             {
                 // プレイヤーを上下左右に移動させる
-                NormalMove(1, 0);
+                NormalAct(1, 0);
             }
 
-            if (guardSwitch) // ガードが「有効」である場合は
+            // ガードアクションが有効である場合は
+            if (guardSwitch)
             {
+                guardSwitch = false;
+
                 // ガードアクションを実行させる
-                GuardMove();
+                GuardAct();
             }
         }
 
         // プレイヤーの角度をカメラの角度に合わせる
-        rigid.rotation = camera.transform.rotation;
-    }
-
-    public void NormalMove(int Y, int Z)
-    {
-        rigid.MovePosition(transform.position + 
-             transform.right * hInput * Time.fixedDeltaTime + 
-             transform.up * vInput * Time.fixedDeltaTime * Y + 
-             transform.forward * vInput * Time.fixedDeltaTime * Z);
-    }
-
-    public void GuardMove()
-    {
-        invTime = 1f;
-        stuckTime = 1f;
-        moveCan = false;
-        guardSwitch = false;
+        rigid.rotation = camera.rotation;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (invTime == 0) // 無敵時間がゼロである場合に
+        // 無敵時間外であり
+        if (invTime == 0)
         {
-            // ダメージゾーンやエネミーに衝突するとプレイヤーがノックバックする
-            if (collision.gameObject.name == "Front")
+            /* ゾーンやエネミーに衝突するとプレイヤーがノックバックする */
+            if (collision.gameObject.name == "Bottom")
+            {
+                KnockBack(0, 1, 0);
+            }
+            else if (collision.gameObject.name == "Front")
             {
                 KnockBack(0, 0, -1);
             }
@@ -147,14 +188,5 @@ public class PlayerBehavior : MonoBehaviour
                 KnockBack(0, 0, 0);
             }
         }
-    }
-
-    public void KnockBack(int X, int Y, int Z)
-    {
-        rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
-        director.NowLife -= 1f;
-        invTime = 4f;
-        stuckTime = 2f;
-        moveCan = false;
     }
 }

@@ -4,47 +4,87 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private float moveSpeed = 8f;
     private Rigidbody rigid;
-    private Vector3 velocity = new Vector3(1f, 1f, 1f);
+    private Vector3 velocity = new Vector3(-1.0f, -1.0f, -1.0f); // エネミーの移動速度
+
+    public void Repulsion(int X, int Y, int Z)
+    {
+        // エネミーの反発倍率をランダムで決める
+        float randX = Random.Range(0.9f, 1.1f);
+        float randY = Random.Range(0.9f, 1.1f);
+        float randZ = Random.Range(0.9f, 1.1f);
+
+        velocity.x = velocity.x * X * randX;
+        velocity.y = velocity.y * Y * randY;
+        velocity.z = velocity.z * Z * randZ;
+    }
+
+    private void OutOfArea(float X, float Y, float Z)
+    {
+        rigid.position = new Vector3(X, Y, Z);
+
+        velocity = new Vector3(-1.0f, -1.0f, -1.0f) * StaticUnits.EnemyMoveSpeed;
+    }
 
     private void Start()
     {
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
+
+        // エネミーの移動速度を決める
+        velocity *= StaticUnits.EnemyMoveSpeed;
     }
 
     private void FixedUpdate()
     {
-        // 直線的に動く
-        rigid.MovePosition(transform.position + velocity * -moveSpeed * Time.fixedDeltaTime);
+        // エネミーを移動させる
+        rigid.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+
+        /* 領域外エネミーの位置と移動速度を更新する */
+        if (rigid.position.x > 12f)
+        {
+            OutOfArea(12f, rigid.position.y, rigid.position.z);
+        }
+        else if (rigid.position.x < -12f)
+        {
+            OutOfArea(-12f, rigid.position.y, rigid.position.z);
+        }
+        if (rigid.position.y > 27f)
+        {
+            OutOfArea(rigid.position.x, 27f, rigid.position.z);
+        }
+        else if (rigid.position.y < 3.0f)
+        {
+            OutOfArea(rigid.position.x, 3.0f, rigid.position.z);
+        }
+        if (rigid.position.z > 12f)
+        {
+            OutOfArea(rigid.position.x, rigid.position.y, 12f);
+        }
+        else if (rigid.position.z < -12f)
+        {
+            OutOfArea(rigid.position.x, rigid.position.y, -12f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ゾーンに衝突するとエネミーがバウンドする
+        /* ゾーンやプレイヤーに衝突するとエネミーが反発する */
         if (collision.gameObject.name == "Bottom" || collision.gameObject.name == "Top")
         {
-            Bounding(1, -1, 1);
+            Repulsion(1, -1, 1);
         }
         else if (collision.gameObject.name == "Front" || collision.gameObject.name == "Back")
         {
-            Bounding(1, 1, -1);
+            Repulsion(1, 1, -1);
         }
         else if (collision.gameObject.name == "Left" || collision.gameObject.name == "Right")
         {
-            Bounding(-1, 1, 1);
+            Repulsion(-1, 1, 1);
         }
         else
         {
-            Bounding(-1, -1, -1);
+            Repulsion(-1, -1, -1);
         }
-    }
-
-    public void Bounding(int X, int Y, int Z)
-    {
-        velocity.x = velocity.x * X;
-        velocity.y = velocity.y * Y;
-        velocity.z = velocity.z * Z;
     }
 }
