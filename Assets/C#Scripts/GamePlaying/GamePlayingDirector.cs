@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GamePlayingDirector : MonoBehaviour
 {
     [SerializeField] private GameObject startUI;
+    [SerializeField] private GameObject smartPhoneUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject platformUI;
     [SerializeField] private GameObject loserUI;
@@ -15,8 +16,6 @@ public class GamePlayingDirector : MonoBehaviour
 
     private Image lifeBar;
     private TextMeshProUGUI timerText;
-    private bool initial = true; // ゲームプレイ開始時かどうか
-    private int checker = 0; // チェッカー（条件分岐で無駄な処理を省くために用意したもの）
     private float nowTimeLim; // 現在の制限時間
     private int iTimeLim; // 整数化した制限時間
 
@@ -75,7 +74,7 @@ public class GamePlayingDirector : MonoBehaviour
         get { return canUseButton; }
     }
 
-    private bool canUseInterf = false; // ボタンが使える状態かどうか
+    private bool canUseInterf = false; // インタフェースが使える状態かどうか
 
     public bool CanUseInterf
     {
@@ -92,6 +91,7 @@ public class GamePlayingDirector : MonoBehaviour
 
         // スタート画面を有効にする
         startUI.SetActive(true);
+        smartPhoneUI.SetActive(false);
         pauseUI.SetActive(false);
         platformUI.SetActive(false);
         loserUI.SetActive(false);
@@ -102,19 +102,27 @@ public class GamePlayingDirector : MonoBehaviour
 
         // 現在の制限時間を格納する
         nowTimeLim = StaticUnits.GameTimeLim;
+
+        /* ゲームプレイを開始する（1回の待機あり） */
+        StartCoroutine(GameStart(3.0f));
     }
 
     private void Update()
     {
-        /* ゲームプレイを開始する（1回の待機あり） */
-        if (initial)
+        // 現在のプラットフォームがスマホであれば
+        if (StaticUnits.SmartPhone)
         {
-            initial = false;
-
-            StartCoroutine(GameStart(3.0f));
+            // スマホUI表示を有効にする
+            smartPhoneUI.SetActive(true);
+        }
+        // 現在のプラットフォームがパソコンであれば
+        else
+        {
+            // スマホUI表示を無効にする
+            smartPhoneUI.SetActive(false);
         }
 
-        // インタフェースが使える状態でEscキーを押した場合は
+        // インタフェースが使える状態でありEscキーを押した場合は
         if (canUseInterf)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -173,17 +181,11 @@ public class GamePlayingDirector : MonoBehaviour
         {
             // プラットフォーム画面を有効にする
             platformUI.SetActive(true);
-
-            // チェッカーを有効にする
-            checker = 1;
         }
-        else if (!platformSwitch && checker == 1)
+        else
         {
             // プラットフォーム画面を無効にする
             platformUI.SetActive(false);
-
-            // チェッカーを無効にする
-            checker = 0;
         }
 
         /* オープニングへ遷移する（1回の待機あり） */
@@ -203,7 +205,7 @@ public class GamePlayingDirector : MonoBehaviour
         // 体力バーの表示を更新する
         lifeBar.fillAmount = nowPlayerLife / StaticUnits.MaxPlayerLife;
 
-        // 体力がゼロになった場合は
+        // 体力がゼロになれば
         if (nowPlayerLife == 0f)
         {
             // ボタン使用可能状態を無効にする
@@ -225,7 +227,7 @@ public class GamePlayingDirector : MonoBehaviour
         // タイマーの表示を更新する
         timerText.text = iTimeLim.ToString();
 
-        // 制限時間がゼロになった場合は
+        // 制限時間がゼロになれば
         if (nowTimeLim < 0f)
         {
             // 時間を初期化する（正常な処理のため）
@@ -244,9 +246,6 @@ public class GamePlayingDirector : MonoBehaviour
 
     private IEnumerator GameStart(float fWT)
     {
-        // ゲームの一時停止を実行する
-        Time.timeScale = 0f;
-
         // 1回目の待機
         yield return new WaitForSecondsRealtime(fWT);
 

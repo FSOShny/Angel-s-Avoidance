@@ -9,7 +9,7 @@ public class EnemyGenerator : MonoBehaviour
     private void Start()
     {
         // エネミーを生成していく（2回以上の待機あり）
-        StartCoroutine(EnemyGenerate(2.0f, 4.0f));
+        StartCoroutine(EnemyGenerate(2.0f, 3.0f));
     }
 
     private IEnumerator EnemyGenerate(float fWT, float sWT)
@@ -18,7 +18,7 @@ public class EnemyGenerator : MonoBehaviour
         yield return new WaitForSeconds(fWT);
 
         // 1体目のエネミーを生成する
-        Instantiate(enemy, new Vector3(9f, 20f, 9f), Quaternion.identity);
+        Instantiate(enemy, new Vector3(5.0f, 15f, 5.0f), Quaternion.identity);
 
         while (true)
         {
@@ -26,13 +26,13 @@ public class EnemyGenerator : MonoBehaviour
             yield return new WaitForSeconds(sWT);
 
             //　エネミーの生成位置をランダムに決める
-            float randX = Random.Range(-11.9f, 11.9f);
-            float randY = Random.Range(20f, 25f);
-            float randZ = Random.Range(-11.9f, 11.9f);
-            Vector3 initPos = new Vector3(randX, randY, randZ);
+            float randX = Random.Range(-11.5f, 11.5f);
+            float randY = Random.Range(15f, 26.5f);
+            float randZ = Random.Range(-11.5f, 11.5f);
+            Vector3 enemyPos = new Vector3(randX, randY, randZ);
 
             // エネミーを生成する
-            Instantiate(enemy, initPos, Quaternion.identity);
+            Instantiate(enemy, enemyPos, Quaternion.identity);
         }
     }
 }

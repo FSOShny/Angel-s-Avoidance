@@ -5,11 +5,20 @@ using UnityEngine;
 public static class StaticUnits
 {
     private static bool startup = true; // ゲームの起動時かどうか
+                                        // （プラットフォームの強制確認を1回だけにするための処理）
 
     public static bool Startup
     {
         get { return startup; }
         set { startup = value; }
+    }
+
+    private static bool smartPhone = false; // 現在のプラットフォームがスマホかどうか
+
+    public static bool SmartPhone
+    {
+        get { return smartPhone; }
+        set { smartPhone = value; }
     }
 
     private static int direction = 1; // カメラの回転方向係数

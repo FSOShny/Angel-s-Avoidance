@@ -21,28 +21,37 @@ public class OpeningButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンを押した場合は
+        // アニメーション時間外でボタンを押した場合は
         if (director.AnimTime == 0f)
         {
             // ボタンを灰色に変化させる
             image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 
             // パソコンボタンかスマホボタンであれば
-            if (name == "PC Button" || name == "Smart Phone Button")
+            if (name == "PC Button")
             {
+                // 現在のプラットフォームをパソコンに更新する
+                StaticUnits.SmartPhone = false;
+
                 // オープニング画面への遷移判定を有効にする
                 director.Opening = true;
             }
+            else if (name == "Smart Phone Button")
+            {
+                // 現在のプラットフォームをスマホに更新する
+                StaticUnits.SmartPhone = true;
 
+                // オープニング画面への遷移判定を有効にする
+                director.Opening = true;
+            }
             // プレイボタンであれば
-            if (name == "Playing Button")
+            else if (name == "Playing Button")
             {
                 // ゲームプレイへの遷移判定を有効にする
                 director.Playing = true;
             }
-
             // オプションボタンであれば
-            if (name == "Options Button")
+            else if (name == "Options Button")
             {
                 // ゲームオプションへの遷移判定を有効にする
                 director.Options = true;
@@ -52,7 +61,7 @@ public class OpeningButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンにカーソルを当てた場合は
+        // アニメーション時間外でボタンにカーソルを当てた場合は
         if (director.AnimTime == 0f)
         {
             // ボタンを白っぽい灰色に変化させる
@@ -62,7 +71,7 @@ public class OpeningButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンからカーソルを外した場合は
+        // アニメーション時間外でボタンからカーソルを外した場合は
         if (director.AnimTime == 0f)
         {
             // ボタンを白色に変化させる（元の色に戻す）

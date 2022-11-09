@@ -13,46 +13,9 @@ public class PlayerBehavior : MonoBehaviour
     private float hInput; // 前後（上下）の移動速度
     private float vInput; // 左右の移動速度
     private bool depthSwitch = true; // 移動タイプが「前後」かどうか
-    private bool guardSwitch = false; // ガードアクションを実行するどうか
+    private bool guardSwitch = false; // ガードアクションをするどうか
     private float stuckTime = 0f; // 行動不能時間
     private float invTime = 0f; // 無敵時間
-
-    private void NormalAct(int Y, int Z)
-    {
-        rigid.MovePosition(transform.position +
-             transform.right * hInput * Time.fixedDeltaTime +
-             transform.up * vInput * Time.fixedDeltaTime * Y +
-             transform.forward * vInput * Time.fixedDeltaTime * Z);
-    }
-
-    private void GuardAct()
-    {
-        // 行動不能時間を設定する
-        stuckTime = 1.0f;
-
-        // 行動可能状態を無効にする
-        canMove = false;
-
-        // 無敵時間を設定する
-        invTime = 1.0f;
-    }
-
-    private void KnockBack(int X, int Y, int Z)
-    {
-        rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
-
-        // プレイヤーの体力を減らす
-        director.NowPlayerLife -= 1.0f;
-
-        // 行動不能時間を設定する
-        stuckTime = 2.0f;
-
-        // 行動可能状態を無効にする
-        canMove = false;
-
-        // 無敵時間を設定する
-        invTime = 4.0f;
-    }
 
     private void Start()
     {
@@ -68,24 +31,29 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Update()
     {
-        // W, S, ↑, ↓キーでプレイヤーの前後（上下）の移動量を求める
+        // W, S, ↑, ↓キーを押すとプレイヤーの前後（上下）の移動量を求める
         hInput = Input.GetAxis("Horizontal") * playerMoveSpeed;
 
-        // A, D, ←, →キーでプレイヤーの左右の移動量を求める
+        // A, D, ←, →キーを押すとプレイヤーの左右の移動量を求める
         vInput = Input.GetAxis("Vertical") * playerMoveSpeed;
 
+        // インタフェースを使える状態であり
         if (director.CanUseInterf)
         {
-            // Eキーで移動タイプを変更する
+            // Eキーを押すと移動タイプを変更する
             if (Input.GetKeyDown(KeyCode.E))
             {
                 depthSwitch = !depthSwitch;
             }
 
-            // スペースキーでガードアクションを有効にする
-            if (Input.GetKeyDown(KeyCode.Space))
+            // 動ける状態であれば
+            if (canMove)
             {
-                guardSwitch = true;
+                // スペースキーを押すとガードアクション判定を有効にする
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    guardSwitch = true;
+                }
             }
         }
 
@@ -124,6 +92,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 動ける状態であり
         if (canMove)
         {
             // 移動タイプが「前後」であれば
@@ -139,7 +108,7 @@ public class PlayerBehavior : MonoBehaviour
                 NormalAct(1, 0);
             }
 
-            // ガードアクションが有効である場合は
+            // ガードアクション実行判定が有効であれば
             if (guardSwitch)
             {
                 guardSwitch = false;
@@ -155,7 +124,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 無敵時間外であり
+        // 無敵時間外であれば
         if (invTime == 0)
         {
             /* ゾーンやエネミーに衝突するとプレイヤーがノックバックする */
@@ -188,5 +157,42 @@ public class PlayerBehavior : MonoBehaviour
                 KnockBack(0, 0, 0);
             }
         }
+    }
+
+    private void NormalAct(int Y, int Z)
+    {
+        rigid.MovePosition(transform.position +
+             transform.right * hInput * Time.fixedDeltaTime +
+             transform.up * vInput * Time.fixedDeltaTime * Y +
+             transform.forward * vInput * Time.fixedDeltaTime * Z);
+    }
+
+    private void GuardAct()
+    {
+        // 行動不能時間を設定する
+        stuckTime = 1.0f;
+
+        // 行動可能状態を無効にする
+        canMove = false;
+
+        // 無敵時間を設定する
+        invTime = 1.0f;
+    }
+
+    private void KnockBack(int X, int Y, int Z)
+    {
+        rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
+
+        // プレイヤーの体力を減らす
+        director.NowPlayerLife -= 1.0f;
+
+        // 行動不能時間を設定する
+        stuckTime = 2.0f;
+
+        // 行動可能状態を無効にする
+        canMove = false;
+
+        // 無敵時間を設定する
+        invTime = 4.0f;
     }
 }

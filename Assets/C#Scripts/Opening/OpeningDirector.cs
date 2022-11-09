@@ -50,7 +50,7 @@ public class OpeningDirector : MonoBehaviour
             platformUI.SetActive(true);
             openingUI.SetActive(false);
         }
-        // そうでなければ
+        // ゲームの起動時でなければ
         else
         {
             // オープニング画面を有効にする
@@ -123,6 +123,9 @@ public class OpeningDirector : MonoBehaviour
     {
         // 1回目の待機
         yield return new WaitForSeconds(fWT);
+
+        // ゲームの一時停止を実行する（正確なゲームプレイの時間計測を行うための処理）
+        Time.timeScale = 0f;
 
         SceneManager.LoadScene("GamePlayingScene");
     }
