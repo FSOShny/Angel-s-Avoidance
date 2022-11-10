@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class GameOptionsDirector : MonoBehaviour
 {
-    private bool opening = false; // オープニングへ遷移するかどうか
+    private bool openingSwitch = false; // オープニングへ遷移するかどうか
 
-    public bool Opening
+    public bool OpeningSwitch
     {
-        get { return opening; }
-        set { opening = value; }
+        get { return openingSwitch; }
+        set { openingSwitch = value; }
     }
 
-    void Update()
+    private void Update()
     {
         /* オープニングへ遷移する（1回の待機あり） */
-        if (opening)
+        if (openingSwitch)
         {
-            opening = false;
+            openingSwitch = false;
 
             StartCoroutine(ToOpening(0.3f));
         }

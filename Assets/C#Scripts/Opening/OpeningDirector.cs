@@ -15,28 +15,28 @@ public class OpeningDirector : MonoBehaviour
         get { return animTime; }
     }
 
-    private bool opening = false; // オープニング画面へ遷移するかどうか
+    private bool openingSwitch = false; // オープニング画面へ遷移するかどうか
 
-    public bool Opening
+    public bool OpeningSwitch
     {
-        get { return opening; }
-        set { opening = value; }
+        get { return openingSwitch; }
+        set { openingSwitch = value; }
     }
 
-    private bool playing = false; // ゲームプレイへ遷移するかどうか
+    private bool playingSwitch = false; // ゲームプレイへ遷移するかどうか
 
-    public bool Playing
+    public bool PlayingSwitch
     {
-        get { return playing; }
-        set { playing = value; }
+        get { return playingSwitch; }
+        set { playingSwitch = value; }
     }
 
-    private bool options = false; // ゲームオプションへ遷移するかどうか
+    private bool optionsSwitch = false; // ゲームオプションへ遷移するかどうか
 
-    public bool Options
+    public bool OptionsSwitch
     {
-        get { return options; }
-        set { options = value; }
+        get { return optionsSwitch; }
+        set { optionsSwitch = value; }
     }
 
     private void Start()
@@ -77,25 +77,25 @@ public class OpeningDirector : MonoBehaviour
         }
 
         /* オープニング画面へ遷移する（2回の待機あり） */
-        if (opening)
+        if (openingSwitch)
         {
-            opening = false;
+            openingSwitch = false;
 
             StartCoroutine(ToOpening(0.3f, 0.5f));
         }
 
         /* ゲームプレイへ遷移する（1回の待機あり） */
-        if (playing)
+        if (playingSwitch)
         {
-            playing = false;
+            playingSwitch = false;
 
             StartCoroutine(ToPlaying(0.3f));
         }
 
         /* ゲームオプションへ遷移する（1回の待機あり） */
-        if (options)
+        if (optionsSwitch)
         {
-            options = false;
+            optionsSwitch = false;
 
             StartCoroutine(ToOptions(0.3f));
         }

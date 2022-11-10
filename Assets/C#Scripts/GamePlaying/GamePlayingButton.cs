@@ -25,7 +25,7 @@ public class GamePlayingButton : MonoBehaviour,
         if (director.CanUseButton)
         {
             // ボタンを灰色に変化させる
-            image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+            image.color = Color.gray;
 
             // ポーズボタンであれば
             if (name == "Pause Button")
@@ -71,11 +71,11 @@ public class GamePlayingButton : MonoBehaviour,
             else if (name == "Quit Button")
             {
                 // オープニングへの遷移判定を有効にする
-                director.Opening = true;
+                director.OpeningSwitch = true;
             }
 
             // ボタンを白色に変化させる（元の色に戻す）
-            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            image.color = Color.white;
         }
     }
 
@@ -95,7 +95,7 @@ public class GamePlayingButton : MonoBehaviour,
         if (director.CanUseButton)
         {
             // ボタンを白色に変化させる（元の色に戻す）
-            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            image.color = Color.white;
         }
     }
 }

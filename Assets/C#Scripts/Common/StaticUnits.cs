@@ -37,19 +37,11 @@ public static class StaticUnits
         set { enemyMoveSpeed = value; }
     }
 
-    private static float maxPlayerLife = 5.0f; // プレイヤーの体力最大値
+    private static int maxPlayerLife = 5; // プレイヤーの体力最大値
 
-    public static float MaxPlayerLife
+    public static int MaxPlayerLife
     {
         get { return maxPlayerLife; }
         set { maxPlayerLife = value; }
-    }
-
-    private static float gameTimeLim = 45f; // ゲームの制限時間
-
-    public static float GameTimeLim
-    {
-        get { return gameTimeLim; }
-        set { gameTimeLim = value; }
     }
 }

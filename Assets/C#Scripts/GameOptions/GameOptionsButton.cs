@@ -24,13 +24,13 @@ public class GameOptionsButton : MonoBehaviour,
         // ボタンを押した場合は
 
         // ボタンを灰色に変化させる
-        image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+        image.color = Color.gray;
 
         // オープニングボタンであれば
         if (name == "Opening Button")
         {
             // オープニングへの遷移判定を有効にする
-            director.Opening = true;
+            director.OpeningSwitch = true;
         }
     }
 
@@ -47,6 +47,6 @@ public class GameOptionsButton : MonoBehaviour,
         // ボタンからカーソルを外した場合は
 
         // ボタンを白色に変化させる（元の色に戻す）
-        image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        image.color = Color.white;
     }
 }

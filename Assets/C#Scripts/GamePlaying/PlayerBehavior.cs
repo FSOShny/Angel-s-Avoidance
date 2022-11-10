@@ -7,13 +7,13 @@ public class PlayerBehavior : MonoBehaviour
     public float playerMoveSpeed = 10f; // プレイヤーの移動速度
 
     private Rigidbody rigid;
+    private Material playerMat;
     private new Transform camera;
     private GamePlayingDirector director;
     private bool canMove = true; // 動ける状態であるかどうか
     private float hInput; // 前後（上下）の移動速度
     private float vInput; // 左右の移動速度
-    private bool depthSwitch = true; // 移動タイプが「前後」かどうか
-    private bool guardSwitch = false; // ガードアクションをするどうか
+    private bool guard = false; // ガードアクションをするどうか
     private float stuckTime = 0f; // 行動不能時間
     private float invTime = 0f; // 無敵時間
 
@@ -21,6 +21,9 @@ public class PlayerBehavior : MonoBehaviour
     {
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
+
+        // プレイヤーの色を取得する
+        playerMat = GetComponent<Renderer>().material;
 
         // カメラの角度を取得
         camera = GameObject.Find("Main Camera").transform;
@@ -43,16 +46,18 @@ public class PlayerBehavior : MonoBehaviour
             // Eキーを押すと移動タイプを変更する
             if (Input.GetKeyDown(KeyCode.E))
             {
-                depthSwitch = !depthSwitch;
+                // 移動タイプを変更する
+                director.ModeChange = !director.ModeChange;
             }
 
-            // 動ける状態であれば
+            // 動ける状態であり
             if (canMove)
             {
-                // スペースキーを押すとガードアクション判定を有効にする
+                // スペースキーを押すと
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    guardSwitch = true;
+                    // ガードアクション判定を有効にする
+                    guard = true;
                 }
             }
         }
@@ -87,6 +92,9 @@ public class PlayerBehavior : MonoBehaviour
         {
             // 時間を初期化する（正常な処理のため）
             invTime = 0f;
+
+            // プレイヤーの色を白色に変化させる（元の色に戻す）
+            playerMat.color = Color.white;
         }
     }
 
@@ -96,7 +104,7 @@ public class PlayerBehavior : MonoBehaviour
         if (canMove)
         {
             // 移動タイプが「前後」であれば
-            if (depthSwitch)
+            if (!director.ModeChange)
             {
                 // プレイヤーを前後左右に移動させる
                 NormalAct(0, 1);
@@ -109,9 +117,9 @@ public class PlayerBehavior : MonoBehaviour
             }
 
             // ガードアクション実行判定が有効であれば
-            if (guardSwitch)
+            if (guard)
             {
-                guardSwitch = false;
+                guard = false;
 
                 // ガードアクションを実行させる
                 GuardAct();
@@ -169,6 +177,9 @@ public class PlayerBehavior : MonoBehaviour
 
     private void GuardAct()
     {
+        // プレイヤーの色を黄色に変化させる
+        playerMat.color = Color.yellow;
+
         // 行動不能時間を設定する
         stuckTime = 1.0f;
 
@@ -183,8 +194,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
 
+        // プレイヤーの色を紫色に変化させる
+        playerMat.color = Color.magenta;
+
         // プレイヤーの体力を減らす
-        director.NowPlayerLife -= 1.0f;
+        director.NowPlayerLife -= 1;
 
         // 行動不能時間を設定する
         stuckTime = 2.0f;
@@ -193,6 +207,6 @@ public class PlayerBehavior : MonoBehaviour
         canMove = false;
 
         // 無敵時間を設定する
-        invTime = 4.0f;
+        invTime = 3.0f;
     }
 }

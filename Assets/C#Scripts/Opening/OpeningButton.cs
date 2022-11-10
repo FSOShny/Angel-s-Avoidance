@@ -25,7 +25,7 @@ public class OpeningButton : MonoBehaviour,
         if (director.AnimTime == 0f)
         {
             // ボタンを灰色に変化させる
-            image.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+            image.color = Color.gray;
 
             // パソコンボタンかスマホボタンであれば
             if (name == "PC Button")
@@ -34,7 +34,7 @@ public class OpeningButton : MonoBehaviour,
                 StaticUnits.SmartPhone = false;
 
                 // オープニング画面への遷移判定を有効にする
-                director.Opening = true;
+                director.OpeningSwitch = true;
             }
             else if (name == "Smart Phone Button")
             {
@@ -42,19 +42,19 @@ public class OpeningButton : MonoBehaviour,
                 StaticUnits.SmartPhone = true;
 
                 // オープニング画面への遷移判定を有効にする
-                director.Opening = true;
+                director.OpeningSwitch = true;
             }
             // プレイボタンであれば
             else if (name == "Playing Button")
             {
                 // ゲームプレイへの遷移判定を有効にする
-                director.Playing = true;
+                director.PlayingSwitch = true;
             }
             // オプションボタンであれば
             else if (name == "Options Button")
             {
                 // ゲームオプションへの遷移判定を有効にする
-                director.Options = true;
+                director.OptionsSwitch = true;
             }
         }
     }
@@ -75,7 +75,7 @@ public class OpeningButton : MonoBehaviour,
         if (director.AnimTime == 0f)
         {
             // ボタンを白色に変化させる（元の色に戻す）
-            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            image.color = Color.white;
         }
     }
 }
