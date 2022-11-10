@@ -21,32 +21,38 @@ public class GameEndingButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // ボタンを押した場合は
-
-        // ボタンを灰色に変化させる
-        image.color = Color.gray;
-
-        // オープニングボタンであれば
-        if (name == "Opening Button")
+        // アニメーション時間外でボタンを押した場合は
+        if (director.AnimTime == 0f)
         {
-            // オープニングへの遷移判定を有効にする
-            director.OpeningSwitch = true;
+            // ボタンを灰色に変化させる
+            image.color = Color.gray;
+
+            // オープニングボタンであれば
+            if (name == "Opening Button")
+            {
+                // オープニングへの遷移判定を有効にする
+                director.OpeningSwitch = true;
+            }
         }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // ボタンにカーソルを当てた場合は
-
-        // ボタンを白っぽい灰色に変化させる
-        image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
+        // アニメーション時間外でボタンにカーソルを当てた場合は
+        if (director.AnimTime == 0f)
+        {
+            // ボタンを白っぽい灰色に変化させる
+            image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // ボタンからカーソルを外した場合は
-
-        // ボタンを白色に変化させる（元の色に戻す）
-        image.color = Color.white;
+        // アニメーション時間外でボタンからカーソルを外した場合は
+        if (director.AnimTime == 0f)
+        {
+            // ボタンを白色に変化させる（元の色に戻す）
+            image.color = Color.white;
+        }
     }
 }

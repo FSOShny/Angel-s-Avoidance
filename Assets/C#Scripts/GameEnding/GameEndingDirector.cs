@@ -12,6 +12,13 @@ public class GameEndingDirector : MonoBehaviour
     private string[] difficulty = 
         { "Very Easy", "Easy", "Normal", "Hard", "Very Hard" }; // 難易度
 
+    private float animTime = 3.0f; // アニメーション時間
+
+    public float AnimTime
+    {
+        get { return animTime; }
+    }
+
     private bool openingSwitch = false; // オープニングへ遷移するかどうか
 
     public bool OpeningSwitch
@@ -61,6 +68,18 @@ public class GameEndingDirector : MonoBehaviour
 
     private void Update()
     {
+        // アニメーション時間中は
+        if (animTime > 0f)
+        {
+            // 時間を経過させる
+            animTime -= Time.deltaTime;
+        }
+        else if (animTime < 0f) // アニメーション時間後は
+        {
+            // 時間を初期化する（正常な処理のため）
+            animTime = 0f;
+        }
+
         /* オープニングへ遷移する（1回の待機あり） */
         if (openingSwitch)
         {
