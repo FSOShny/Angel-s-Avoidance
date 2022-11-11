@@ -56,6 +56,15 @@ public class OpeningButton : MonoBehaviour,
                 // ゲームオプションへの遷移判定を有効にする
                 director.OptionsSwitch = true;
             }
+            // シャットダウンボタンであれば
+            else if (name == "Shutdown Button")
+            {
+                // （エディターでの反応確認）
+                Debug.Log("Shutdown !!!");
+
+                // アプリケーションをシャットダウンする
+                Application.Quit();
+            }
         }
     }
 
