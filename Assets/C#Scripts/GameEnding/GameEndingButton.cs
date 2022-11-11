@@ -21,7 +21,7 @@ public class GameEndingButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // アニメーション時間外でボタンを押した場合は
+        // アニメーション時間外にボタンを押すと
         if (director.AnimTime == 0f)
         {
             // ボタンを灰色に変化させる
@@ -38,7 +38,7 @@ public class GameEndingButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // アニメーション時間外でボタンにカーソルを当てた場合は
+        // アニメーション時間外にボタンにカーソルを当てると
         if (director.AnimTime == 0f)
         {
             // ボタンを白っぽい灰色に変化させる
@@ -48,7 +48,7 @@ public class GameEndingButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // アニメーション時間外でボタンからカーソルを外した場合は
+        // アニメーション時間外にボタンからカーソルを外すと
         if (director.AnimTime == 0f)
         {
             // ボタンを白色に変化させる（元の色に戻す）

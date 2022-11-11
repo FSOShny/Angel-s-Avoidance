@@ -21,7 +21,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンを押した場合は
+        // ボタンが使える状態でボタンを押すと
         if (director.CanUseButton)
         {
             // ボタンを灰色に変化させる
@@ -54,6 +54,7 @@ public class GamePlayingButton : MonoBehaviour,
             // パソコンボタンであれば
             else if (name == "PC Button")
             {
+                // 現在のプラットフォームをパソコンに更新する
                 StaticUnits.SmartPhone = false;
 
                 // プラットフォーム画面への遷移判定を無効にする（ポーズ画面へ戻る）
@@ -62,6 +63,7 @@ public class GamePlayingButton : MonoBehaviour,
             // スマホボタンであれば
             else if (name == "Smart Phone Button")
             {
+                // 現在のプラットフォームをスマホに更新する
                 StaticUnits.SmartPhone = true;
 
                 // プラットフォーム画面への遷移判定を無効にする（ポーズ画面へ戻る）
@@ -81,7 +83,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンにカーソルを当てた場合は
+        // ボタンが使える状態でボタンにカーソルを当てると
         if (director.CanUseButton)
         {
             // ボタンを白っぽい灰色に変化させる
@@ -91,7 +93,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンからカーソルを外した場合は
+        // ボタンが使える状態でボタンからカーソルを外すと
         if (director.CanUseButton)
         {
             // ボタンを白色に変化させる（元の色に戻す）

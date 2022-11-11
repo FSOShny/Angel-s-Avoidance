@@ -34,26 +34,26 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Update()
     {
-        // W, S, ↑, ↓キーを押すとプレイヤーの前後（上下）の移動量を求める
+        // W, S, ↑, ↓キーの入力からプレイヤーの前後（上下）の移動量を求める
         hInput = Input.GetAxis("Horizontal") * playerMoveSpeed;
 
-        // A, D, ←, →キーを押すとプレイヤーの左右の移動量を求める
+        // A, D, ←, →キーの入力からプレイヤーの左右の移動量を求める
         vInput = Input.GetAxis("Vertical") * playerMoveSpeed;
 
-        // インタフェースを使える状態であり
+        // インタフェースが使える状態で
         if (director.CanUseInterf)
         {
-            // Eキーを押すと移動タイプを変更する
+            // Eキーを入力すると
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // 移動タイプを変更する
+                // 移動モードを切り替える
                 director.ModeChange = !director.ModeChange;
             }
 
-            // 動ける状態であり
+            // 動ける状態で
             if (canMove)
             {
-                // スペースキーを押すと
+                // スペースキーを入力すると
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // ガードアクション判定を有効にする
@@ -100,16 +100,16 @@ public class PlayerBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 動ける状態であり
+        // 動ける状態で
         if (canMove)
         {
-            // 移動タイプが「前後」であれば
+            // 移動モードが「前後」であれば
             if (!director.ModeChange)
             {
                 // プレイヤーを前後左右に移動させる
                 NormalAct(0, 1);
             }
-            // 移動タイプが「上下」であれば
+            // 移動モードが「上下」であれば
             else
             {
                 // プレイヤーを上下左右に移動させる
@@ -132,7 +132,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 無敵時間外であれば
+        // 無敵時間外に
         if (invTime == 0)
         {
             /* ゾーンやエネミーに衝突するとプレイヤーがノックバックする */

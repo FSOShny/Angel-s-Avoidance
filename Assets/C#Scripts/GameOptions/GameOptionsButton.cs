@@ -21,7 +21,7 @@ public class GameOptionsButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // ボタンを押した場合は
+        // ボタンを押すと
 
         // ボタンを灰色に変化させる
         image.color = Color.gray;
@@ -36,7 +36,7 @@ public class GameOptionsButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // ボタンにカーソルを当てた場合は
+        // ボタンにカーソルを当てると
 
         // ボタンを白っぽい灰色に変化させる
         image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
@@ -44,7 +44,7 @@ public class GameOptionsButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // ボタンからカーソルを外した場合は
+        // ボタンからカーソルを外すと
 
         // ボタンを白色に変化させる（元の色に戻す）
         image.color = Color.white;

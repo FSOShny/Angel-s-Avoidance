@@ -37,10 +37,10 @@ public class GameEndingDirector : MonoBehaviour
 
     private void Start()
     {
-        // 難易度表示のテキストコンポーネントを取得する
+        // 難易度評価のテキストコンポーネントを取得する
         difficultyText = GameObject.Find("Difficulty Text").GetComponent<TextMeshProUGUI>();
 
-        // 被弾表示のテキストコンポーネントを取得する
+        // 被弾評価のテキストコンポーネントを取得する
         attackedText = GameObject.Find("Attacked Text").GetComponent<TextMeshProUGUI>();
 
         /* エネミーの移動速度係数に応じて難易度係数を増やす */
@@ -88,10 +88,10 @@ public class GameEndingDirector : MonoBehaviour
             StartCoroutine(ToOpening(0.3f));
         }
 
-        // 難易度表示を更新する
+        // 難易度評価を更新する
         difficultyText.text = "difficulty : " + difficulty[level];
 
-        // 被弾表示を更新する
+        // 被弾評価を更新する
         attackedText.text = "attacked : " + attacked;
     }
 

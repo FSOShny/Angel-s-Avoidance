@@ -15,7 +15,8 @@ public class EnemyBehavior : MonoBehaviour
         // エネミーの移動速度を決める
         velocity *= StaticUnits.EnemyMoveSpeed;
 
-        Destroy(gameObject, 15.0f);
+        // 15秒経過したエネミーを破壊する
+        Destroy(gameObject, 15f);
     }
 
     private void FixedUpdate()

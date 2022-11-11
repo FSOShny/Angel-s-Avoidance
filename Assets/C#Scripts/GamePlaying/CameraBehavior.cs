@@ -28,7 +28,7 @@ public class CameraBehavior : MonoBehaviour
         // カメラの回転方向を決める
         cameraRotSpeed *= StaticUnits.Direction;
 
-        // インタフェースが使える状態であり
+        // インタフェースが使える状態で
         if (director.CanUseInterf)
         {
             // マウスを左クリックすると

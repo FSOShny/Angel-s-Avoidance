@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class GamePlayingDirector : MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class GamePlayingDirector : MonoBehaviour
         set { nowPlayerLife = value; }
     }
 
-    private bool modeChange = false; // モードチェンジが「上下」かどうか
+    private bool modeChange = false; // 移動モードが「上下」かどうか
 
     public bool ModeChange
     {
@@ -148,7 +147,7 @@ public class GamePlayingDirector : MonoBehaviour
         // インタフェースが使える状態で
         if (canUseInterf)
         {
-            // Escキーを押せば
+            // Escキーを入力すると
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 // ポーズ画面への遷移判定を有効にする
@@ -242,7 +241,7 @@ public class GamePlayingDirector : MonoBehaviour
             StartCoroutine(Loser(2.5f));
         }
 
-        // モードチェンジが「上下」であれば
+        // 移動モードが「上下」であれば
         if (modeChange)
         {
             // 前後モード画像を無効にする
@@ -251,7 +250,7 @@ public class GamePlayingDirector : MonoBehaviour
             // 上下モード画像を有効にする
             upDown.enabled = true;
         }
-        // モードチェンジが「前後」であれば
+        // 移動モードが「前後」であれば
         else
         {
             // 前後モード画像を有効にする
