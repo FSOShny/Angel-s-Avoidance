@@ -21,7 +21,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンを押すと
+        // ボタンを使える状態でボタンを入力すると
         if (director.CanUseButton)
         {
             // ボタンを灰色に変化させる
@@ -30,25 +30,25 @@ public class GamePlayingButton : MonoBehaviour,
             // ポーズボタンであれば
             if (name == "Pause Button")
             {
-                // ポーズ画面への遷移判定を有効にする
+                // ポーズ画面への遷移を有効にする
                 director.PauseSwitch = true;
             }
             // コンティニューボタンであれば
             else if (name == "Continue Button")
             {
-                // ゲームプレイの続行判定を有効にする
+                // ゲームプレイの続行を有効にする
                 director.ContinueSwitch = true;
             }
             // リスタートボタンであれば
             else if (name == "Restart Button")
             {
-                // ゲームプレイの再開始判定を有効にする
+                // ゲームプレイの再開始を有効にする
                 director.RestartSwitch = true;
             }
             // プラットフォームボタンであれば
             else if (name == "Platform Button")
             {
-                // プラットフォーム画面への遷移判定を有効にする
+                // プラットフォーム画面への遷移を有効にする
                 director.PlatformSwitch = true;
             }
             // パソコンボタンであれば
@@ -57,7 +57,7 @@ public class GamePlayingButton : MonoBehaviour,
                 // 現在のプラットフォームをパソコンに更新する
                 StaticUnits.SmartPhone = false;
 
-                // プラットフォーム画面への遷移判定を無効にする（ポーズ画面へ戻る）
+                // プラットフォーム画面への遷移を無効にする（ポーズ画面へ戻る）
                 director.PlatformSwitch = false;
             }
             // スマホボタンであれば
@@ -66,13 +66,13 @@ public class GamePlayingButton : MonoBehaviour,
                 // 現在のプラットフォームをスマホに更新する
                 StaticUnits.SmartPhone = true;
 
-                // プラットフォーム画面への遷移判定を無効にする（ポーズ画面へ戻る）
+                // プラットフォーム画面への遷移を無効にする（ポーズ画面へ戻る）
                 director.PlatformSwitch = false;
             }
             // クイットボタンであれば
             else if (name == "Quit Button")
             {
-                // オープニングへの遷移判定を有効にする
+                // オープニングへの遷移を有効にする
                 director.OpeningSwitch = true;
             }
 
@@ -83,7 +83,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンにカーソルを当てると
+        // ボタンを使える状態でボタンにカーソルを当てると
         if (director.CanUseButton)
         {
             // ボタンを白っぽい灰色に変化させる
@@ -93,7 +93,7 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // ボタンが使える状態でボタンからカーソルを外すと
+        // ボタンを使える状態でボタンからカーソルを外すと
         if (director.CanUseButton)
         {
             // ボタンを白色に変化させる（元の色に戻す）

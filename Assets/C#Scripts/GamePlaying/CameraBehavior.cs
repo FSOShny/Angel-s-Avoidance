@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
-    public float cameraRotSpeed = 0.2f; // カメラの回転速度
-
     private Transform player;
     private GamePlayingDirector director;
+    private float cameraRotSpeed = 0.1f; // カメラの回転速度
     private Vector2 lastMousePos; // 以前のマウス位置
     private Vector2 newCameraAng; // カメラの角度
 
@@ -25,22 +24,19 @@ public class CameraBehavior : MonoBehaviour
         // カメラの位置をプレイヤーの位置に合わせる
         transform.position = player.position;
 
-        // カメラの回転方向を決める
-        cameraRotSpeed *= StaticUnits.Direction;
-
-        // インタフェースが使える状態で
+        // インタフェースを使える状態で
         if (director.CanUseInterf)
         {
-            // マウスを左クリックすると
+            // マウスを左クリックし始めると
             if (Input.GetMouseButtonDown(0))
             {
-                // 最新のカメラの角度を格納する
+                // 最新のカメラの角度を設定する
                 newCameraAng = transform.localEulerAngles;
 
-                // 現在のマウス位置を格納する
+                // 現在のマウス位置を設定する
                 lastMousePos = Input.mousePosition;
             }
-            // そのまま左クリックを続けると
+            // そのまま左クリックし続けると
             else if (Input.GetMouseButton(0))
             {
                 // 以前のマウス位置と現在のマウス位置からカメラの回転量を求める
@@ -48,9 +44,9 @@ public class CameraBehavior : MonoBehaviour
                 newCameraAng.y += (Input.mousePosition.x - lastMousePos.x) * cameraRotSpeed;
 
                 // カメラを回転させる
-                transform.localEulerAngles = newCameraAng;
+                transform.localEulerAngles = newCameraAng * StaticUnits.Reverse;
 
-                // 現在のマウス位置を格納する
+                // 現在のマウス位置を設定する
                 lastMousePos = Input.mousePosition;
             }
         }

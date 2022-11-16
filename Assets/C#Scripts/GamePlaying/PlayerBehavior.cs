@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float playerMoveSpeed = 10f; // プレイヤーの移動速度
-
     private Rigidbody rigid;
     private Material playerMat;
     private new Transform camera;
     private GamePlayingDirector director;
-    private bool canMove = true; // 動ける状態であるかどうか
-    private float hInput; // 前後（上下）の移動速度
-    private float vInput; // 左右の移動速度
-    private bool guard = false; // ガードアクションをするどうか
+    private int damage = 1; // プレイヤーの被弾係数
+    private int penaSpeed = 1; // プレイヤーの移動速度ペナルティ
+    private bool canMove = true; // プレイヤーが動ける状態かどうか
+    private float playerMoveSpeed = 10f; // プレイヤーの移動速度係数
+    private float hPlayerVelo; // プレイヤーの左右の移動速度
+    private float vPlayerVelo; // プレイヤーの前後（上下）の移動速度
+    private bool guard = false; // ガードアクションを実行できる状態かどうか
     private float stuckTime = 0f; // 行動不能時間
     private float invTime = 0f; // 無敵時間
 
@@ -34,15 +35,26 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Update()
     {
-        // W, S, ↑, ↓キーの入力からプレイヤーの前後（上下）の移動量を求める
-        hInput = Input.GetAxis("Horizontal") * playerMoveSpeed;
-
-        // A, D, ←, →キーの入力からプレイヤーの左右の移動量を求める
-        vInput = Input.GetAxis("Vertical") * playerMoveSpeed;
-
-        // インタフェースが使える状態で
-        if (director.CanUseInterf)
+        /* 疲労状態であればペナルティを受ける */
+        if (director.FatigueSwitch)
         {
+            damage = 2;
+            penaSpeed = 4;
+        }
+        else
+        {
+            damage = 1;
+            penaSpeed = 1;
+        }
+
+        // インタフェースが使え、プレイヤーが動ける状態であり
+        if (director.CanUseInterf && canMove)
+        {
+
+
+            hPlayerVelo = Input.GetAxis("Horizontal") * playerMoveSpeed / penaSpeed;
+            vPlayerVelo = Input.GetAxis("Vertical") * playerMoveSpeed / penaSpeed;
+
             // Eキーを入力すると
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -50,13 +62,13 @@ public class PlayerBehavior : MonoBehaviour
                 director.ModeChange = !director.ModeChange;
             }
 
-            // 動ける状態で
-            if (canMove)
+            // 通常状態で
+            if (!director.FatigueSwitch)
             {
                 // スペースキーを入力すると
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // ガードアクション判定を有効にする
+                    // ガードアクションを実行できる状態にする
                     guard = true;
                 }
             }
@@ -77,7 +89,7 @@ public class PlayerBehavior : MonoBehaviour
             // プレイヤーにかかっている速度をゼロにする
             rigid.velocity = Vector3.zero;
 
-            // 行動可能判定を有効にする
+            // プレイヤーが動ける状態にする
             canMove = true;
         }
 
@@ -100,7 +112,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 動ける状態で
+        // プレイヤー動ける状態であり
         if (canMove)
         {
             // 移動モードが「前後」であれば
@@ -116,13 +128,32 @@ public class PlayerBehavior : MonoBehaviour
                 NormalAct(1, 0);
             }
 
-            // ガードアクション実行判定が有効であれば
+            // ガードアクションを実行できる状態であり
             if (guard)
             {
                 guard = false;
 
-                // ガードアクションを実行させる
-                GuardAct();
+                // 気力回復時間外であれば
+                if (director.ChargeTime == 0f)
+                {
+                    // ガードアクションを実行させる
+                    GuardAct();
+
+                    // 気力回復時間を設定する
+                    director.ChargeTime = 3.0f;
+                }
+                // 気力回復時間外でなければ
+                else
+                {
+                    // 疲労状態にする
+                    director.FatigueSwitch = true;
+
+                    // 疲労状態回数を増やす
+                    director.FatigueCnt += 1;
+
+                    // 気力回復時間を設定する
+                    director.ChargeTime = 5.0f;
+                }
             }
         }
 
@@ -170,9 +201,9 @@ public class PlayerBehavior : MonoBehaviour
     private void NormalAct(int Y, int Z)
     {
         rigid.MovePosition(transform.position +
-             transform.right * hInput * Time.fixedDeltaTime +
-             transform.up * vInput * Time.fixedDeltaTime * Y +
-             transform.forward * vInput * Time.fixedDeltaTime * Z);
+             transform.right * hPlayerVelo * Time.fixedDeltaTime +
+             transform.up * vPlayerVelo * Time.fixedDeltaTime * Y +
+             transform.forward * vPlayerVelo * Time.fixedDeltaTime * Z);
     }
 
     private void GuardAct()
@@ -180,11 +211,11 @@ public class PlayerBehavior : MonoBehaviour
         // プレイヤーの色を黄色に変化させる
         playerMat.color = Color.yellow;
 
+        // プレイヤーが動けない状態にする
+        canMove = false;
+
         // 行動不能時間を設定する
         stuckTime = 1.0f;
-
-        // 行動可能状態を無効にする
-        canMove = false;
 
         // 無敵時間を設定する
         invTime = 1.0f;
@@ -198,13 +229,13 @@ public class PlayerBehavior : MonoBehaviour
         playerMat.color = Color.magenta;
 
         // プレイヤーの体力を減らす
-        director.NowPlayerLife -= 1;
+        director.NowPlayerLives -= damage;
+
+        // プレイヤーが動けない状態にする
+        canMove = false;
 
         // 行動不能時間を設定する
         stuckTime = 2.0f;
-
-        // 行動可能状態を無効にする
-        canMove = false;
 
         // 無敵時間を設定する
         invTime = 3.0f;

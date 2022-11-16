@@ -3,7 +3,15 @@ guid: fca1b902e7be0204596b73c776a9115a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - startUI: {instanceID: 0}
+  - smartPhoneUI: {instanceID: 0}
+  - pauseUI: {instanceID: 0}
+  - platformUI: {instanceID: 0}
+  - loserUI: {instanceID: 0}
+  - winnerUI: {instanceID: 0}
+  - energy: {fileID: 21300000, guid: 7b401eb4401fe204ebefe1df4299bec2, type: 3}
+  - fatigue: {fileID: 21300000, guid: 1aceb08c46f8dd64daed9f711b9321f6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

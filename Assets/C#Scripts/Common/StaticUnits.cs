@@ -21,27 +21,35 @@ public static class StaticUnits
         set { smartPhone = value; }
     }
 
-    private static int direction = 1; // カメラの回転方向係数
+    private static float gameTimeLim = 45f; // ゲームの制限時間
 
-    public static int Direction
+    public static float GameTimeLim
     {
-        get { return direction; }
-        set { direction = value; }
+        get { return gameTimeLim; }
+        set { gameTimeLim = value; }
     }
 
     private static int enemyMoveSpeed = 8; // エネミーの移動速度係数
 
     public static int EnemyMoveSpeed
     {
-        get { return enemyMoveSpeed;}
+        get { return enemyMoveSpeed; }
         set { enemyMoveSpeed = value; }
     }
 
-    private static int maxPlayerLife = 5; // プレイヤーの体力最大値
+    private static int maxPlayerLives = 5; // プレイヤーの体力最大値
 
-    public static int MaxPlayerLife
+    public static int MaxPlayerLives
     {
-        get { return maxPlayerLife; }
-        set { maxPlayerLife = value; }
+        get { return maxPlayerLives; }
+        set { maxPlayerLives = value; }
+    }
+
+    private static int reverse = 1; // カメラの反転係数
+
+    public static int Reverse
+    {
+        get { return reverse; }
+        set { reverse = value; }
     }
 }

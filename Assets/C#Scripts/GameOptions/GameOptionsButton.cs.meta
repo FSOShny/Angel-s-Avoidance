@@ -4,7 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - opening: {instanceID: 0}
+  - greenButton: {fileID: 21300000, guid: e9422cee6d009044c92f6ae7f5a70502, type: 3}
+  - whiteButton: {fileID: 21300000, guid: c077647311d87364daea3889536ec6da, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

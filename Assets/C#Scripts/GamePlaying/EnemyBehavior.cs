@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     private Rigidbody rigid;
-    private Vector3 velocity = -Vector3.one; // エネミーの移動速度
+    private Vector3 enemyVelo; // エネミーの移動速度
 
     private void Start()
     {
@@ -13,16 +13,16 @@ public class EnemyBehavior : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
 
         // エネミーの移動速度を決める
-        velocity *= StaticUnits.EnemyMoveSpeed;
+        enemyVelo = -Vector3.one * StaticUnits.EnemyMoveSpeed;
 
-        // 15秒経過したエネミーを破壊する
-        Destroy(gameObject, 15f);
+        // ( (ゲームの制限時間) / 3 )秒経過したエネミーを破壊する
+        Destroy(gameObject, StaticUnits.GameTimeLim / 3);
     }
 
     private void FixedUpdate()
     {
         // エネミーを移動させる
-        rigid.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+        rigid.MovePosition(transform.position + enemyVelo * Time.fixedDeltaTime);
 
         /* 領域外エネミーの位置を更新する */
         if (rigid.position.x > 11.5f)
@@ -79,8 +79,8 @@ public class EnemyBehavior : MonoBehaviour
         float randY = Random.Range(0.75f, 1.25f);
         float randZ = Random.Range(0.75f, 1.25f);
 
-        velocity.x = velocity.x * X * randX;
-        velocity.y = velocity.y * Y * randY;
-        velocity.z = velocity.z * Z * randZ;
+        enemyVelo.x = enemyVelo.x * X * randX;
+        enemyVelo.y = enemyVelo.y * Y * randY;
+        enemyVelo.z = enemyVelo.z * Z * randZ;
     }
 }
