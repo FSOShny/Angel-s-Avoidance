@@ -49,7 +49,7 @@ public class GamePlayingDirector : MonoBehaviour
         set { pauseSwitch = value; }
     }
 
-    private bool continueSwitch = true; // ゲームプレイを続行するかどうか
+    private bool continueSwitch = false; // ゲームプレイを続行するかどうか
 
     public bool ContinueSwitch
     {
@@ -371,7 +371,7 @@ public class GamePlayingDirector : MonoBehaviour
         startUI.SetActive(false);
 
         // ゲームの一時停止を解除する
-        Time.timeScale= 1.0f;
+        Time.timeScale = 1.0f;
     }
 
     private IEnumerator GameRestart(float fWT)

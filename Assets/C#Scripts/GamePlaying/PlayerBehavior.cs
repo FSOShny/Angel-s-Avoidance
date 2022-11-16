@@ -50,8 +50,6 @@ public class PlayerBehavior : MonoBehaviour
         // インタフェースが使え、プレイヤーが動ける状態であり
         if (director.CanUseInterf && canMove)
         {
-
-
             hPlayerVelo = Input.GetAxis("Horizontal") * playerMoveSpeed / penaSpeed;
             vPlayerVelo = Input.GetAxis("Vertical") * playerMoveSpeed / penaSpeed;
 
