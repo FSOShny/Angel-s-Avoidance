@@ -12,17 +12,19 @@ public class GameEndingDirector : MonoBehaviour
     private int level = 0; // 難易度係数
     private string[] difficulty = {
         "Practice", "Very Easy", "Easy", "Normal", 
-        "Hard", "Very Hard", "Lunatic" 
+        "Hard", "Very Hard", "Angel" 
     }; // 難易度
 
-    private float animTime = 4.0f; // アニメーション時間
+    // アニメーション時間
+    private float animTime = 4.0f;
 
     public float AnimTime
     {
         get { return animTime; }
     }
 
-    private bool openingSwitch = false; // オープニングへ遷移するかどうか
+    // オープニングへ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {
@@ -30,7 +32,8 @@ public class GameEndingDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    private int damaged; // 被弾回数
+    // 被弾回数
+    private int damaged;
 
     public int Damaged
     {
@@ -38,7 +41,8 @@ public class GameEndingDirector : MonoBehaviour
         set { damaged = value; }
     }
 
-    private int fatigued; // 疲労状態回数
+    // 疲労状態回数
+    private int fatigued;
 
     public int Fatigued
     {
@@ -57,6 +61,17 @@ public class GameEndingDirector : MonoBehaviour
         // 疲労状態回数評価のテキストコンポーネントを取得する
         fatiguedText = GameObject.Find("Fatigued Text").GetComponent<TextMeshProUGUI>();
 
+        /* ゲームの制限時間に応じて難易度係数を増やす */
+        if (StaticUnits.GameTimeLim >= 45)
+        {
+            level++;
+
+            if (StaticUnits.GameTimeLim == 60)
+            {
+                level++;
+            }
+        }
+
         /* エネミーの移動速度係数に応じて難易度係数を増やす */
         if (StaticUnits.EnemyMoveSpeed >= 8)
         {
@@ -69,22 +84,11 @@ public class GameEndingDirector : MonoBehaviour
         }
 
         /* プレイヤーの体力最大値に応じて難易度係数を増やす */
-        if (0f <= StaticUnits.MaxPlayerLives && StaticUnits.MaxPlayerLives <= 5.0f)
+        if (StaticUnits.MaxPlayerLives <= 3.0f)
         {
             level++;
 
-            if (StaticUnits.MaxPlayerLives == 3.0f)
-            {
-                level++;
-            }
-        }
-
-        /* ゲームの制限時間に応じて難易度係数を増やす */
-        if (StaticUnits.GameTimeLim >= 45)
-        {
-            level++;
-
-            if (StaticUnits.GameTimeLim == 60)
+            if (StaticUnits.MaxPlayerLives == 2.0f)
             {
                 level++;
             }

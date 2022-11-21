@@ -26,7 +26,24 @@ public class GamePlayingDirector : MonoBehaviour
     private float nowTimeLim; // 現在の制限時間
     private int iTimeLim; // 整数化した制限時間
 
-    private int nowPlayerLives; // 現在のプレイヤーの体力
+    // インタフェースを使える状態かどうか
+    private bool canUseInterf = false;
+
+    public bool CanUseInterf
+    {
+        get { return canUseInterf; }
+    }
+
+    // ボタンを使える状態かどうか
+    private bool canUseButton = false;
+
+    public bool CanUseButton
+    {
+        get { return canUseButton; }
+    }
+
+    // 現在のプレイヤーの体力
+    private int nowPlayerLives;
 
     public int NowPlayerLives
     {
@@ -34,14 +51,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { nowPlayerLives = value; }
     }
 
-    private bool canUseInterf = false; // インタフェースを使える状態かどうか
-
-    public bool CanUseInterf
-    {
-        get { return canUseInterf; }
-    }
-
-    private bool pauseSwitch = false; // ポーズ画面へ遷移するかどうか
+    // ポーズ画面へ遷移するかどうか
+    private bool pauseSwitch = false;
 
     public bool PauseSwitch
     {
@@ -49,7 +60,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { pauseSwitch = value; }
     }
 
-    private bool continueSwitch = false; // ゲームプレイを続行するかどうか
+    // ゲームプレイを続行するかどうか
+    private bool continueSwitch = false;
 
     public bool ContinueSwitch
     {
@@ -57,7 +69,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { continueSwitch = value; }
     }
 
-    private bool restartSwitch = false; // ゲームプレイを再開始するかどうか
+    // ゲームプレイを再開始するかどうか
+    private bool restartSwitch = false;
 
     public bool RestartSwitch
     {
@@ -65,14 +78,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { restartSwitch = value; }
     }
 
-    private bool canUseButton = false; // ボタンを使える状態かどうか
-
-    public bool CanUseButton
-    {
-        get { return canUseButton; }
-    }
-
-    private bool platformSwitch = false; // プラットフォーム画面へ遷移するかどうか
+    // プラットフォーム画面へ遷移するかどうか
+    private bool platformSwitch = false;
 
     public bool PlatformSwitch
     {
@@ -80,7 +87,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { platformSwitch = value; }
     }
 
-    private bool openingSwitch = false; // オープニングへ遷移するかどうか
+    // オープニングへ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {
@@ -88,7 +96,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    private bool modeChange = false; // 移動モードが「上下」かどうか
+    // 移動モードが「上下」かどうか
+    private bool modeChange = false;
 
     public bool ModeChange
     {
@@ -96,7 +105,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { modeChange = value; }
     }
 
-    private bool fatigueSwitch = false; // 疲労状態かどうか
+    // 疲労状態かどうか
+    private bool fatigueSwitch = false;
 
     public bool FatigueSwitch
     {
@@ -104,7 +114,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { fatigueSwitch = value; }
     }
 
-    private float chargeTime = 0f; // 気力回復時間
+    // 気力回復時間
+    private float chargeTime = 0f;
 
     public float ChargeTime
     {
@@ -112,12 +123,26 @@ public class GamePlayingDirector : MonoBehaviour
         set { chargeTime = value; }
     }
 
-    private int fatigueCnt = 0; // 疲労状態回数
+    // 疲労状態回数
+    private int fatigueCnt = 0;
 
     public int FatigueCnt
     {
         get { return fatigueCnt; }
         set { fatigueCnt = value; }
+    }
+
+    /* 領域外アクター（プレイヤー, エネミー）の位置を更新する */
+    public void OutOfAreaActor(ref float pos, float range)
+    {
+        if (pos > range)
+        {
+            pos = range;
+        }
+        else if (pos < -range)
+        {
+            pos = -range;
+        }
     }
 
     private void Start()
@@ -283,7 +308,7 @@ public class GamePlayingDirector : MonoBehaviour
         livesBar.fillAmount = nowPlayerLives / 5.0f;
 
         // 体力がゼロになれば
-        if (nowPlayerLives == 0 || nowPlayerLives == -1)
+        if (nowPlayerLives <= 0)
         {
             // インタフェースを使えない状態にする
             canUseInterf = false;
@@ -312,22 +337,6 @@ public class GamePlayingDirector : MonoBehaviour
 
             // 気力バーを更新する
             energyBar.fillAmount = 1.0f - chargeTime / 5.0f;
-        }
-
-        // 気力回復時間中は
-        if (chargeTime > 0f)
-        {
-            // 時間を経過させる
-            chargeTime -= Time.deltaTime;
-        }
-        // 気力回復時間終了時は
-        else if (chargeTime < 0f)
-        {
-            // 時間を初期化する（正常な処理のため）
-            chargeTime = 0f;
-
-            // 通常状態にする
-            fatigueSwitch = false;
         }
 
         // 現在の制限時間を経過させる

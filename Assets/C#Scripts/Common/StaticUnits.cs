@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class StaticUnits
 {
-    private static bool startup = true; // ゲームの起動時かどうか
-                                        // （プラットフォームの強制確認を1回だけにするための処理）
+    // ゲームの起動時かどうか（プラットフォームの強制確認を1回だけにするための処理）
+    private static bool startup = true;
 
     public static bool Startup
     {
@@ -13,7 +13,8 @@ public static class StaticUnits
         set { startup = value; }
     }
 
-    private static bool smartPhone = false; // 現在のプラットフォームがスマホかどうか
+    // 現在のプラットフォームがスマホかどうか
+    private static bool smartPhone = false;
 
     public static bool SmartPhone
     {
@@ -21,7 +22,8 @@ public static class StaticUnits
         set { smartPhone = value; }
     }
 
-    private static float gameTimeLim = 45f; // ゲームの制限時間
+    // ゲームの制限時間
+    private static float gameTimeLim = 45f;
 
     public static float GameTimeLim
     {
@@ -29,7 +31,8 @@ public static class StaticUnits
         set { gameTimeLim = value; }
     }
 
-    private static int enemyMoveSpeed = 8; // エネミーの移動速度係数
+    // エネミーの移動量係数
+    private static int enemyMoveSpeed = 8;
 
     public static int EnemyMoveSpeed
     {
@@ -37,7 +40,8 @@ public static class StaticUnits
         set { enemyMoveSpeed = value; }
     }
 
-    private static int maxPlayerLives = 5; // プレイヤーの体力最大値
+    // プレイヤーの体力最大値
+    private static int maxPlayerLives = 5;
 
     public static int MaxPlayerLives
     {
@@ -45,7 +49,8 @@ public static class StaticUnits
         set { maxPlayerLives = value; }
     }
 
-    private static int reverse = 1; // カメラの反転係数
+    // カメラの反転係数
+    private static int reverse = 1;
 
     public static int Reverse
     {

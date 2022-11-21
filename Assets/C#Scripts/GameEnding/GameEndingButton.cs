@@ -16,7 +16,7 @@ public class GameEndingButton : MonoBehaviour,
         image = GetComponent<Image>();
 
         // オープニングディレクターを取得する
-        director = GameObject.Find("Game Ending Director").GetComponent<GameEndingDirector>();
+        director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameEndingDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)

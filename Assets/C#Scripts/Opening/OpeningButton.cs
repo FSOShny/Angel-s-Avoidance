@@ -16,7 +16,7 @@ public class OpeningButton : MonoBehaviour,
         image = GetComponent<Image>();
 
         // オープニングディレクターを取得する
-        director = GameObject.Find("Opening Director").GetComponent<OpeningDirector>();
+        director = GameObject.FindGameObjectWithTag("Director").GetComponent<OpeningDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)

@@ -7,15 +7,17 @@ public class OpeningDirector : MonoBehaviour
 {
     [SerializeField] private GameObject platformUI;
     [SerializeField] private GameObject openingUI;
-    
-    private float animTime = 0f; // アニメーション時間
+
+    // アニメーション時間
+    private float animTime = 0f;
 
     public float AnimTime
     {
         get { return animTime; }
     }
 
-    private bool openingSwitch = false; // オープニング画面へ遷移するかどうか
+    // オープニング画面へ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {
@@ -23,7 +25,8 @@ public class OpeningDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    private bool playingSwitch = false; // ゲームプレイへ遷移するかどうか
+    // ゲームプレイへ遷移するかどうか
+    private bool playingSwitch = false;
 
     public bool PlayingSwitch
     {
@@ -31,7 +34,8 @@ public class OpeningDirector : MonoBehaviour
         set { playingSwitch = value; }
     }
 
-    private bool optionsSwitch = false; // ゲームオプションへ遷移するかどうか
+    // ゲームオプションへ遷移するかどうか
+    private bool optionsSwitch = false;
 
     public bool OptionsSwitch
     {

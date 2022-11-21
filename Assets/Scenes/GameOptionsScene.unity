@@ -1451,7 +1451,7 @@ GameObject:
   - component: {fileID: 878619584}
   m_Layer: 0
   m_Name: Game Options Director
-  m_TagString: Untagged
+  m_TagString: Director
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

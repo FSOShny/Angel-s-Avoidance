@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameOptionsButton : MonoBehaviour,
-    IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+    IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Sprite greenButton;
     [SerializeField] private Sprite whiteButton;
@@ -19,7 +19,7 @@ public class GameOptionsButton : MonoBehaviour,
         image = GetComponent<Image>();
 
         // オープニングディレクターを取得する
-        director = GameObject.Find("Game Options Director").GetComponent<GameOptionsDirector>();
+        director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameOptionsDirector>();
     }
 
     private void Update()
@@ -127,6 +127,14 @@ public class GameOptionsButton : MonoBehaviour,
             // オープニングへの遷移判定を有効にする
             director.OpeningSwitch = true;
         }
+    }
+
+    public void OnPointerUp(PointerEventData pointerEventData)
+    {
+        // ボタンを離すと
+
+        // ボタンを白色に変化させる（元の色に戻す）
+        image.color = Color.white;
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
