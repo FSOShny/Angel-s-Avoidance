@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameTutorialsButton : MonoBehaviour,
-    IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+    IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Image image;
     private GameTutorialsDirector director;
@@ -29,14 +29,21 @@ public class GameTutorialsButton : MonoBehaviour,
         // オープニングボタンであれば
         if (name == "Opening Button")
         {
-            // オープニングへの遷移判定を有効にする
+            // オープニングへの遷移を有効にする
             director.OpeningSwitch = true;
         }
-    }
-
-    public void OnPointerUp(PointerEventData pointerEventData)
-    {
-        // ボタンを離すと
+        // ネクストボタンであれば
+        else if (name == "Next Button")
+        {
+            // 次のページへの遷移を有効にする
+            director.NextSwitch = true;
+        }
+        // プリビアスボタンであれば
+        else if (name == "Previous Button")
+        {
+            // 前のページへの遷移を有効にする
+            director.PrevSwitch = true;
+        }
 
         // ボタンを白色に変化させる（元の色に戻す）
         image.color = Color.white;
