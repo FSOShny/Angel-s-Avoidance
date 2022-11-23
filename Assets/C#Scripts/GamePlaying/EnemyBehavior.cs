@@ -28,11 +28,19 @@ public class EnemyBehavior : MonoBehaviour
         // エネミーを移動させる
         rigid.MovePosition(transform.position + enemyMove * Time.fixedDeltaTime);
 
-        // エネミーがゾーンから出ないようにする
-        rigid.position = new Vector3(
-            Mathf.Clamp(rigid.position.x, -13.5f, 13.5f),
-            Mathf.Clamp(rigid.position.y, -26.5f, 26.5f),
-            Mathf.Clamp(rigid.position.z, -13.5f, 13.5f));
+        /* エネミーがゾーンから出ると特定の位置に移動させる */
+        if (rigid.position.x <= -13f || 13f <= rigid.position.x)
+        {
+            rigid.position = new Vector3(0f, rigid.position.y, rigid.position.z);
+        }
+        if (rigid.position.y <= 2.0f || 28f <= rigid.position.y)
+        {
+            rigid.position = new Vector3(rigid.position.x, 0f, rigid.position.z);
+        }
+        if (rigid.position.z <= -13f || 13f <= rigid.position.z)
+        {
+            rigid.position = new Vector3(rigid.position.x, rigid.position.y, 0f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,4 +75,5 @@ public class EnemyBehavior : MonoBehaviour
         enemyMove.y = enemyMove.y * Y * randY;
         enemyMove.z = enemyMove.z * Z * randZ;
     }
+
 }

@@ -115,8 +115,12 @@ public class PlayerBehavior : MonoBehaviour
             // 時間を初期化する（正常な処理のため）
             invTime = 0f;
 
-            // プレイヤーの色を元に戻す
-            playerMat.color = Color.white;
+            // 疲労状態でなければ
+            if (!director.FatigueSwitch)
+            {
+                // プレイヤーの色を元に戻す
+                playerMat.color = Color.white;
+            }
 
             // プレイヤーバリアを無効にする
             playerAura.SetActive(false);
@@ -292,9 +296,9 @@ public class PlayerBehavior : MonoBehaviour
 
         // プレイヤーがゾーンから出ないようにする
         rigid.position = new Vector3(
-            Mathf.Clamp(rigid.position.x, -13.5f, 13.5f),
-            Mathf.Clamp(rigid.position.y, -26.5f, 26.5f), 
-            Mathf.Clamp(rigid.position.z, -13.5f, 13.5f));
+            Mathf.Clamp(rigid.position.x, -13f, 13f),
+            Mathf.Clamp(rigid.position.y, 1.0f, 27f), 
+            Mathf.Clamp(rigid.position.z, -13f, 13f));
     }
 
     private void OnCollisionEnter(Collision collision)
