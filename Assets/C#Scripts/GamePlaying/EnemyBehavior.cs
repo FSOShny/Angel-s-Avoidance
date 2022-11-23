@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     private Rigidbody rigid;
-    private GamePlayingDirector director;
     private Vector3 enemyMove; // エネミーの移動速度
 
     private void Start()
@@ -15,9 +14,6 @@ public class EnemyBehavior : MonoBehaviour
 
         // エネミーの移動量を決める
         enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
-
-        // ゲームプレイディレクターを取得する
-        director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
 
         // ( (ゲームの制限時間) / 3 )秒経過したエネミーを破壊する
         Destroy(gameObject, StaticUnits.GameTimeLim / 3);

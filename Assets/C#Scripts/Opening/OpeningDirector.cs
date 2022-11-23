@@ -25,6 +25,15 @@ public class OpeningDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
+    // ゲームチュートリアルへ遷移するかどうか
+    private bool tutorialsSwitch = false;
+
+    public bool TutorialsSwitch
+    {
+        get { return tutorialsSwitch; }
+        set { tutorialsSwitch = value; }
+    }
+
     // ゲームプレイへ遷移するかどうか
     private bool playingSwitch = false;
 
@@ -88,6 +97,14 @@ public class OpeningDirector : MonoBehaviour
             StartCoroutine(ToOpening(0.3f, 0.5f));
         }
 
+        /* ゲームチュートリアルへ遷移する（1回の待機あり） */
+        if (tutorialsSwitch)
+        {
+            tutorialsSwitch = false;
+
+            StartCoroutine(ToTutorials(0.3f));
+        }
+
         /* ゲームプレイへ遷移する（1回の待機あり） */
         if (playingSwitch)
         {
@@ -121,6 +138,14 @@ public class OpeningDirector : MonoBehaviour
 
         // アニメーション時間を設定する
         animTime = 3.0f;
+    }
+
+    private IEnumerator ToTutorials(float fWT)
+    {
+        // 1回目の待機
+        yield return new WaitForSeconds(fWT);
+
+        SceneManager.LoadScene("GameTutorialsScene");
     }
 
     private IEnumerator ToPlaying(float fWT)

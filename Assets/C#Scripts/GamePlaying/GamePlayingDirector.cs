@@ -132,19 +132,6 @@ public class GamePlayingDirector : MonoBehaviour
         set { fatigueCnt = value; }
     }
 
-    /* 領域外アクター（プレイヤー, エネミー）の位置を更新する */
-    public void OutOfAreaActor(ref float pos, float range)
-    {
-        if (pos > range)
-        {
-            pos = range;
-        }
-        else if (pos < -range)
-        {
-            pos = -range;
-        }
-    }
-
     private void Start()
     {
         // 体力バー（黒色）のイメージコンポーネントを取得する
@@ -441,7 +428,7 @@ public class GamePlayingDirector : MonoBehaviour
     private void GameEndingLoaded(Scene scene, LoadSceneMode mode)
     {
         // ゲームエンディングディレクターを取得する
-        nextDirector = GameObject.Find("Game Ending Director").GetComponent<GameEndingDirector>();
+        nextDirector = GameObject.FindGameObjectWithTag("Director").GetComponent<GameEndingDirector>();
 
         // 被弾回数を設定する
         nextDirector.Damaged = StaticUnits.MaxPlayerLives - nowPlayerLives;

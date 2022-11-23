@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    [SerializeField] private GameObject playerAura;
+
     private Rigidbody rigid;
     private Animator anim;
     private Material playerMat;
-    private GameObject playerAura;
     private Transform came;
     private GamePlayingDirector director;
     private float invTime = 0f; // 無敵時間
     private int damage = 1; // プレイヤーの被弾係数
     private int penaSpeed = 1; // プレイヤーの移動速度ペナルティ
     private float stuckTime = 0f; // 行動不能時間
-    public float hPlayerVelo = 0f; // プレイヤーの左右の加速度
-    public float vPlayerVelo = 0f; // プレイヤーの前後（上下）の加速度
+    private float hPlayerVelo = 0f; // プレイヤーの左右の加速度
+    private float vPlayerVelo = 0f; // プレイヤーの前後（上下）の加速度
     private float playerMoveSpeed = 10f; // プレイヤーの移動量係数
     private float hPlayerMove; // プレイヤーの左右の移動量
     private float vPlayerMove; // プレイヤーの前後（上下）の移動量
@@ -84,9 +85,6 @@ public class PlayerBehavior : MonoBehaviour
 
         // プレイヤーの色を取得する
         playerMat = GameObject.Find("MHuman").GetComponent<Renderer>().material;
-
-        // プレイヤーオーラの色を取得する
-        playerAura = GameObject.Find("Player Aura");
 
         // カメラの角度を取得
         came = GameObject.Find("Camera").transform;

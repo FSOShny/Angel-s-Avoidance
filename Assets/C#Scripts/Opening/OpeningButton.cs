@@ -33,7 +33,7 @@ public class OpeningButton : MonoBehaviour,
                 // 現在のプラットフォームをパソコンに更新する
                 StaticUnits.SmartPhone = false;
 
-                // オープニング画面への遷移判定を有効にする
+                // オープニング画面への遷移を有効にする
                 director.OpeningSwitch = true;
             }
             // スマホボタンであれば
@@ -42,19 +42,25 @@ public class OpeningButton : MonoBehaviour,
                 // 現在のプラットフォームをスマホに更新する
                 StaticUnits.SmartPhone = true;
 
-                // オープニング画面への遷移判定を有効にする
+                // オープニング画面への遷移を有効にする
                 director.OpeningSwitch = true;
+            }
+            // チュートリアルボタンであれば
+            else if (name == "Tutorials Button")
+            {
+                // ゲームチュートリアルへの遷移を有効にする
+                director.TutorialsSwitch = true;
             }
             // プレイボタンであれば
             else if (name == "Playing Button")
             {
-                // ゲームプレイへの遷移判定を有効にする
+                // ゲームプレイへの遷移を有効にする
                 director.PlayingSwitch = true;
             }
             // オプションボタンであれば
             else if (name == "Options Button")
             {
-                // ゲームオプションへの遷移判定を有効にする
+                // ゲームオプションへの遷移を有効にする
                 director.OptionsSwitch = true;
             }
             // シャットダウンボタンであれば
