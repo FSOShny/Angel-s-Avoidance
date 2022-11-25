@@ -58,8 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Build file
+Build/
+
 # Asset Store file
 Stores/
 
-# Build file
-Angel's Avoidance/

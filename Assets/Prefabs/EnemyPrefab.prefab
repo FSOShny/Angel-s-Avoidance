@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6846152868534232120}
   - component: {fileID: 6846152868534232123}
   - component: {fileID: 6846152868534232122}
-  - component: {fileID: 1977700330004321864}
   - component: {fileID: -3111370837735637876}
   - component: {fileID: 4161551356978451184}
   - component: {fileID: 7266485095491675180}
+  - component: {fileID: 4377876093483143175}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -101,18 +101,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1977700330004321864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846152868534232125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f29f4970825498e45950b3a556f28388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &-3111370837735637876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4910,3 +4898,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4377876093483143175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846152868534232125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29f4970825498e45950b3a556f28388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

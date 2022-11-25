@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public float playerMoveSpeed = 10f; // プレイヤーの移動量係数
+
     [SerializeField] private GameObject playerAura;
 
     private Rigidbody rigid;
@@ -17,7 +19,6 @@ public class PlayerBehavior : MonoBehaviour
     private float stuckTime = 0f; // 行動不能時間
     private float hPlayerVelo = 0f; // プレイヤーの左右の加速度
     private float vPlayerVelo = 0f; // プレイヤーの前後（上下）の加速度
-    private float playerMoveSpeed = 10f; // プレイヤーの移動量係数
     private float hPlayerMove; // プレイヤーの左右の移動量
     private float vPlayerMove; // プレイヤーの前後（上下）の移動量
 

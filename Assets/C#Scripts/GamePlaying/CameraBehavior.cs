@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
+    public float cameRotSpeed = 0.1f; // カメラの回転速度
+
     private Transform player;
     private GamePlayingDirector director;
-    private float cameRotSpeed = 0.1f; // カメラの回転速度
     private Vector2 lastMousePos; // 以前のマウス位置
     private Vector2 newCameAng; // カメラの角度
 

@@ -5,12 +5,16 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     private Rigidbody rigid;
+    private Vector3 firstEnemyPos;
     private Vector3 enemyMove; // エネミーの移動速度
 
     private void Start()
     {
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
+
+        // エネミーの初期位置を設定する
+        firstEnemyPos = transform.position;
 
         // エネミーの移動量を決める
         enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
@@ -19,24 +23,22 @@ public class EnemyBehavior : MonoBehaviour
         Destroy(gameObject, StaticUnits.GameTimeLim / 3);
     }
 
+    private void Update()
+    {
+        /* エネミーがゾーンから出ると位置と移動量を初期化する */
+        if (transform.position.x <= -13f || 13f <= transform.position.x ||
+            transform.position.y <= 2.0f || 28f <= transform.position.y ||
+            transform.position.z <= -13f || 13f <= transform.position.z)
+        {
+            transform.position = firstEnemyPos;
+            enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
+        }
+    }
+
     private void FixedUpdate()
     {
         // エネミーを移動させる
         rigid.MovePosition(transform.position + enemyMove * Time.fixedDeltaTime);
-
-        /* エネミーがゾーンから出ると特定の位置に移動させる */
-        if (rigid.position.x <= -13f || 13f <= rigid.position.x)
-        {
-            rigid.position = new Vector3(0f, rigid.position.y, rigid.position.z);
-        }
-        if (rigid.position.y <= 2.0f || 28f <= rigid.position.y)
-        {
-            rigid.position = new Vector3(rigid.position.x, 0f, rigid.position.z);
-        }
-        if (rigid.position.z <= -13f || 13f <= rigid.position.z)
-        {
-            rigid.position = new Vector3(rigid.position.x, rigid.position.y, 0f);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

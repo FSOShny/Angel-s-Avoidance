@@ -21,10 +21,10 @@ public class GamePlayingButton : MonoBehaviour,
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
 
         // カメラビヘイビアを取得する
-        came = GameObject.Find("Camera").GetComponent<CameraBehavior>();
+        came = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraBehavior>();
 
         // プレイヤービヘイビアを取得する
-        player = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
