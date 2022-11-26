@@ -16,12 +16,12 @@ public class GameEndingButton : MonoBehaviour,
         image = GetComponent<Image>();
 
         // オープニングディレクターを取得する
-        director = GameObject.Find("Game Ending Director").GetComponent<GameEndingDirector>();
+        director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameEndingDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンを押すと
+        // アニメーション時間外にボタンを入力すると
         if (director.AnimTime == 0f)
         {
             // ボタンを灰色に変化させる
@@ -30,7 +30,7 @@ public class GameEndingButton : MonoBehaviour,
             // オープニングボタンであれば
             if (name == "Opening Button")
             {
-                // オープニングへの遷移判定を有効にする
+                // オープニングへの遷移を有効にする
                 director.OpeningSwitch = true;
             }
         }

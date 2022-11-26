@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOptionsDirector : MonoBehaviour
 {
-    private bool openingSwitch = false; // オープニングへ遷移するかどうか
+    // オープニングへ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {

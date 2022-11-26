@@ -7,15 +7,17 @@ public class OpeningDirector : MonoBehaviour
 {
     [SerializeField] private GameObject platformUI;
     [SerializeField] private GameObject openingUI;
-    
-    private float animTime = 0f; // アニメーション時間
+
+    // アニメーション時間
+    private float animTime = 0f;
 
     public float AnimTime
     {
         get { return animTime; }
     }
 
-    private bool openingSwitch = false; // オープニング画面へ遷移するかどうか
+    // オープニング画面へ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {
@@ -23,7 +25,17 @@ public class OpeningDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    private bool playingSwitch = false; // ゲームプレイへ遷移するかどうか
+    // ゲームチュートリアルへ遷移するかどうか
+    private bool tutorialsSwitch = false;
+
+    public bool TutorialsSwitch
+    {
+        get { return tutorialsSwitch; }
+        set { tutorialsSwitch = value; }
+    }
+
+    // ゲームプレイへ遷移するかどうか
+    private bool playingSwitch = false;
 
     public bool PlayingSwitch
     {
@@ -31,7 +43,8 @@ public class OpeningDirector : MonoBehaviour
         set { playingSwitch = value; }
     }
 
-    private bool optionsSwitch = false; // ゲームオプションへ遷移するかどうか
+    // ゲームオプションへ遷移するかどうか
+    private bool optionsSwitch = false;
 
     public bool OptionsSwitch
     {
@@ -84,6 +97,14 @@ public class OpeningDirector : MonoBehaviour
             StartCoroutine(ToOpening(0.3f, 0.5f));
         }
 
+        /* ゲームチュートリアルへ遷移する（1回の待機あり） */
+        if (tutorialsSwitch)
+        {
+            tutorialsSwitch = false;
+
+            StartCoroutine(ToTutorials(0.3f));
+        }
+
         /* ゲームプレイへ遷移する（1回の待機あり） */
         if (playingSwitch)
         {
@@ -117,6 +138,14 @@ public class OpeningDirector : MonoBehaviour
 
         // アニメーション時間を設定する
         animTime = 3.0f;
+    }
+
+    private IEnumerator ToTutorials(float fWT)
+    {
+        // 1回目の待機
+        yield return new WaitForSeconds(fWT);
+
+        SceneManager.LoadScene("GameTutorialsScene");
     }
 
     private IEnumerator ToPlaying(float fWT)

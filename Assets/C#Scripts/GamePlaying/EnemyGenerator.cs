@@ -26,9 +26,9 @@ public class EnemyGenerator : MonoBehaviour
             yield return new WaitForSeconds(sWT);
 
             //　エネミーの生成位置をランダムに決める
-            float randX = Random.Range(-11.5f, 11.5f);
-            float randY = Random.Range(15f, 26.5f);
-            float randZ = Random.Range(-11.5f, 11.5f);
+            float randX = Random.Range(-11f, 11f);
+            float randY = Random.Range(9.5f, 20.5f);
+            float randZ = Random.Range(-11f, 11f);
             Vector3 enemyPos = new Vector3(randX, randY, randZ);
 
             // エネミーを生成する

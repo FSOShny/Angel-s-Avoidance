@@ -5,50 +5,40 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     private Rigidbody rigid;
-    private Vector3 velocity = -Vector3.one; // エネミーの移動速度
+    private Vector3 firstEnemyPos;
+    private Vector3 enemyMove; // エネミーの移動速度
 
     private void Start()
     {
         // リジッドボディーコンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
 
-        // エネミーの移動速度を決める
-        velocity *= StaticUnits.EnemyMoveSpeed;
+        // エネミーの初期位置を設定する
+        firstEnemyPos = transform.position;
 
-        // 15秒経過したエネミーを破壊する
-        Destroy(gameObject, 15f);
+        // エネミーの移動量を決める
+        enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
+
+        // ( (ゲームの制限時間) / 3 )秒経過したエネミーを破壊する
+        Destroy(gameObject, StaticUnits.GameTimeLim / 3);
+    }
+
+    private void Update()
+    {
+        /* エネミーがゾーンから出ると位置と移動量を初期化する */
+        if (transform.position.x <= -13f || 13f <= transform.position.x ||
+            transform.position.y <= 2.0f || 28f <= transform.position.y ||
+            transform.position.z <= -13f || 13f <= transform.position.z)
+        {
+            transform.position = firstEnemyPos;
+            enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
+        }
     }
 
     private void FixedUpdate()
     {
         // エネミーを移動させる
-        rigid.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
-
-        /* 領域外エネミーの位置を更新する */
-        if (rigid.position.x > 11.5f)
-        {
-            rigid.position = new Vector3(11.5f, rigid.position.y, rigid.position.z);
-        }
-        else if (rigid.position.x < -11.5f)
-        {
-            rigid.position = new Vector3(-11.5f, rigid.position.y, rigid.position.z);
-        }
-        if (rigid.position.y > 26.5f)
-        {
-            rigid.position = new Vector3(rigid.position.x, 26.5f, rigid.position.z);
-        }
-        else if (rigid.position.y < 3.5f)
-        {
-            rigid.position = new Vector3(rigid.position.x, 3.5f, rigid.position.z);
-        }
-        if (rigid.position.z > 11.5f)
-        {
-            rigid.position = new Vector3(rigid.position.x, rigid.position.y, 11.5f);
-        }
-        else if (rigid.position.z < -11.5f)
-        {
-            rigid.position = new Vector3(rigid.position.x, rigid.position.y, -11.5f);
-        }
+        rigid.MovePosition(transform.position + enemyMove * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,8 +69,9 @@ public class EnemyBehavior : MonoBehaviour
         float randY = Random.Range(0.75f, 1.25f);
         float randZ = Random.Range(0.75f, 1.25f);
 
-        velocity.x = velocity.x * X * randX;
-        velocity.y = velocity.y * Y * randY;
-        velocity.z = velocity.z * Z * randZ;
+        enemyMove.x = enemyMove.x * X * randX;
+        enemyMove.y = enemyMove.y * Y * randY;
+        enemyMove.z = enemyMove.z * Z * randZ;
     }
+
 }

@@ -7,16 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class GamePlayingDirector : MonoBehaviour
 {
-    public float gameTimeLim = 45f; // ゲームの制限時間
-
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject smartPhoneUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject platformUI;
     [SerializeField] private GameObject loserUI;
     [SerializeField] private GameObject winnerUI;
+    [SerializeField] private Sprite energy;
+    [SerializeField] private Sprite fatigue;
 
-    private Image lifeBar;
+    private Image noLivesBar;
+    private Image livesBar;
+    private Image energyBar;
     private Image upDown;
     private Image forwardBack;
     private TextMeshProUGUI timerText;
@@ -24,23 +26,33 @@ public class GamePlayingDirector : MonoBehaviour
     private float nowTimeLim; // 現在の制限時間
     private int iTimeLim; // 整数化した制限時間
 
-    private int nowPlayerLife; // 現在のプレイヤーの体力
+    // インタフェースを使える状態かどうか
+    private bool canUseInterf = false;
 
-    public int NowPlayerLife
+    public bool CanUseInterf
     {
-        get { return nowPlayerLife; }
-        set { nowPlayerLife = value; }
+        get { return canUseInterf; }
     }
 
-    private bool modeChange = false; // 移動モードが「上下」かどうか
+    // ボタンを使える状態かどうか
+    private bool canUseButton = false;
 
-    public bool ModeChange
+    public bool CanUseButton
     {
-        get { return modeChange; }
-        set { modeChange = value; }
+        get { return canUseButton; }
     }
 
-    private bool pauseSwitch = false; // ポーズ画面へ遷移するかどうか
+    // 現在のプレイヤーの体力
+    private int nowPlayerLives;
+
+    public int NowPlayerLives
+    {
+        get { return nowPlayerLives; }
+        set { nowPlayerLives = value; }
+    }
+
+    // ポーズ画面へ遷移するかどうか
+    private bool pauseSwitch = false;
 
     public bool PauseSwitch
     {
@@ -48,7 +60,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { pauseSwitch = value; }
     }
 
-    private bool continueSwitch = false; // ゲームプレイを続行するかどうか
+    // ゲームプレイを続行するかどうか
+    private bool continueSwitch = false;
 
     public bool ContinueSwitch
     {
@@ -56,7 +69,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { continueSwitch = value; }
     }
 
-    private bool restartSwitch = false; // ゲームプレイを再開始するかどうか
+    // ゲームプレイを再開始するかどうか
+    private bool restartSwitch = false;
 
     public bool RestartSwitch
     {
@@ -64,7 +78,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { restartSwitch = value; }
     }
 
-    private bool platformSwitch = false; // プラットフォーム画面へ遷移するかどうか
+    // プラットフォーム画面へ遷移するかどうか
+    private bool platformSwitch = false;
 
     public bool PlatformSwitch
     {
@@ -72,7 +87,8 @@ public class GamePlayingDirector : MonoBehaviour
         set { platformSwitch = value; }
     }
 
-    private bool openingSwitch = false; // オープニングへ遷移するかどうか
+    // オープニングへ遷移するかどうか
+    private bool openingSwitch = false;
 
     public bool OpeningSwitch
     {
@@ -80,24 +96,52 @@ public class GamePlayingDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    private bool canUseInterf = false; // インタフェースが使える状態かどうか
+    // 移動モードが「上下」かどうか
+    private bool modeChange = false;
 
-    public bool CanUseInterf
+    public bool ModeChange
     {
-        get { return canUseInterf; }
+        get { return modeChange; }
+        set { modeChange = value; }
     }
 
-    private bool canUseButton = false; // ボタンが使える状態かどうか
+    // 疲労状態かどうか
+    private bool fatigueSwitch = false;
 
-    public bool CanUseButton
+    public bool FatigueSwitch
     {
-        get { return canUseButton; }
+        get { return fatigueSwitch; }
+        set { fatigueSwitch = value; }
+    }
+
+    // 気力回復時間
+    private float chargeTime = 0f;
+
+    public float ChargeTime
+    {
+        get { return chargeTime; }
+        set { chargeTime = value; }
+    }
+
+    // 疲労状態回数
+    private int fatigueCnt = 0;
+
+    public int FatigueCnt
+    {
+        get { return fatigueCnt; }
+        set { fatigueCnt = value; }
     }
 
     private void Start()
     {
-        // 体力バーのイメージコンポーネントを取得する
-        lifeBar = GameObject.Find("5Life Bar").GetComponent<Image>();
+        // 体力バー（黒色）のイメージコンポーネントを取得する
+        noLivesBar = GameObject.Find("No Lives Bar").GetComponent<Image>();
+
+        // 体力バー（緑色）のイメージコンポーネントを取得する
+        livesBar = GameObject.Find("Lives Bar").GetComponent<Image>();
+
+        // 気力バーのイメージコンポーネントを取得する
+        energyBar = GameObject.Find("Energy Bar").GetComponent<Image>();
 
         // 上下モード画像のイメージコンポーネントを取得する
         upDown = GameObject.Find("UpDown Mode Image").GetComponent<Image>();
@@ -116,16 +160,16 @@ public class GamePlayingDirector : MonoBehaviour
         loserUI.SetActive(false);
         winnerUI.SetActive(false);
 
-        // 現在のプレイヤーの体力を格納する
-        nowPlayerLife = StaticUnits.MaxPlayerLife;
+        // 現在のプレイヤーの体力を設定する
+        nowPlayerLives = StaticUnits.MaxPlayerLives;
 
         // 上下モード画像を無効にする
         upDown.enabled = false;
 
-        // 現在の制限時間を格納する
-        nowTimeLim = gameTimeLim;
+        // 現在の制限時間を設定する
+        nowTimeLim = StaticUnits.GameTimeLim;
 
-        /* ゲームプレイを開始する（1回の待機あり） */
+        // ゲームプレイを開始する（1回の待機あり）
         StartCoroutine(GameStart(3.0f));
     }
 
@@ -144,13 +188,13 @@ public class GamePlayingDirector : MonoBehaviour
             smartPhoneUI.SetActive(false);
         }
 
-        // インタフェースが使える状態で
+        // インタフェースを使える状態で
         if (canUseInterf)
         {
             // Escキーを入力すると
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // ポーズ画面への遷移判定を有効にする
+                // ポーズ画面への遷移を有効にする
                 pauseSwitch = true;
             }
         }
@@ -163,7 +207,7 @@ public class GamePlayingDirector : MonoBehaviour
             // ゲームの一時停止を実行する
             Time.timeScale = 0f;
 
-            // インタフェース使用可能状態を無効にする
+            // インタフェースを使えない状態にする
             canUseInterf = false;
 
             // ポーズ画面を有効にする
@@ -178,7 +222,7 @@ public class GamePlayingDirector : MonoBehaviour
             // ポーズ画面を無効にする
             pauseUI.SetActive(false);
 
-            // インタフェース使用可能状態を有効にする
+            // インタフェースを使える状態にする
             canUseInterf = true;
 
             // ゲームの一時停止を解除する
@@ -190,10 +234,10 @@ public class GamePlayingDirector : MonoBehaviour
         {
             restartSwitch = false;
 
-            // インタフェース使用可能状態を無効にする
+            // インタフェースを使えない状態にする
             canUseInterf = false;
 
-            // ボタン使用可能状態を無効にする
+            // ボタンを使えない状態にする
             canUseButton = false;
 
             StartCoroutine(GameRestart(0.3f));
@@ -216,29 +260,13 @@ public class GamePlayingDirector : MonoBehaviour
         {
             openingSwitch = false;
 
-            // インタフェース使用可能状態を無効にする
+            // インタフェースを使えない状態にする
             canUseInterf = false;
 
-            // ボタン使用可能状態を無効にする
+            // ボタンを使えない状態にする
             canUseButton = false;
 
             StartCoroutine(ToOpening(0.3f));
-        }
-
-        // 体力バーを更新する
-        lifeBar.fillAmount = (float)nowPlayerLife / StaticUnits.MaxPlayerLife;
-
-        // 体力がゼロになれば
-        if (nowPlayerLife == 0)
-        {
-            // インタフェース使用可能状態を無効にする
-            canUseInterf = false;
-
-            // ボタン使用可能状態を無効にする
-            canUseButton = false;
-
-            // 敗北者になる（1回の待機あり）
-            StartCoroutine(Loser(2.5f));
         }
 
         // 移動モードが「上下」であれば
@@ -260,6 +288,44 @@ public class GamePlayingDirector : MonoBehaviour
             upDown.enabled = false;
         }
 
+        // 体力バー（黒色）を表示する
+        noLivesBar.fillAmount = StaticUnits.MaxPlayerLives / 5.0f;
+
+        // 体力バー（緑色）を更新する
+        livesBar.fillAmount = nowPlayerLives / 5.0f;
+
+        // 体力がゼロになれば
+        if (nowPlayerLives <= 0)
+        {
+            // インタフェースを使えない状態にする
+            canUseInterf = false;
+
+            // ボタンを使えない状態にする
+            canUseButton = false;
+
+            // 敗北者になる（1回の待機あり）
+            StartCoroutine(Loser(2.5f));
+        }
+
+        // 通常状態であれば
+        if (!fatigueSwitch)
+        {
+            // 気力バーの色を黄色にする
+            energyBar.sprite = energy;
+
+            // 気力バーを更新する
+            energyBar.fillAmount = 1.0f - chargeTime / 3.0f;
+        }
+        // 疲労状態であれば
+        else
+        {
+            // 気力バーの色を水色にする
+            energyBar.sprite = fatigue;
+
+            // 気力バーを更新する
+            energyBar.fillAmount = 1.0f - chargeTime / 5.0f;
+        }
+
         // 現在の制限時間を経過させる
         nowTimeLim -= Time.deltaTime;
 
@@ -275,10 +341,10 @@ public class GamePlayingDirector : MonoBehaviour
             // 時間を初期化する（正常な処理のため）
             nowTimeLim = 0f;
 
-            // インタフェース使用可能状態を無効にする
+            // インタフェースを使えない状態にする
             canUseInterf = false;
 
-            // ボタン使用可能状態を無効にする
+            // ボタンを使えない状態にする
             canUseButton = false;
 
             // 勝利者になる（1回の待機あり）
@@ -291,17 +357,17 @@ public class GamePlayingDirector : MonoBehaviour
         // 1回目の待機
         yield return new WaitForSecondsRealtime(fWT);
 
-        // インタフェース使用可能状態を有効にする
+        // インタフェースを使える状態にする
         canUseInterf = true;
 
-        // ボタン使用可能状態を有効にする
+        // ボタンを使える状態にする
         canUseButton = true;
 
         // スタート画面を無効にする
         startUI.SetActive(false);
 
         // ゲームの一時停止を解除する
-        Time.timeScale= 1.0f;
+        Time.timeScale = 1.0f;
     }
 
     private IEnumerator GameRestart(float fWT)
@@ -334,7 +400,7 @@ public class GamePlayingDirector : MonoBehaviour
         // 1回目の待機
         yield return new WaitForSecondsRealtime(fWT);
 
-        // ボタン使用可能状態を有効にする
+        // ボタンを使える状態にする
         canUseButton = true;
     }
 
@@ -362,10 +428,13 @@ public class GamePlayingDirector : MonoBehaviour
     private void GameEndingLoaded(Scene scene, LoadSceneMode mode)
     {
         // ゲームエンディングディレクターを取得する
-        nextDirector = GameObject.Find("Game Ending Director").GetComponent<GameEndingDirector>();
+        nextDirector = GameObject.FindGameObjectWithTag("Director").GetComponent<GameEndingDirector>();
 
-        // 被弾回数を格納する
-        nextDirector.Attacked = StaticUnits.MaxPlayerLife - nowPlayerLife;
+        // 被弾回数を設定する
+        nextDirector.Damaged = StaticUnits.MaxPlayerLives - nowPlayerLives;
+
+        // 疲労状態回数を設定する
+        nextDirector.Fatigued = FatigueCnt;
 
         // 次のシーンへの変数引き渡しを終了する
         SceneManager.sceneLoaded -= GameEndingLoaded;
