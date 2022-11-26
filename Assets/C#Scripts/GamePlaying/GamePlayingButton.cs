@@ -86,7 +86,7 @@ public class GamePlayingButton : MonoBehaviour,
                     // 視点を制御できない状態にする
                     came.Control = false;
 
-                    // 移動モードを切り替える
+                    // 移動モードをチェンジする
                     director.ModeChange = !director.ModeChange;
                 }
 

@@ -31,7 +31,7 @@ public class PlayerBehavior : MonoBehaviour
         set { canMove = value; }
     }
 
-    // →ボタンを入力しているかどうか
+    // 右矢印ボタンを入力しているかどうか
     private bool rightMove = false;
 
     public bool RightMove
@@ -40,7 +40,7 @@ public class PlayerBehavior : MonoBehaviour
         set { rightMove = value; }
     }
 
-    // ←ボタンを入力しているかどうか
+    // 左矢印ボタンを入力しているかどうか
     private bool leftMove = false;
 
     public bool LeftMove
@@ -49,7 +49,7 @@ public class PlayerBehavior : MonoBehaviour
         set { leftMove = value; }
     }
 
-    // ↑ボタンを入力しているかどうか
+    // 上矢印ボタンを入力しているかどうか
     private bool upMove = false;
 
     public bool UpMove
@@ -58,7 +58,7 @@ public class PlayerBehavior : MonoBehaviour
         set { upMove = value; }
     }
 
-    // ↓ボタンを入力しているかどうか
+    // 下矢印ボタンを入力しているかどうか
     private bool downMove = false;
 
     public bool DownMove
@@ -219,7 +219,7 @@ public class PlayerBehavior : MonoBehaviour
             // Eキーかモードチェンジボタンを入力すると
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // 移動モードを切り替える
+                // 移動モードをチェンジする
                 director.ModeChange = !director.ModeChange;
             }
 
@@ -262,7 +262,7 @@ public class PlayerBehavior : MonoBehaviour
                 // 気力回復時間外であれば
                 if (director.ChargeTime == 0f)
                 {
-                    // ガードアクションを実行させる
+                    // ガードアクションを実行する
                     GuardAct();
 
                     // 気力回復時間を設定する
