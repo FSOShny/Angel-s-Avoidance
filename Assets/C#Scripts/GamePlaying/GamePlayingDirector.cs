@@ -191,8 +191,8 @@ public class GamePlayingDirector : MonoBehaviour
         // インタフェースを使える状態で
         if (canUseInterf)
         {
-            // Escキーを入力すると
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // Xキーを入力すると
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 // ポーズ画面への遷移を有効にする
                 pauseSwitch = true;
