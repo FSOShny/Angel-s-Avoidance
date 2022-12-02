@@ -1,12 +1,30 @@
 # Angel-s-Avoidance
 
 * 天使となったプレイヤーが閉じ込められた檻の中でダークボールに当たらないように逃げ回るという<br>
-コンセプトの「パソコンとスマホ（横画面）のどちらでも遊べる3Dアクションゲーム」です。
+コンセプトの「パソコンとスマホ（横画面）のどちらでも遊べる3Dアクションゲーム」です。<br>
+（スマホ（横画面）は只今調整中です。）
 
 ## Demo
 
-* [ゲームプレイ動画](https://youtu.be/rJJZTU3cpYw)をご覧ください。<br>
+* ゲームプレイ動画は[こちら](https://youtu.be/GU2AWfyhauA)から視聴できます。<br>
 （ファイルサイズの都合上、ゲームプレイ動画をYouTubeにアップロードしました。）
+
+## Startup
+
+* WebGL版は[こちら](https://lunatic-turtle.com/games/AsA/)から起動できます。
+
+## Operation
+
+* パソコン<br>
+W, A, S, Dキー：前後左右（上下左右）の移動を行う<br>
+Eキー：移動モードの切り替えを行う<br>
+マウス（タッチパッド）：プレイヤーの視線移動を行う<br>
+Spaceキー：ガードアクションを行う<br>
+Xキー：ゲームポーズを行う
+
+* スマホ<br>
+画面ドラッグ：プレイヤーの視線移動を行う（ただし、入力を反映しない場所もあります。）<br>
+それ以外の操作：「ゲームチュートリアル」で説明します。
 
 ## Thanks
 
@@ -18,8 +36,8 @@
   * 「Visual Studio 2022」（C#コーディング）<br>
   　関連ホームページ：https://visualstudio.microsoft.com/ja/
 
-  * 「Unity Asset Store」（フォント, 3Dモデル, アニメーション）<br>
-  　関連ホームページ：https://assetstore.unity.com/
+  * 「Unity Asset Store」<br>
+  　関連ホームページ：https://assetstore.unity.com
 
   * （なお、UIイラストには「Microsoft PowerPoint」を使用させていただきました。）
 
