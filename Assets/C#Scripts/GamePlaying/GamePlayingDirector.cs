@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class GamePlayingDirector : MonoBehaviour
 {
-    [SerializeField] private GameObject startUI;
-    [SerializeField] private GameObject smartPhoneUI;
-    [SerializeField] private GameObject pauseUI;
-    [SerializeField] private GameObject platformUI;
-    [SerializeField] private GameObject loserUI;
-    [SerializeField] private GameObject winnerUI;
+    [SerializeField] private GameObject startUi;
+    [SerializeField] private GameObject smartPhoneUi;
+    [SerializeField] private GameObject pauseUi;
+    [SerializeField] private GameObject platformUi;
+    [SerializeField] private GameObject loserUi;
+    [SerializeField] private GameObject winnerUi;
     [SerializeField] private Sprite energy;
     [SerializeField] private Sprite fatigue;
 
@@ -153,12 +153,12 @@ public class GamePlayingDirector : MonoBehaviour
         timerText = GameObject.Find("Timer Text").GetComponent<TextMeshProUGUI>();
 
         // スタート画面を有効にする
-        startUI.SetActive(true);
-        smartPhoneUI.SetActive(false);
-        pauseUI.SetActive(false);
-        platformUI.SetActive(false);
-        loserUI.SetActive(false);
-        winnerUI.SetActive(false);
+        startUi.SetActive(true);
+        smartPhoneUi.SetActive(false);
+        pauseUi.SetActive(false);
+        platformUi.SetActive(false);
+        loserUi.SetActive(false);
+        winnerUi.SetActive(false);
 
         // 現在のプレイヤーの体力を設定する
         nowPlayerLives = StaticUnits.MaxPlayerLives;
@@ -179,13 +179,13 @@ public class GamePlayingDirector : MonoBehaviour
         if (StaticUnits.SmartPhone)
         {
             // スマホUI表示を有効にする
-            smartPhoneUI.SetActive(true);
+            smartPhoneUi.SetActive(true);
         }
         // 現在のプラットフォームがパソコンであれば
         else
         {
             // スマホUI表示を無効にする
-            smartPhoneUI.SetActive(false);
+            smartPhoneUi.SetActive(false);
         }
 
         // インタフェースを使える状態で
@@ -211,7 +211,7 @@ public class GamePlayingDirector : MonoBehaviour
             canUseInterf = false;
 
             // ポーズ画面を有効にする
-            pauseUI.SetActive(true);
+            pauseUi.SetActive(true);
         }
         
         /* ゲームプレイを続行する */
@@ -220,7 +220,7 @@ public class GamePlayingDirector : MonoBehaviour
             continueSwitch = false;
 
             // ポーズ画面を無効にする
-            pauseUI.SetActive(false);
+            pauseUi.SetActive(false);
 
             // インタフェースを使える状態にする
             canUseInterf = true;
@@ -234,9 +234,6 @@ public class GamePlayingDirector : MonoBehaviour
         {
             restartSwitch = false;
 
-            // インタフェースを使えない状態にする
-            canUseInterf = false;
-
             // ボタンを使えない状態にする
             canUseButton = false;
 
@@ -247,21 +244,18 @@ public class GamePlayingDirector : MonoBehaviour
         if (platformSwitch)
         {
             // プラットフォーム画面を有効にする
-            platformUI.SetActive(true);
+            platformUi.SetActive(true);
         }
         else
         {
             // プラットフォーム画面を無効にする
-            platformUI.SetActive(false);
+            platformUi.SetActive(false);
         }
 
         /* オープニングへ遷移する（1回の待機あり） */
         if (openingSwitch)
         {
             openingSwitch = false;
-
-            // インタフェースを使えない状態にする
-            canUseInterf = false;
 
             // ボタンを使えない状態にする
             canUseButton = false;
@@ -364,7 +358,7 @@ public class GamePlayingDirector : MonoBehaviour
         canUseButton = true;
 
         // スタート画面を無効にする
-        startUI.SetActive(false);
+        startUi.SetActive(false);
 
         // ゲームの一時停止を解除する
         Time.timeScale = 1.0f;
@@ -392,7 +386,7 @@ public class GamePlayingDirector : MonoBehaviour
     private IEnumerator Loser(float fWT)
     {
         // 敗北者画面を有効にする
-        loserUI.SetActive(true);
+        loserUi.SetActive(true);
 
         // ゲームの一時停止を実行する
         Time.timeScale = 0f;
@@ -407,7 +401,7 @@ public class GamePlayingDirector : MonoBehaviour
     private IEnumerator Winner(float fWT)
     {
         // 勝利者画面を有効にする
-        winnerUI.SetActive(true);
+        winnerUi.SetActive(true);
 
         // ゲームの一時停止を実行する
         Time.timeScale = 0f;

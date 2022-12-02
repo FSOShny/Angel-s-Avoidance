@@ -18,7 +18,7 @@ public class EnemyGenerator : MonoBehaviour
         yield return new WaitForSeconds(fWT);
 
         // 1体目のエネミーを生成する
-        Instantiate(enemy, new Vector3(5.0f, 15f, 5.0f), Quaternion.identity);
+        Instantiate(enemy, new(5.0f, 15f, 5.0f), Quaternion.identity);
 
         while (true)
         {
@@ -27,9 +27,9 @@ public class EnemyGenerator : MonoBehaviour
 
             //　エネミーの生成位置をランダムに決める
             float randX = Random.Range(-11f, 11f);
-            float randY = Random.Range(9.5f, 20.5f);
+            float randY = Random.Range(15f, 26f);
             float randZ = Random.Range(-11f, 11f);
-            Vector3 enemyPos = new Vector3(randX, randY, randZ);
+            Vector3 enemyPos = new(randX, randY, randZ);
 
             // エネミーを生成する
             Instantiate(enemy, enemyPos, Quaternion.identity);

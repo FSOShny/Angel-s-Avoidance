@@ -9,7 +9,6 @@ public class GamePlayingButton : MonoBehaviour,
 {
     private Image image;
     private GamePlayingDirector director;
-    private CameraBehavior came;
     private PlayerBehavior player;
 
     private void Start()
@@ -19,9 +18,6 @@ public class GamePlayingButton : MonoBehaviour,
 
         // ゲームプレイディレクターを取得する
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
-
-        // カメラビヘイビアを取得する
-        came = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraBehavior>();
 
         // プレイヤービヘイビアを取得する
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
@@ -35,57 +31,36 @@ public class GamePlayingButton : MonoBehaviour,
             // ボタンを灰色に変化させる
             image.color = Color.gray;
 
-            // ポーズボタンであれば
-            if (name == "Pause Button")
-            {
-                // ポーズ画面への遷移を有効にする
-                director.PauseSwitch = true;
-            }
             // インタフェースが使える状態であり、プレイヤーが動ける状態であり
             if (director.CanUseInterf && player.CanMove)
             {
                 // 上矢印ボタンであれば
             　　if (name == "Up Arrow Button")
                 {
-                    // 視点を制御できない状態にする
-                    came.Control = false;
-
                     // 前（上）へ加速する
                     player.UpMove = true;
                 }
                 // 左矢印ボタンであれば
                 else if (name == "Left Arrow Button")
                 {
-                    // 視点を制御できない状態にする
-                    came.Control = false;
-
                     // 左へ加速する
                     player.LeftMove = true;
                 }
                 // 下矢印ボタンであれば
                 else if (name == "Down Arrow Button")
                 {
-                    // 視点を制御できない状態にする
-                    came.Control = false;
-
                     // 後（下）へ加速する
                     player.DownMove = true;
                 }
                 // 右矢印ボタンであれば
                 else if (name == "Right Arrow Button")
                 {
-                    // 視点を制御できない状態にする
-                    came.Control = false;
-
                     // 右へ加速する
                     player.RightMove = true;
                 }
                 // モードチェンジボタンであれば
                 else if (name == "Mode Change Button")
                 {
-                    // 視点を制御できない状態にする
-                    came.Control = false;
-
                     // 移動モードをチェンジする
                     director.ModeChange = !director.ModeChange;
                 }
@@ -96,13 +71,17 @@ public class GamePlayingButton : MonoBehaviour,
                     // ガードアクションボタンであれば
                     if (name == "Guard Action Button")
                     {
-                        // 視点を制御できない状態にする
-                        came.Control = false;
-
                         // ガードアクションを実行できる状態にする
                         player.Guard = true;
                     }
                 }
+            }
+
+            // ポーズボタンであれば
+            if (name == "Pause Button")
+            {
+                // ポーズ画面への遷移を有効にする
+                director.PauseSwitch = true;
             }
             // コンティニューボタンであれば
             else if (name == "Continue Button")
@@ -168,9 +147,6 @@ public class GamePlayingButton : MonoBehaviour,
         {
             // ボタンを白色に変化させる（元の色に戻す）
             image.color = Color.white;
-
-            // カメラを制御できる状態にする
-            came.Control = true;
 
             // 上矢印ボタンであれば
             if (name == "Up Arrow Button")

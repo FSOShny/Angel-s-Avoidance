@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     private Rigidbody rigid;
-    private Vector3 firstEnemyPos;
+    private Vector3 firstEnemyPos; // エネミーの初期位置
     private Vector3 enemyMove; // エネミーの移動速度
 
     private void Start()
@@ -69,9 +69,8 @@ public class EnemyBehavior : MonoBehaviour
         float randY = Random.Range(0.75f, 1.25f);
         float randZ = Random.Range(0.75f, 1.25f);
 
-        enemyMove.x = enemyMove.x * X * randX;
-        enemyMove.y = enemyMove.y * Y * randY;
-        enemyMove.z = enemyMove.z * Z * randZ;
+        enemyMove.x *= randX * X;
+        enemyMove.y *= randY * Y;
+        enemyMove.z *= randZ * Z;
     }
-
 }
