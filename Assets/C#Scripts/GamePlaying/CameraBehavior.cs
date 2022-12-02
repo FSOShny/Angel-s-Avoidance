@@ -11,15 +11,6 @@ public class CameraBehavior : MonoBehaviour
     private Vector2 lastMousePos; // 以前のマウス位置
     private Vector2 newCameAng; // カメラの角度
 
-    // 視点を制御できる状態かどうか
-    private bool control = true;
-
-    public bool Control
-    {
-        get { return control; }
-        set { control = value; }
-    }
-
     private void Start()
     {
         // プレイヤーの位置を取得する
@@ -34,30 +25,34 @@ public class CameraBehavior : MonoBehaviour
         // カメラの位置をプレイヤーの位置に合わせる
         transform.position = player.position;
 
-        // インタフェースを使える状態であり、視点を制御できる状態で
-        if (director.CanUseInterf && control)
+        // 現在のプラットフォームがパソコンであり
+        if (!StaticUnits.SmartPhone)
         {
-            // マウスを左クリックし始めると
-            if (Input.GetMouseButtonDown(0))
+            // インタフェースを使える状態で
+            if (director.CanUseInterf)
             {
-                // 最新のカメラの角度を設定する
-                newCameAng = transform.localEulerAngles;
+                // マウスを左クリックし始めると
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // 最新のカメラの角度を設定する
+                    newCameAng = transform.localEulerAngles;
 
-                // 現在のマウス位置を設定する
-                lastMousePos = Input.mousePosition;
-            }
-            // そのまま左クリックし続けると
-            else if (Input.GetMouseButton(0))
-            {
-                // 以前のマウス位置と現在のマウス位置からカメラの回転量を求める
-                newCameAng.x += (lastMousePos.y - Input.mousePosition.y) * cameRotSpeed * StaticUnits.Reverse;
-                newCameAng.y += (Input.mousePosition.x - lastMousePos.x) * cameRotSpeed * StaticUnits.Reverse;
+                    // 現在のマウス位置を設定する
+                    lastMousePos = Input.mousePosition;
+                }
+                // そのまま左クリックし続けると
+                else if (Input.GetMouseButton(0))
+                {
+                    // 以前のマウス位置と現在のマウス位置からカメラの回転量を求める
+                    newCameAng.x += (lastMousePos.y - Input.mousePosition.y) * cameRotSpeed * StaticUnits.Reverse;
+                    newCameAng.y += (Input.mousePosition.x - lastMousePos.x) * cameRotSpeed * StaticUnits.Reverse;
 
-                // カメラを回転させる
-                transform.localEulerAngles = newCameAng;
+                    // カメラを回転させる
+                    transform.localEulerAngles = newCameAng;
 
-                // 現在のマウス位置を設定する
-                lastMousePos = Input.mousePosition;
+                    // 現在のマウス位置を設定する
+                    lastMousePos = Input.mousePosition;
+                }
             }
         }
     }

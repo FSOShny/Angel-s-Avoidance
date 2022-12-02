@@ -216,7 +216,7 @@ public class PlayerBehavior : MonoBehaviour
             // プレイヤーの前後（上下）の移動量を決める
             vPlayerMove = vPlayerVelo * playerMoveSpeed / penaSpeed;
 
-            // Eキーかモードチェンジボタンを入力すると
+            // Eキーを入力すると
             if (Input.GetKeyDown(KeyCode.E))
             {
                 // 移動モードをチェンジする
@@ -294,10 +294,11 @@ public class PlayerBehavior : MonoBehaviour
         rigid.rotation = came.rotation;
 
         // プレイヤーがゾーンから出ないようにする
-        rigid.position = new Vector3(
-            Mathf.Clamp(rigid.position.x, -13f, 13f),
+        rigid.position = new(
+            Mathf.Clamp(rigid.position.x, -13f, 13f), 
             Mathf.Clamp(rigid.position.y, 1.0f, 27f), 
-            Mathf.Clamp(rigid.position.z, -13f, 13f));
+            Mathf.Clamp(rigid.position.z, -13f, 13f)
+            );
     }
 
     private void OnCollisionEnter(Collision collision)

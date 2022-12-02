@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class OpeningDirector : MonoBehaviour
 {
-    [SerializeField] private GameObject platformUI;
-    [SerializeField] private GameObject openingUI;
+    [SerializeField] private GameObject platformUi;
+    [SerializeField] private GameObject openingUi;
 
     // アニメーション時間
     private float animTime = 0f;
@@ -60,15 +60,15 @@ public class OpeningDirector : MonoBehaviour
             StaticUnits.Startup = false;
 
             // プラットフォーム画面を有効にする
-            platformUI.SetActive(true);
-            openingUI.SetActive(false);
+            platformUi.SetActive(true);
+            openingUi.SetActive(false);
         }
         // ゲームの起動時でなければ
         else
         {
             // オープニング画面を有効にする
-            platformUI.SetActive(false);
-            openingUI.SetActive(true);
+            platformUi.SetActive(false);
+            openingUi.SetActive(true);
 
             // アニメーション時間を設定する
             animTime = 3.0f;
@@ -128,13 +128,13 @@ public class OpeningDirector : MonoBehaviour
         yield return new WaitForSeconds(fWT);
 
         // プラットフォーム画面を無効にする
-        platformUI.SetActive(false);
+        platformUi.SetActive(false);
 
         // 2回目の待機
         yield return new WaitForSeconds(sWT);
 
         // オープニング画面を有効にする
-        openingUI.SetActive(true);
+        openingUi.SetActive(true);
 
         // アニメーション時間を設定する
         animTime = 3.0f;

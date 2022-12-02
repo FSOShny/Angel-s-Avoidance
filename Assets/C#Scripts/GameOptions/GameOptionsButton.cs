@@ -37,7 +37,7 @@ public class GameOptionsButton : MonoBehaviour,
             (name == "Reverse On Button" && StaticUnits.Reverse == -1) || 
             (name == "Reverse Off Button" && StaticUnits.Reverse == 1))
         {
-            // 赤色のボタンにする
+            // 緑色のボタンにする
             image.sprite = greenButton;
         }
         // それ以外のボタンであれば

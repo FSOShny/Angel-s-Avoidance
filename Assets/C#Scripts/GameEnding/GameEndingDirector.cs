@@ -13,7 +13,7 @@ public class GameEndingDirector : MonoBehaviour
     private string[] difficulty = {
         "Practice", "Very Easy", "Easy", "Normal", 
         "Hard", "Very Hard", "Angel" 
-    }; // 難易度
+    }; // 難易度評価
 
     // アニメーション時間
     private float animTime = 4.0f;

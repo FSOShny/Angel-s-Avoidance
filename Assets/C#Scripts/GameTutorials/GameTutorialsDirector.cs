@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameTutorialsDirector : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> tutorialUIs;
+    [SerializeField] private List<GameObject> tutorialUis;
     private int nowPage = 0; // 現在のページ数
 
     // オープニングへ遷移するかどうか
@@ -38,12 +38,12 @@ public class GameTutorialsDirector : MonoBehaviour
     private void Start()
     {
         // 1ページ目のチュートリアル画面を有効にする
-        tutorialUIs[0].SetActive(true);
+        tutorialUis[0].SetActive(true);
 
         /* 1ページ目以外のチュートリアル画面を無効にする */
-        for (int i = 1; i < tutorialUIs.Count; i++)
+        for (int i = 1; i < tutorialUis.Count; i++)
         {
-            tutorialUIs[i].SetActive(false);
+            tutorialUis[i].SetActive(false);
         }
     }
 
@@ -65,8 +65,8 @@ public class GameTutorialsDirector : MonoBehaviour
             // 現在のページ数を増やす
             nowPage++;
 
-            tutorialUIs[nowPage - 1].SetActive(false);
-            tutorialUIs[nowPage].SetActive(true);
+            tutorialUis[nowPage - 1].SetActive(false);
+            tutorialUis[nowPage].SetActive(true);
         }
 
         /* 前のページへ遷移する */
@@ -77,8 +77,8 @@ public class GameTutorialsDirector : MonoBehaviour
             // 現在のページ数を減らす
             nowPage--;
 
-            tutorialUIs[nowPage + 1].SetActive(false);
-            tutorialUIs[nowPage].SetActive(true);
+            tutorialUis[nowPage + 1].SetActive(false);
+            tutorialUis[nowPage].SetActive(true);
         }
     }
 
