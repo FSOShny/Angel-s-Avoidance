@@ -87,7 +87,7 @@ public class OpeningButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // アニメーション時間外でボタンからカーソルを外すと
+        // アニメーション時間外にボタンからカーソルを外すと
         if (director.AnimTime == 0f)
         {
             // ボタンを白色に変化させる（元の色に戻す）
