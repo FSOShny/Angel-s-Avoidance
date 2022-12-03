@@ -9,6 +9,7 @@ public class GamePlayingDirector : MonoBehaviour
 {
     [SerializeField] private GameObject startUi;
     [SerializeField] private GameObject smartPhoneUi;
+    [SerializeField] private GameObject viewController;
     [SerializeField] private GameObject pauseUi;
     [SerializeField] private GameObject platformUi;
     [SerializeField] private GameObject loserUi;
@@ -155,6 +156,7 @@ public class GamePlayingDirector : MonoBehaviour
         // スタート画面を有効にする
         startUi.SetActive(true);
         smartPhoneUi.SetActive(false);
+        viewController.SetActive(false);
         pauseUi.SetActive(false);
         platformUi.SetActive(false);
         loserUi.SetActive(false);
@@ -180,12 +182,18 @@ public class GamePlayingDirector : MonoBehaviour
         {
             // スマホUI表示を有効にする
             smartPhoneUi.SetActive(true);
+
+            // 視点制御表示を有効にする
+            viewController.SetActive(true);
         }
         // 現在のプラットフォームがパソコンであれば
         else
         {
             // スマホUI表示を無効にする
             smartPhoneUi.SetActive(false);
+
+            // 視点制御表示を無効にする
+            viewController.SetActive(false);
         }
 
         // インタフェースを使える状態で

@@ -145,9 +145,6 @@ public class GamePlayingButton : MonoBehaviour,
         // ボタンを使える状態でボタンを離すと
         if (director.CanUseButton)
         {
-            // ボタンを白色に変化させる（元の色に戻す）
-            image.color = Color.white;
-
             // 上矢印ボタンであれば
             if (name == "Up Arrow Button")
             {
@@ -173,6 +170,9 @@ public class GamePlayingButton : MonoBehaviour,
                 player.RightMove = false;
             }
         }
+
+        // ボタンを白色に変化させる（元の色に戻す）
+        image.color = Color.white;
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
@@ -187,11 +187,9 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // ボタンを使える状態でボタンからカーソルを外すと
-        if (director.CanUseButton)
-        {
-            // ボタンを白色に変化させる（元の色に戻す）
-            image.color = Color.white;
-        }
+        // ボタンからカーソルを外すと
+
+        // ボタンを白色に変化させる（元の色に戻す）
+        image.color = Color.white;
     }
 }
