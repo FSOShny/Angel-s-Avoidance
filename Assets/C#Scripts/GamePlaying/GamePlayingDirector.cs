@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 public class GamePlayingDirector : MonoBehaviour
 {
     [SerializeField] private GameObject startUi;
-    [SerializeField] private GameObject smartPhoneUi;
-    [SerializeField] private GameObject viewController;
+    [SerializeField] private GameObject smartPhoneLeftUi;
+    [SerializeField] private GameObject smartPhoneRightUi;
     [SerializeField] private GameObject pauseUi;
     [SerializeField] private GameObject platformUi;
     [SerializeField] private GameObject loserUi;
@@ -155,8 +155,8 @@ public class GamePlayingDirector : MonoBehaviour
 
         // スタート画面を有効にする
         startUi.SetActive(true);
-        smartPhoneUi.SetActive(false);
-        viewController.SetActive(false);
+        smartPhoneLeftUi.SetActive(false);
+        smartPhoneRightUi.SetActive(false);
         pauseUi.SetActive(false);
         platformUi.SetActive(false);
         loserUi.SetActive(false);
@@ -181,19 +181,15 @@ public class GamePlayingDirector : MonoBehaviour
         if (StaticUnits.SmartPhone)
         {
             // スマホUI表示を有効にする
-            smartPhoneUi.SetActive(true);
-
-            // 視点制御表示を有効にする
-            viewController.SetActive(true);
+            smartPhoneLeftUi.SetActive(true);
+            smartPhoneRightUi.SetActive(true);
         }
         // 現在のプラットフォームがパソコンであれば
         else
         {
             // スマホUI表示を無効にする
-            smartPhoneUi.SetActive(false);
-
-            // 視点制御表示を無効にする
-            viewController.SetActive(false);
+            smartPhoneLeftUi.SetActive(false);
+            smartPhoneRightUi.SetActive(false);
         }
 
         // インタフェースを使える状態で
