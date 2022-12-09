@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ViewController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class GamePlayingPanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public float cameRotSpeed = 0.2f; // カメラの回転速度
+    public float cameRotSpeed = 0.3f; // カメラの回転速度
 
     private Transform came;
     private GamePlayingDirector director;
