@@ -11,7 +11,7 @@
 
 ## Startup
 
-* WebGL版は[こちら]()から起動できます。
+* WebGL版は[こちら](https://lunatic-turtle.com/games/AsA/)から起動できます。
 
 ## Operation
 
