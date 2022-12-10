@@ -4,6 +4,8 @@
 コンセプトの「パソコンとスマホ（横画面）のどちらでも遊べる3Dアクションゲーム」です。<br>
 （スマホの場合は、端末によってレイアウトの位置が大きく崩れる可能性があります。ご了承ください。）
 
+![Angel-s-Avoidance_Play_Video](https://user-images.githubusercontent.com/113690929/206866631-56b57edd-ac89-4132-b58f-5eae4f83b6ed.png)
+
 ## Demo
 
 * ゲームプレイ動画は[こちら](https://youtu.be/GU2AWfyhauA)から視聴できます。<br>
