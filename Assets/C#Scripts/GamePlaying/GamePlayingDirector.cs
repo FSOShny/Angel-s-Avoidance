@@ -12,8 +12,8 @@ public class GamePlayingDirector : MonoBehaviour
     [SerializeField] private GameObject smartPhoneRightUi;
     [SerializeField] private GameObject pauseUi;
     [SerializeField] private GameObject platformUi;
-    [SerializeField] private GameObject loserUi;
-    [SerializeField] private GameObject winnerUi;
+    [SerializeField] private GameObject gameOverUi;
+    [SerializeField] private GameObject gameClearUi;
     [SerializeField] private Sprite energy;
     [SerializeField] private Sprite fatigue;
 
@@ -24,8 +24,8 @@ public class GamePlayingDirector : MonoBehaviour
     private Image forwardBack;
     private TextMeshProUGUI timerText;
     private GameEndingDirector nextDirector;
-    private float nowTimeLim; // 現在の制限時間
-    private int iTimeLim; // 整数化した制限時間
+    private float nowTimeLeft; // 現在の残り時間
+    private int iTimeLeft; // 整数化した残り時間
 
     // インタフェースを使える状態かどうか
     private bool canUseInterf = false;
@@ -159,8 +159,8 @@ public class GamePlayingDirector : MonoBehaviour
         smartPhoneRightUi.SetActive(false);
         pauseUi.SetActive(false);
         platformUi.SetActive(false);
-        loserUi.SetActive(false);
-        winnerUi.SetActive(false);
+        gameOverUi.SetActive(false);
+        gameClearUi.SetActive(false);
 
         // 現在のプレイヤーの体力を設定する
         nowPlayerLives = StaticUnits.MaxPlayerLives;
@@ -168,8 +168,8 @@ public class GamePlayingDirector : MonoBehaviour
         // 上下モード画像を無効にする
         upDown.enabled = false;
 
-        // 現在の制限時間を設定する
-        nowTimeLim = StaticUnits.GameTimeLim;
+        // 現在の残り時間を設定する
+        nowTimeLeft = StaticUnits.GameTime;
 
         // ゲームプレイを開始する（1回の待機あり）
         StartCoroutine(GameStart(3.0f));
@@ -301,8 +301,8 @@ public class GamePlayingDirector : MonoBehaviour
             // ボタンを使えない状態にする
             canUseButton = false;
 
-            // 敗北者になる（1回の待機あり）
-            StartCoroutine(Loser(2.5f));
+            // ゲームオーバーになる（1回の待機あり）
+            StartCoroutine(GameOver(2.0f));
         }
 
         // 通常状態であれば
@@ -324,20 +324,20 @@ public class GamePlayingDirector : MonoBehaviour
             energyBar.fillAmount = 1.0f - chargeTime / 5.0f;
         }
 
-        // 現在の制限時間を経過させる
-        nowTimeLim -= Time.deltaTime;
+        // 現在の残り時間を経過させる
+        nowTimeLeft -= Time.deltaTime;
 
-        // 制限時間を整数化する
-        iTimeLim = (int)nowTimeLim;
+        // 残り時間を整数化する
+        iTimeLeft = (int)nowTimeLeft;
 
         // タイマーを更新する
-        timerText.text = iTimeLim.ToString();
+        timerText.text = iTimeLeft.ToString();
 
-        // 制限時間がゼロになれば
-        if (nowTimeLim < 0f)
+        // 残り時間がゼロになれば
+        if (nowTimeLeft < 0f)
         {
             // 時間を初期化する（正常な処理のため）
-            nowTimeLim = 0f;
+            nowTimeLeft = 0f;
 
             // インタフェースを使えない状態にする
             canUseInterf = false;
@@ -345,8 +345,8 @@ public class GamePlayingDirector : MonoBehaviour
             // ボタンを使えない状態にする
             canUseButton = false;
 
-            // 勝利者になる（1回の待機あり）
-            StartCoroutine(Winner(5.5f));
+            // ゲームクリアになる（1回の待機あり）
+            StartCoroutine(GameClear(5.0f));
         }
     }
 
@@ -387,10 +387,10 @@ public class GamePlayingDirector : MonoBehaviour
         SceneManager.LoadScene("OpeningScene");
     }
 
-    private IEnumerator Loser(float fWT)
+    private IEnumerator GameOver(float fWT)
     {
-        // 敗北者画面を有効にする
-        loserUi.SetActive(true);
+        // ゲームオーバー画面を有効にする
+        gameOverUi.SetActive(true);
 
         // ゲームの一時停止を実行する
         Time.timeScale = 0f;
@@ -402,10 +402,10 @@ public class GamePlayingDirector : MonoBehaviour
         canUseButton = true;
     }
 
-    private IEnumerator Winner(float fWT)
+    private IEnumerator GameClear(float fWT)
     {
-        // 勝利者画面を有効にする
-        winnerUi.SetActive(true);
+        // ゲームクリア画面を有効にする
+        gameClearUi.SetActive(true);
 
         // ゲームの一時停止を実行する
         Time.timeScale = 0f;

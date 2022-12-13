@@ -19,8 +19,8 @@ public class EnemyBehavior : MonoBehaviour
         // エネミーの移動量を決める
         enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
 
-        // ( (ゲームの制限時間) / 3 )秒経過したエネミーを破壊する
-        Destroy(gameObject, StaticUnits.GameTimeLim / 3);
+        // ( (ゲームの時間) / 3 )秒経過したエネミーを破壊する
+        Destroy(gameObject, StaticUnits.GameTime / 3);
     }
 
     private void Update()

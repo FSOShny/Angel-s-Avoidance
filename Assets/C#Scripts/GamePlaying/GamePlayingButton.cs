@@ -108,7 +108,7 @@ public class GamePlayingButton : MonoBehaviour,
                 image.color = Color.white;
             }
             // クイットボタンであれば
-            else if (name == "Quit Button")
+            else if (name == "Opening Button")
             {
                 // オープニングへの遷移を有効にする
                 director.OpeningSwitch = true;
