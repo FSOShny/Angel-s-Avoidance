@@ -5,8 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class GameTutorialsDirector : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseUi;
     [SerializeField] private List<GameObject> tutorialUis;
-    private int nowPage = 0; // 現在のページ数
+    private int pastPage; // 過去のページ数
+
+    // 現在のページ数
+    private int nowPage = 0;
+
+    public int NowPage
+    {
+        get { return nowPage; }
+        set { nowPage = value; }
+    }
+
+    // ポーズ画面へ遷移するかどうか
+    private bool pauseSwitch = false;
+
+    public bool PauseSwitch
+    {
+        get { return pauseSwitch; }
+        set { pauseSwitch = value; }
+    }
+
+    // ゲームチュートリアルを続行するかどうか
+    private bool continueSwitch = false;
+
+    public bool ContinueSwitch
+    {
+        get { return continueSwitch; }
+        set { continueSwitch = value; }
+    }
 
     // オープニングへ遷移するかどうか
     private bool openingSwitch = false;
@@ -17,22 +45,13 @@ public class GameTutorialsDirector : MonoBehaviour
         set { openingSwitch = value; }
     }
 
-    // 次のページへ遷移するかどうか
-    private bool nextSwitch = false;
+    // 特定のページへ遷移するかどうか
+    private bool pageSwitch = false;
 
-    public bool NextSwitch
+    public bool PageSwitch
     {
-        get { return nextSwitch; }
-        set { nextSwitch = value; }
-    }
-
-    // 前のページへ遷移するかどうか
-    private bool prevSwitch = false;
-
-    public bool PrevSwitch
-    {
-        get { return prevSwitch; }
-        set { prevSwitch = value; }
+        get { return pageSwitch; }
+        set { pageSwitch = value; }
     }
 
     private void Start()
@@ -45,10 +64,34 @@ public class GameTutorialsDirector : MonoBehaviour
         {
             tutorialUis[i].SetActive(false);
         }
+
+        // ポーズ画面を無効にする
+        pauseUi.SetActive(false);
+
+        // 過去のページ数を設定する
+        pastPage = nowPage;
     }
 
     private void Update()
     {
+        /* ポーズ画面へ遷移する */
+        if (pauseSwitch)
+        {
+            pauseSwitch = false;
+
+            // ポーズ画面を有効にする
+            pauseUi.SetActive(true);
+        }
+
+        /* ゲームチュートリアルを続行する */
+        if (continueSwitch)
+        {
+            continueSwitch = false;
+
+            // ポーズ画面を無効にする
+            pauseUi.SetActive(false);
+        }
+
         /* オープニングへ遷移する（1回の待機あり） */
         if (openingSwitch)
         {
@@ -57,28 +100,16 @@ public class GameTutorialsDirector : MonoBehaviour
             StartCoroutine(ToOpening(0.3f));
         }
 
-        /* 次のページへ遷移する */
-        if (nextSwitch)
+        /* 特定のページへ遷移する */
+        if (pageSwitch)
         {
-            nextSwitch = false;
+            pageSwitch = false;
 
-            // 現在のページ数を増やす
-            nowPage++;
-
-            tutorialUis[nowPage - 1].SetActive(false);
+            tutorialUis[pastPage].SetActive(false);
             tutorialUis[nowPage].SetActive(true);
-        }
 
-        /* 前のページへ遷移する */
-        if (prevSwitch)
-        {
-            prevSwitch = false;
-
-            // 現在のページ数を減らす
-            nowPage--;
-
-            tutorialUis[nowPage + 1].SetActive(false);
-            tutorialUis[nowPage].SetActive(true);
+            // 過去のページ数を設定する
+            pastPage = nowPage;
         }
     }
 

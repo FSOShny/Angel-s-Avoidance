@@ -107,7 +107,7 @@ public class GamePlayingButton : MonoBehaviour,
                 // ボタンを白色に変化させる（元の色に戻す）
                 image.color = Color.white;
             }
-            // クイットボタンであれば
+            // オープニングボタンであれば
             else if (name == "Opening Button")
             {
                 // オープニングへの遷移を有効にする
