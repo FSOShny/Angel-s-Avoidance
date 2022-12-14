@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 42917
+  controlID: 59
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 42861
+  controlID: 60
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 42862
+  controlID: 61
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 804.80005
     height: 452
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 14}
@@ -336,10 +336,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 1057feff8458feff7e5cfeffda5cfeff5662feff6063feff526cfeff424bffff1a4cffff1062ffffc066ffffba68fffffe69ffff5674ffff1276ffff8c77ffff96a2ffff4ea3ffffa6a3fffff8a3ffff80a4ffffc2a4ffff3aa7ffffe4b9fffffabaffff12bfffffe8c3ffff40c4ffff7cf0ffffc6f0ffff0af1ffff4ef1ffff8af1ffffcaf1ffff0ef2ffff6ef2ffff0ef5ffffecf9ffff30fbffff886100002a80000042800000968d0000e08f000072900000dccc000096d0000046e1000046580100
+      scrollPos: {x: 0, y: 22}
+      m_SelectedIDs: b6af0200
+      m_LastClickedID: 176054
+      m_ExpandedIDs: 58bcfeff9eddfeff4ce2feff28e3feff58e5feffa6e5feffdce7feff1ee8feff3eeefeff6a2dffffa62dffff9036ffffcc36ffff0450ffff5c50ffffa250ffffac52fffff452ffff3853ffff9053ffffd653ffffb255ffff0a56ffff4c56ffffa456ffffe656ffff2c59ffff085affff825bfffff65effff3e5fffff825fffffc45fffff9288ffff8a8bffffe28bffff248cffff7c8cffffbe8cffff168dffff9090ffffe890ffff2a91ffff8291ffff8692ffffde92ffff2093ffff4494ffff1695ffff6e95ffffb295ffffb297ffff7298ffff9899ffff369affff869affff989bffff2c9cffff689cffffc09cffff029dffff6a9dffff66a0ffffbea0fffff0a2ffff82a3ffffdea3ffff8ca7ffffa0a9ffffdea9ffff2aabffff6aabffff78b3ffffdeb4ffff20c0ffffdac0ffffa2c1ffffe4c1ffff20c2ffffcecbffffa0ccffffc2dbffffdcdcffff7cf9ffff1afaffff30fbffff805f0000ee6f00001e7100003a710000f6880000268a0000428a0000428b0000668b0000788b0000cca90000bab600006cf1000006f2000052030100e62b010082360100983a010080400100b6410100be640100826901003c7c010034ab0200d0af020014b3020018b30200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -955,22 +955,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Images
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Images
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Unity\Angel's Avoidance
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 158.20001}
-    m_SelectedIDs: f6600000
-    m_LastClickedID: 24822
-    m_ExpandedIDs: 00000000e0600000e2600000e4600000ec600000ee60000000ca9a3b
+    scrollPos: {x: 0, y: 14.200012}
+    m_SelectedIDs: a0610000
+    m_LastClickedID: 24992
+    m_ExpandedIDs: 000000008a6100008c6100008e61000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -998,7 +998,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e0600000e2600000e460000000ca9a3b
+    m_ExpandedIDs: 000000008a6100008c6100008e61000090610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1084,7 +1084,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 88134
+  m_LastSelectedObjectID: 106984
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
