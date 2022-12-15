@@ -41,6 +41,30 @@ public class GameTutorialsButton : MonoBehaviour,
                 // 特定のページ数を設定する
                 director.NowPage = 2;
             }
+            // スキップテキスト(3)であれば
+            else if (name == "Skip Text (3)")
+            {
+                // 特定のページ数を設定する
+                director.NowPage = 10;
+            }
+            // スキップテキスト(4)であれば
+            else if (name == "Skip Text (4)")
+            {
+                // 特定のページ数を設定する
+                director.NowPage = 13;
+            }
+            // スキップテキスト(5)であれば
+            else if (name == "Skip Text (5)")
+            {
+                // 特定のページ数を設定する
+                director.NowPage = 17;
+            }
+            // スキップテキスト(6)であれば
+            else if (name == "Skip Text (6)")
+            {
+                // 特定のページ数を設定する
+                director.NowPage = 20;
+            }
 
             // ゲームプレイの続行を有効にする
             director.ContinueSwitch = true;
