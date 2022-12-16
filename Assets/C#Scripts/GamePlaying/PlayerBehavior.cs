@@ -164,7 +164,7 @@ public class PlayerBehavior : MonoBehaviour
             // 時間を初期化する（正常な処理のため）
             stuckTime = 0f;
 
-            // プレイヤーにかかっている速度をゼロにする
+            // プレイヤーにかかっている力をゼロにする
             rigid.velocity = Vector3.zero;
 
             // プレイヤーが動ける状態にする

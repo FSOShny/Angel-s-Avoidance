@@ -502,9 +502,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart this game
+  m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &191427049
@@ -735,10 +735,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue this game
+  m_text: Continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
-  m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
+  m_sharedMaterial: {fileID: 21301328652438396, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -947,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -30}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276259699
@@ -1156,9 +1156,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit this game
+  m_text: Back to Opening
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &341062586
@@ -1389,10 +1389,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit this game
+  m_text: Back to Opening
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
-  m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
+  m_sharedMaterial: {fileID: 21301328652438396, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1600,7 +1600,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &558388409
 MonoBehaviour:
@@ -1622,7 +1622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ddf1cbe830ee9748ac362e775cc8b20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 296475c410b315140bd12b6d3dea9445, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1677,7 +1677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -90}
+  m_AnchoredPosition: {x: 0, y: -80}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &582305035
@@ -2449,7 +2449,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &716031992
 MonoBehaviour:
@@ -2715,8 +2715,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Platform Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
-  m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
+  m_sharedMaterial: {fileID: 21301328652438396, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2825,8 +2825,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
-  m_SizeDelta: {x: 400, y: 80}
+  m_AnchoredPosition: {x: 0, y: 150}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &772576466
 MonoBehaviour:
@@ -2995,8 +2995,8 @@ MonoBehaviour:
   smartPhoneRightUi: {fileID: 1856206357}
   pauseUi: {fileID: 1514658404}
   platformUi: {fileID: 4124225298098561521}
-  loserUi: {fileID: 1108836054}
-  winnerUi: {fileID: 2063077185}
+  gameOverUi: {fileID: 1108836054}
+  gameClearUi: {fileID: 2063077185}
   energy: {fileID: 21300000, guid: 7b401eb4401fe204ebefe1df4299bec2, type: 3}
   fatigue: {fileID: 21300000, guid: 1aceb08c46f8dd64daed9f711b9321f6, type: 3}
 --- !u!1 &859600943
@@ -3811,8 +3811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 400, y: 80}
+  m_AnchoredPosition: {x: 0, y: 60}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &999262503
 MonoBehaviour:
@@ -3834,7 +3834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aeba38ce13d947745971460e748aedde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a4e36c7b4a933f4084b632fa5263345, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4031,7 +4031,7 @@ GameObject:
   - component: {fileID: 1108836055}
   - component: {fileID: 1108836059}
   m_Layer: 5
-  m_Name: Loser UI
+  m_Name: Game Over UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4134,7 +4134,7 @@ Animator:
   m_GameObject: {fileID: 1108836054}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 25f85aff87755ad40a965031a0e00871, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06d5b01da2a6ce448b3026b4a3174eb5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -4582,7 +4582,7 @@ GameObject:
   - component: {fileID: 1298309360}
   - component: {fileID: 1298309359}
   m_Layer: 5
-  m_Name: Game End Text
+  m_Name: Finish Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4606,7 +4606,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1298309359
 MonoBehaviour:
@@ -4628,7 +4628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 415db93a35c23d44fafdfab21291155e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0aa3e3ab031eec4297d32c4af581cb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4878,7 +4878,7 @@ GameObject:
   - component: {fileID: 1406486204}
   - component: {fileID: 1406486206}
   m_Layer: 5
-  m_Name: Quit Button
+  m_Name: Opening Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4925,7 +4925,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c077647311d87364daea3889536ec6da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 533e8535ce66f4f48bdd24edd61df8a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5677,7 +5677,7 @@ GameObject:
   - component: {fileID: 1628529727}
   - component: {fileID: 1628529729}
   m_Layer: 5
-  m_Name: Quit Button
+  m_Name: Opening Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5724,7 +5724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c077647311d87364daea3889536ec6da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 533e8535ce66f4f48bdd24edd61df8a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6228,7 +6228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchoredPosition: {x: 0, y: 60}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750999953
@@ -6317,7 +6317,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1804149015
 MonoBehaviour:
@@ -6790,7 +6790,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 120}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1914632313
 MonoBehaviour:
@@ -6812,7 +6812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e67781551bd93b429cb040384f53180, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae2883038949bef4f89751901339ae96, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6842,7 +6842,7 @@ GameObject:
   - component: {fileID: 1916180483}
   - component: {fileID: 1916180482}
   m_Layer: 5
-  m_Name: Game End Text
+  m_Name: Finish Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6866,7 +6866,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916180482
 MonoBehaviour:
@@ -6888,7 +6888,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 415db93a35c23d44fafdfab21291155e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0aa3e3ab031eec4297d32c4af581cb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7342,10 +7342,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart this game
+  m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
-  m_sharedMaterial: {fileID: 21909041545567544, guid: 8f8db4c6b8dc2844d931e4b0f1d3611c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
+  m_sharedMaterial: {fileID: 21301328652438396, guid: 6f27848c0a0f6284aad6e3cb3817e07b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7522,7 +7522,7 @@ GameObject:
   - component: {fileID: 2063077186}
   - component: {fileID: 2063077190}
   m_Layer: 5
-  m_Name: Winner UI
+  m_Name: Game Clear UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7624,7 +7624,7 @@ Animator:
   m_GameObject: {fileID: 2063077185}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 24ee73494a86e3849ab2c749c7f0ad60, type: 2}
+  m_Controller: {fileID: 9100000, guid: d5fcdad757c2507479c95ef7bb7231e1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -7646,7 +7646,7 @@ GameObject:
   - component: {fileID: 2123208754}
   - component: {fileID: 2123208753}
   m_Layer: 5
-  m_Name: Time Limit Text
+  m_Name: Time Left Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7692,7 +7692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time Limit
+  m_text: Time Left
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b3dd3afc421f9d44bd2945344e7c04c, type: 2}
   m_sharedMaterial: {fileID: 21166349083545236, guid: 2b3dd3afc421f9d44bd2945344e7c04c, type: 2}
@@ -13729,7 +13729,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 120}
-  m_SizeDelta: {x: 400, y: 80}
+  m_SizeDelta: {x: 480, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4124225298285297811
 GameObject:

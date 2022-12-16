@@ -22,17 +22,17 @@ public static class StaticUnits
         set { smartPhone = value; }
     }
 
-    // ゲームの制限時間
-    private static float gameTimeLim = 45f;
+    // ゲームの時間
+    private static float gameTime = 30f;
 
-    public static float GameTimeLim
+    public static float GameTime
     {
-        get { return gameTimeLim; }
-        set { gameTimeLim = value; }
+        get { return gameTime; }
+        set { gameTime = value; }
     }
 
     // エネミーの移動量係数
-    private static int enemyMoveSpeed = 8;
+    private static int enemyMoveSpeed = 4;
 
     public static int EnemyMoveSpeed
     {

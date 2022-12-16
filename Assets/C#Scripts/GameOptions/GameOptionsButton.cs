@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class GameOptionsButton : MonoBehaviour,
     IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Sprite greenButton;
+    [SerializeField] private Sprite purpleButton;
+    [SerializeField] private Sprite yellowButton;
     [SerializeField] private Sprite whiteButton;
 
     private Image image;
@@ -25,9 +26,9 @@ public class GameOptionsButton : MonoBehaviour,
     private void Update()
     {
         // 有効になっているオプションボタンであれば
-        if ((name == "30 Seconds Button" && StaticUnits.GameTimeLim == 30f) || 
-            (name == "45 Seconds Button" && StaticUnits.GameTimeLim == 45f) || 
-            (name == "60 Seconds Button" && StaticUnits.GameTimeLim == 60f) || 
+        if ((name == "30 Seconds Button" && StaticUnits.GameTime == 30f) || 
+            (name == "45 Seconds Button" && StaticUnits.GameTime == 45f) || 
+            (name == "60 Seconds Button" && StaticUnits.GameTime == 60f) || 
             (name == "Low Speed Button" && StaticUnits.EnemyMoveSpeed == 4) || 
             (name == "Normal Speed Button" && StaticUnits.EnemyMoveSpeed == 8) || 
             (name == "High Speed Button" && StaticUnits.EnemyMoveSpeed == 12) || 
@@ -37,8 +38,14 @@ public class GameOptionsButton : MonoBehaviour,
             (name == "Reverse On Button" && StaticUnits.Reverse == -1) || 
             (name == "Reverse Off Button" && StaticUnits.Reverse == 1))
         {
-            // 緑色のボタンにする
-            image.sprite = greenButton;
+            // 紫色のボタンにする
+            image.sprite = purpleButton;
+        }
+        // オープニングボタンであれば
+        else if (name == "Opening Button")
+        {
+            // 黄色のボタンにする
+            image.sprite = yellowButton;
         }
         // それ以外のボタンであれば
         else
@@ -58,20 +65,20 @@ public class GameOptionsButton : MonoBehaviour,
         // 30秒ボタンであれば
         if (name == "30 Seconds Button")
         {
-            // ゲームの制限時間を「30秒」にする
-            StaticUnits.GameTimeLim = 30f;
+            // ゲームの時間を「30秒」にする
+            StaticUnits.GameTime = 30f;
         }
         // 45秒ボタンであれば
         else if (name == "45 Seconds Button")
         {
-            // ゲームの制限時間を「45秒」にする
-            StaticUnits.GameTimeLim = 45f;
+            // ゲームの時間を「45秒」にする
+            StaticUnits.GameTime = 45f;
         }
         // 60秒ボタンであれば
         else if (name == "60 Seconds Button")
         {
-            // ゲームの制限時間を「60秒」にする
-            StaticUnits.GameTimeLim = 60f;
+            // ゲームの時間を「60秒」にする
+            StaticUnits.GameTime = 60f;
         }
         // 低速度ボタンであれば
         else if (name == "Low Speed Button")

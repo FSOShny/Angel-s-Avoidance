@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Director
   - Camera
+  - SkipText
   layers:
   - Default
   - TransparentFX

@@ -61,12 +61,12 @@ public class GameEndingDirector : MonoBehaviour
         // 疲労状態回数評価のテキストコンポーネントを取得する
         fatiguedText = GameObject.Find("Fatigued Text").GetComponent<TextMeshProUGUI>();
 
-        /* ゲームの制限時間に応じて難易度係数を増やす */
-        if (StaticUnits.GameTimeLim >= 45)
+        /* ゲームの時間に応じて難易度係数を増やす */
+        if (StaticUnits.GameTime >= 45)
         {
             level++;
 
-            if (StaticUnits.GameTimeLim == 60)
+            if (StaticUnits.GameTime == 60)
             {
                 level++;
             }
