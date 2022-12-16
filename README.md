@@ -1,6 +1,6 @@
 # Angel-s-Avoidance
 
-![Angel-s-Avoidance_Play_Video](https://user-images.githubusercontent.com/113690929/206866631-56b57edd-ac89-4132-b58f-5eae4f83b6ed.png)
+![A-s-A_G_V_thumbnail](https://user-images.githubusercontent.com/113690929/208066992-5c552630-02b9-41c3-8004-cb7b61541c3a.png)
 
 * 天使となったプレイヤーが閉じ込められた檻の中でダークボールに当たらないように逃げ回るという<br>
 コンセプトの「パソコンとスマホ（横画面）のどちらでも遊べる3Dアクションゲーム」です。<br>
@@ -9,7 +9,7 @@
 
 ## Demo
 
-* ゲームプレイ動画は[こちら](https://youtu.be/GU2AWfyhauA)から視聴できます。<br>
+* ゲームプレイ動画は[こちら](https://youtu.be/bsv-jhvvEcs)から視聴できます。<br>
 （ファイルサイズの都合上、ゲームプレイ動画をYouTubeにアップロードしました。）
 <br />
 
