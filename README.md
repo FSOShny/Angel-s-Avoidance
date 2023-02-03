@@ -15,7 +15,7 @@
 
 ## Startup
 
-* WebGL版は[こちら](https://lunatic-turtle.com/games/AsA/)から起動できます。<br>
+* WebGL版は[こちら](https://lunatic-turtle.com/games/AsA/)からプレイできます。<br>
 （このゲームのブラウザキャッシュを削除してから起動するとバージョンが最新になります。）
 <br />
 
@@ -27,11 +27,10 @@
 　マウス（タッチパッド）：プレイヤーの視点制御を行う<br>
 　Spaceキー：ガードアクションを行う<br>
 　Xキー：ゲームポーズを行う
- <br />
 
 * スマホ<br>
 　ボタンやパネル：（詳細は「ゲームチュートリアル」で説明します。）
- <br />
+<br />
 
 ## Thanks
 
@@ -47,7 +46,7 @@
   　関連ホームページ：https://assetstore.unity.com
 
   * （なお、UIイラストには「Microsoft PowerPoint」を使用させていただきました。）
-  <br />
+<br />
 
 ## Creator
 
@@ -64,3 +63,4 @@
 ## Update
 
 * なし
+<br />
