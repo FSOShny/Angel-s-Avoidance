@@ -7,129 +7,123 @@ using UnityEngine.UI;
 public class GameTutorialsButton : MonoBehaviour,
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    // コンポーネント（イメージ、ディレクター）
     private Image image;
     private GameTutorialsDirector director;
 
     private void Start()
     {
-        // イメージコンポーネントを取得する
+        // 各コンポーネントを取得する
         image = GetComponent<Image>();
-
-        // オープニングディレクターを取得する
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameTutorialsDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         // ボタンを入力すると
+        // そのボタンの明るさを暗くする（程度：中）
+        image.color = Color.gray;
 
-        // ボタンを灰色に変化させる
-        image.color = Color.gray; 
-
-        // スキップテキストであり
+        // （ボタンごとに振る舞いを変える）
         if (CompareTag("SkipText"))
         {
-            // スキップテキスト(1)であれば
             if (name == "Skip Text (1)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを0に設定する */
+
                 director.NowPage = 0;
             }
-            // スキップテキスト(2)であれば
             else if (name == "Skip Text (2)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを2に設定する */
+
                 director.NowPage = 2;
             }
-            // スキップテキスト(3)であれば
             else if (name == "Skip Text (3)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを10に設定する */
+
                 director.NowPage = 10;
             }
-            // スキップテキスト(4)であれば
             else if (name == "Skip Text (4)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを13に設定する */
+
                 director.NowPage = 13;
             }
-            // スキップテキスト(5)であれば
             else if (name == "Skip Text (5)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを17に設定する */
+
                 director.NowPage = 17;
             }
-            // スキップテキスト(6)であれば
             else if (name == "Skip Text (6)")
             {
-                // 特定のページ数を設定する
+                /* 現在のページを20に設定する */
+
                 director.NowPage = 20;
             }
 
-            // ゲームプレイの続行を有効にする
+            // ポーズ画面を無効にし、
+            // 設定したページへ移動する
             director.ContinueSwitch = true;
-
-            // 特定のページへの遷移を有効にする
             director.PageSwitch = true;
         }
-        // スキップテキストでなく
         else
         {
-            // プリビアスボタンであれば
+            // （ボタンごとに振る舞いを変える）
             if (name == "Previous Button")
             {
-                // 前のページ数を設定する
+                /* 前のページ数を設定する */
+
                 director.NowPage--;
 
-                // 前のページへの遷移を有効にする
+                // 設定したページへ移動する
                 director.PageSwitch = true;
             }
-            // ネクストボタンであれば
             else if (name == "Next Button")
             {
-                // 次のページ数を設定する
+                /* 次のページ数を設定する */
                 director.NowPage++;
 
-                // 次のページへの遷移を有効にする
+                // 設定したページへ移動する
                 director.PageSwitch = true;
             }
-            // ポーズボタンであれば
             else if (name == "Pause Button")
             {
-                // ポーズ画面への遷移を有効にする
+                /* ポーズ画面を有効にする */
+
                 director.PauseSwitch = true;
             }
-            // コンティニューボタンであれば
             else if (name == "Continue Button")
             {
-                // ゲームプレイの続行を有効にする
+                /* ポーズ画面を無効にする */
+
                 director.ContinueSwitch = true;
             }
-            // オープニングボタンであれば
             else if (name == "Opening Button")
             {
-                // オープニングへの遷移を有効にする
+                /* オープニングへ移動する */
+
                 director.OpeningSwitch = true;
             }
         }
 
-        // ボタンを白色に変化させる（元の色に戻す）
+        // そのボタンの明るさを元に戻す
         image.color = Color.white;
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         // ボタンにカーソルを当てると
-
-        // ボタンを白っぽい灰色に変化させる
+        // そのボタンの明るさを暗くする（程度：小）
         image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         // ボタンからカーソルを外すと
-
-        // ボタンを白色に変化させる（元の色に戻す）
+        // そのボタンの明るさを元に戻す
         image.color = Color.white;
     }
 }

@@ -5,45 +5,57 @@ using UnityEngine.EventSystems;
 
 public class GamePlayingPanel : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public float cameRotSpeed = 0.3f; // カメラの回転速度
+    // カメラの回転速度
+    public float cameRotSpeed = 0.3f;
 
+    // カメラの変位
     private Transform came;
+
+    // ディレクターコンポーネント
     private GamePlayingDirector director;
-    private int swipe = 0; // スワイプ係数
-    private Vector2 lastFingerPos; // 以前の指の位置
-    private Vector2 newCameAng; // カメラの角度
+
+    // スワイプ係数
+    private int swipe = 0;
+
+    // 以前の指の位置
+    private Vector2 lastFingerPos;
+
+    // 現在のカメラの角度
+    private Vector2 newCameAng;
 
     private void Start()
     {
-        // カメラの角度を取得する
+        // 各コンポーネントを取得する
         came = GameObject.FindGameObjectWithTag("Camera").transform;
-
-        // ゲームプレイディレクターを取得する
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
     }
 
     private void LateUpdate()
     {
-        // スワイプ係数が1であれば
         if (swipe == 1)
         {
-            // 最新のカメラの角度を設定する
+            /* スワイプ係数が1であるときは
+               現在のカメラの角度を設定する */
+
             newCameAng = came.transform.localEulerAngles;
         }
-        // スワイプ係数が2であれば
         else if (swipe == 2)
         {
-            // カメラを回転させる
+            /* スワイプ係数が2であるときは
+               カメラを回転させる          */
+
             came.transform.localEulerAngles = newCameAng;
         }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // インタフェースを使える状態で画面をスワイプしようとすると
+        // （インタフェースが使用可能であるときは有効）
         if (director.CanUseInterf)
         {
-            // スワイプ係数を設定する
+            /* 画面をスワイプし始めると
+               スワイプ係数を1に設定する */
+
             swipe = 1;
 
             // 現在の指の位置を設定する
@@ -53,10 +65,12 @@ public class GamePlayingPanel : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnDrag(PointerEventData eventData)
     {
-        // インタフェースを使える状態で画面をスワイプすると
+        // （インタフェースが使用可能であるときは有効）
         if (director.CanUseInterf)
         {
-            // スワイプ係数を設定する
+            /* そのまま画面をスワイプし続けていると
+               スワイプ係数を2に設定する            */
+
             swipe = 2;
 
             // 以前の指の位置と現在の指の位置からカメラの回転量を求める
@@ -70,7 +84,8 @@ public class GamePlayingPanel : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // スワイプ係数を初期化する
+        // 画面をスワイプし終えると
+        // スワイプ係数を0に設定する
         swipe = 0;
     }
 }

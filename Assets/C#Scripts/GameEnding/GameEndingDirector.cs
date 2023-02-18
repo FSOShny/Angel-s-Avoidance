@@ -6,44 +6,45 @@ using UnityEngine.SceneManagement;
 
 public class GameEndingDirector : MonoBehaviour
 {
+    // テキストコンポーネント
     private TextMeshProUGUI difficultyText;
     private TextMeshProUGUI damagedText;
     private TextMeshProUGUI fatiguedText;
-    private int level = 0; // 難易度係数
+
+    // 難易度係数
+    private int level = 0;
+
+    // 難易度評価の文字列
     private string[] difficulty = {
         "Practice", "Very Easy", "Easy", "Normal", 
         "Hard", "Very Hard", "Angel" 
-    }; // 難易度評価
+    };
 
     // アニメーション時間
     private float animTime = 4.0f;
-
     public float AnimTime
     {
         get { return animTime; }
     }
 
-    // オープニングへ遷移するかどうか
+    // オープニングへ移動するかどうかのフラグ変数
     private bool openingSwitch = false;
-
     public bool OpeningSwitch
     {
         get { return openingSwitch; }
         set { openingSwitch = value; }
     }
 
-    // 被弾回数
+    // 被弾した回数
     private int damaged;
-
     public int Damaged
     {
         get { return damaged; }
         set { damaged = value; }
     }
 
-    // 疲労状態回数
+    // 疲労状態になった回数
     private int fatigued;
-
     public int Fatigued
     {
         get { return fatigued; }
@@ -52,16 +53,12 @@ public class GameEndingDirector : MonoBehaviour
 
     private void Start()
     {
-        // 難易度評価のテキストコンポーネントを取得する
+        // 各コンポーネントを取得する
         difficultyText = GameObject.Find("Difficulty Text").GetComponent<TextMeshProUGUI>();
-
-        // 被弾回数評価のテキストコンポーネントを取得する
         damagedText = GameObject.Find("Damaged Text").GetComponent<TextMeshProUGUI>();
-
-        // 疲労状態回数評価のテキストコンポーネントを取得する
         fatiguedText = GameObject.Find("Fatigued Text").GetComponent<TextMeshProUGUI>();
 
-        /* ゲームの時間に応じて難易度係数を増やす */
+        // ゲームの時間に応じて難易度係数を増やす
         if (StaticUnits.GameTime >= 45)
         {
             level++;
@@ -72,7 +69,7 @@ public class GameEndingDirector : MonoBehaviour
             }
         }
 
-        /* エネミーの移動速度係数に応じて難易度係数を増やす */
+        // エネミーの移動速度係数に応じて難易度係数を増やす
         if (StaticUnits.EnemyMoveSpeed >= 8)
         {
             level++;
@@ -83,7 +80,7 @@ public class GameEndingDirector : MonoBehaviour
             }
         }
 
-        /* プレイヤーの体力最大値に応じて難易度係数を増やす */
+        // プレイヤーの体力最大値に応じて難易度係数を増やす
         if (StaticUnits.MaxPlayerLives <= 3.0f)
         {
             level++;
@@ -97,41 +94,42 @@ public class GameEndingDirector : MonoBehaviour
 
     private void Update()
     {
-        // アニメーション時間中は
         if (animTime > 0f)
         {
-            // 時間を経過させる
+            /* アニメーションのときは
+               その時間を経過させる   */
+
             animTime -= Time.deltaTime;
         }
-        else if (animTime < 0f) // アニメーション時間後は
+        else if (animTime < 0f)
         {
-            // 時間を初期化する（正常な処理のため）
+            /* アニメーションが終了したときは
+               時間を初期化する（無駄な処理を省くため） */
+
             animTime = 0f;
         }
 
-        /* オープニングへ遷移する（1回の待機あり） */
         if (openingSwitch)
         {
-            openingSwitch = false;
+            /* オープニングへ移動する */
 
+            // （フラグをオフにしてから処理を行う）
+            openingSwitch = false;
             StartCoroutine(ToOpening(0.3f));
         }
 
-        // 難易度評価を更新する
+        // 各プレイ評価を表示する
         difficultyText.text = "difficulty : " + difficulty[level];
-
-        // 被弾回数評価を更新する
         damagedText.text = "damaged : " + damaged;
-
-        // 疲労状態回数評価を更新する
         fatiguedText.text = "fatigued : " + fatigued;
     }
 
     private IEnumerator ToOpening(float fWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
+        // オープニングシーンをロードする
         SceneManager.LoadScene("OpeningScene");
     }
 }

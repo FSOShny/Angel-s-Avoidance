@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOptionsDirector : MonoBehaviour
 {
-    // オープニングへ遷移するかどうか
+    // オープニングへ移動するかどうかのフラグ変数
     private bool openingSwitch = false;
-
     public bool OpeningSwitch
     {
         get { return openingSwitch; }
@@ -16,20 +15,22 @@ public class GameOptionsDirector : MonoBehaviour
 
     private void Update()
     {
-        /* オープニングへ遷移する（1回の待機あり） */
         if (openingSwitch)
         {
-            openingSwitch = false;
+            /* オープニングへ移動する */
 
+            // （フラグをオフにしてから処理を行う）
+            openingSwitch = false;
             StartCoroutine(ToOpening(0.3f));
         }
     }
 
     private IEnumerator ToOpening(float fWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
+        // オープニングシーンをロードする
         SceneManager.LoadScene("OpeningScene");
     }
 }
