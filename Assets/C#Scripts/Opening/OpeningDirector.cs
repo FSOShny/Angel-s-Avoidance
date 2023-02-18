@@ -5,47 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class OpeningDirector : MonoBehaviour
 {
+    // UIオブジェクト
     [SerializeField] private GameObject platformUi;
     [SerializeField] private GameObject openingUi;
 
     // アニメーション時間
     private float animTime = 0f;
-
     public float AnimTime
     {
         get { return animTime; }
     }
 
-    // オープニング画面へ遷移するかどうか
+    // オープニングへ移動するかどうかのフラグ変数
     private bool openingSwitch = false;
-
     public bool OpeningSwitch
     {
         get { return openingSwitch; }
         set { openingSwitch = value; }
     }
 
-    // ゲームチュートリアルへ遷移するかどうか
+    // ゲームチュートリアルへ移動するかどうかのフラグ変数
     private bool tutorialsSwitch = false;
-
     public bool TutorialsSwitch
     {
         get { return tutorialsSwitch; }
         set { tutorialsSwitch = value; }
     }
 
-    // ゲームプレイへ遷移するかどうか
+    // ゲームプレイへ移動するかどうかのフラグ変数
     private bool playingSwitch = false;
-
     public bool PlayingSwitch
     {
         get { return playingSwitch; }
         set { playingSwitch = value; }
     }
 
-    // ゲームオプションへ遷移するかどうか
+    // ゲームオプションへ移動するかどうかのフラグ変数
     private bool optionsSwitch = false;
-
     public bool OptionsSwitch
     {
         get { return optionsSwitch; }
@@ -54,19 +50,21 @@ public class OpeningDirector : MonoBehaviour
 
     private void Start()
     {
-        // ゲームの起動時であれば
         if (StaticUnits.Startup)
         {
-            StaticUnits.Startup = false;
+            /* ゲームの起動直後であれば
+               プラットフォーム画面を有効にする */
 
-            // プラットフォーム画面を有効にする
+            // （フラグをオフにしてから処理を行う）
+            StaticUnits.Startup = false;
             platformUi.SetActive(true);
             openingUi.SetActive(false);
         }
-        // ゲームの起動時でなければ
         else
         {
-            // オープニング画面を有効にする
+            /* ゲームの起動直後であれば
+               オープニング画面を有効にする */
+
             platformUi.SetActive(false);
             openingUi.SetActive(true);
 
@@ -77,93 +75,103 @@ public class OpeningDirector : MonoBehaviour
 
     private void Update()
     {
-        // アニメーション時間中は
         if (animTime > 0f)
         {
-            // 時間を経過させる
+            /* アニメーションのときは
+               その時間を経過させる   */
+
             animTime -= Time.deltaTime;
         }
-        else if (animTime < 0f) // アニメーション時間後は
+        else if (animTime < 0f)
         {
-            // 時間を初期化する（正常な処理のため）
+            /* アニメーションが終了したときは
+               時間を初期化する（無駄な処理を省くため） */
+
             animTime = 0f;
         }
 
-        /* オープニング画面へ遷移する（2回の待機あり） */
         if (openingSwitch)
         {
-            openingSwitch = false;
+            /* オープニング画面を有効にする */
 
+            // （フラグをオフにしてから処理を行う）
+            openingSwitch = false;
             StartCoroutine(ToOpening(0.3f, 0.5f));
         }
 
-        /* ゲームチュートリアルへ遷移する（1回の待機あり） */
         if (tutorialsSwitch)
         {
-            tutorialsSwitch = false;
+            /* ゲームチュートリアルへ移動する */
 
+            // （フラグをオフにしてから処理を行う）
+            tutorialsSwitch = false;
             StartCoroutine(ToTutorials(0.3f));
         }
 
-        /* ゲームプレイへ遷移する（1回の待機あり） */
         if (playingSwitch)
         {
-            playingSwitch = false;
+            /* ゲームプレイへ移動する */
 
+            // （フラグをオフにしてから処理を行う）
+            playingSwitch = false;
             StartCoroutine(ToPlaying(0.3f));
         }
 
-        /* ゲームオプションへ遷移する（1回の待機あり） */
         if (optionsSwitch)
         {
-            optionsSwitch = false;
+            /* ゲームオプションへ移動する */
 
+            // （フラグをオフにしてから処理を行う）
+            optionsSwitch = false;
             StartCoroutine(ToOptions(0.3f));
         }
     }
 
     private IEnumerator ToOpening(float fWT, float sWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
         // プラットフォーム画面を無効にする
         platformUi.SetActive(false);
 
-        // 2回目の待機
+        // 待機処理（0.5秒）
         yield return new WaitForSeconds(sWT);
 
-        // オープニング画面を有効にする
-        openingUi.SetActive(true);
-
+        // オープニング画面を有効にし
         // アニメーション時間を設定する
+        openingUi.SetActive(true);
         animTime = 3.0f;
     }
 
     private IEnumerator ToTutorials(float fWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
+        // ゲームチュートリアルシーンをロードする
         SceneManager.LoadScene("GameTutorialsScene");
     }
 
     private IEnumerator ToPlaying(float fWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
-        // ゲームの一時停止を実行する（正確なゲームプレイの時間計測を行うための処理）
+        // ゲームの一時停止を実行する
+        // （正確なゲームプレイの時間計測を行うため）
         Time.timeScale = 0f;
 
+        // ゲームプレイシーンをロードする
         SceneManager.LoadScene("GamePlayingScene");
     }
 
     private IEnumerator ToOptions(float fWT)
     {
-        // 1回目の待機
+        // 待機処理（0.3秒）
         yield return new WaitForSeconds(fWT);
 
+        // ゲームオプションシーンをロードする
         SceneManager.LoadScene("GameOptionsScene");
     }
 }

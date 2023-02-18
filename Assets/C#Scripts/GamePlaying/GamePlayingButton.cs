@@ -7,134 +7,134 @@ using UnityEngine.UI;
 public class GamePlayingButton : MonoBehaviour,
     IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    // コンポーネント（イメージ、ディレクター、プレイヤー）
     private Image image;
     private GamePlayingDirector director;
     private PlayerBehavior player;
 
     private void Start()
     {
-        // イメージコンポーネントを取得する
+        // 各コンポーネントを取得する
         image = GetComponent<Image>();
-
-        // ゲームプレイディレクターを取得する
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
-
-        // プレイヤービヘイビアを取得する
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // ボタンを使える状態でボタンを入力すると
+        // ボタンを入力すると
+        // そのボタンの明るさを暗くする（程度：中）
+        // （ボタンが使用可能であるときは有効）
         if (director.CanUseButton)
         {
-            // ボタンを灰色に変化させる
             image.color = Color.gray;
 
-            // インタフェースが使える状態であり、プレイヤーが動ける状態であり
+            // （インタフェースが使用可能である、かつ
+            //   プレイヤーが移動可能であるときは有効）
             if (director.CanUseInterf && player.CanMove)
             {
-                // 上矢印ボタンであれば
-            　　if (name == "Up Arrow Button")
+                // （ボタンごとに振る舞いを変える）
+                if (name == "Up Arrow Button")
                 {
-                    // 前（上）へ加速する
+                    /* 前（上）への加速を有効にする */
+
                     player.UpMove = true;
                 }
-                // 左矢印ボタンであれば
                 else if (name == "Left Arrow Button")
                 {
-                    // 左へ加速する
+                    /* 左への加速を有効にする */
+
                     player.LeftMove = true;
                 }
-                // 下矢印ボタンであれば
                 else if (name == "Down Arrow Button")
                 {
-                    // 後（下）へ加速する
+                    /* 後（下）への加速を有効にする */
+
                     player.DownMove = true;
                 }
-                // 右矢印ボタンであれば
                 else if (name == "Right Arrow Button")
                 {
-                    // 右へ加速する
+                    /* 右への加速を有効にする */
+
                     player.RightMove = true;
                 }
-                // モードチェンジボタンであれば
                 else if (name == "Mode Change Button")
                 {
-                    // 移動モードをチェンジする
+                    /* 移動モードをチェンジする */
+
                     director.ModeChange = !director.ModeChange;
                 }
 
-                // 疲労状態でなく
+                // （プレイヤーが疲労状態であるときは無効）
                 if (!director.FatigueSwitch)
                 {
-                    // ガードアクションボタンであれば
                     if (name == "Guard Action Button")
                     {
-                        // ガードアクションを実行できる状態にする
+                        /* ガードアクションを行う（準備をする） */
+
                         player.Guard = true;
                     }
                 }
             }
 
-            // ポーズボタンであれば
+            // （ボタンごとに振る舞いを変える）
             if (name == "Pause Button")
             {
-                // ポーズ画面への遷移を有効にする
+                /* ポーズ画面を有効にする */
+
                 director.PauseSwitch = true;
             }
-            // コンティニューボタンであれば
             else if (name == "Continue Button")
             {
-                // ゲームプレイの続行を有効にする
+                /* ポーズ画面を無効にする */
+
                 director.ContinueSwitch = true;
 
-                // ボタンを白色に変化させる（元の色に戻す）
+                // ボタンの明るさを元に戻す
                 image.color = Color.white;
             }
-            // リスタートボタンであれば
             else if (name == "Restart Button")
             {
-                // ゲームプレイの再開始を有効にする
+                /* ゲームプレイを再開始する */
+
                 director.RestartSwitch = true;
             }
             // プラットフォームボタンであれば
             else if (name == "Platform Button")
             {
-                // プラットフォーム画面への遷移を有効にする
+                /* プラットフォーム画面を有効にする */
+
                 director.PlatformSwitch = true;
 
-                // ボタンを白色に変化させる（元の色に戻す）
+                // ボタンの明るさを元に戻す
                 image.color = Color.white;
             }
-            // オープニングボタンであれば
             else if (name == "Opening Button")
             {
-                // オープニングへの遷移を有効にする
+                /* オープニングへ移動する */
+
                 director.OpeningSwitch = true;
             }
-            // パソコンボタンであれば
             else if (name == "PC Button")
             {
-                // 現在のプラットフォームをパソコンに更新する
+                /* 現在のプラットフォームをパソコンにする */
+
                 StaticUnits.SmartPhone = false;
 
-                // プラットフォーム画面への遷移を無効にする（ポーズ画面へ戻る）
+                // プラットフォーム画面を無効にし、
+                // ボタンの明るさを元に戻す
                 director.PlatformSwitch = false;
-
-                // ボタンを白色に変化させる（元の色に戻す）
                 image.color = Color.white;
             }
-            // スマホボタンであれば
             else if (name == "Smart Phone Button")
             {
-                // 現在のプラットフォームをスマホに更新する
+                /* 現在のプラットフォームをスマホにする */
+
                 StaticUnits.SmartPhone = true;
 
-                // プラットフォーム画面への遷移を無効にする（ポーズ画面へ戻る）
+                // プラットフォーム画面を無効にし、
+                // ボタンの明るさを元に戻す
                 director.PlatformSwitch = false;
-
-                // ボタンを白色に変化させる（元の色に戻す）
                 image.color = Color.white;
             }
         }
@@ -142,45 +142,48 @@ public class GamePlayingButton : MonoBehaviour,
 
     public void OnPointerUp(PointerEventData pointerEventData)
     {
-        // ボタンを使える状態でボタンを離すと
+        // ボタンを離すと
+        // そのボタンの明るさを元に戻す
+        image.color = Color.white;
+
+        // （ボタンが使用可能であるときは有効）
         if (director.CanUseButton)
         {
-            // 上矢印ボタンであれば
+            // （ボタンごとに振る舞いを変える）
             if (name == "Up Arrow Button")
             {
-                // 減速する
+                /* 前（上）への加速を無効にする */
+
                 player.UpMove = false;
             }
-            // 左矢印ボタンであれば
             else if (name == "Left Arrow Button")
             {
-                // 減速する
+                /* 左への加速を無効にする */
+
                 player.LeftMove = false;
             }
-            // 下矢印ボタンであれば
             else if (name == "Down Arrow Button")
             {
-                // 減速する
+                /* 後（下）への加速を無効にする */
+
                 player.DownMove = false;
             }
-            // 右矢印ボタンであれば
             else if (name == "Right Arrow Button")
             {
-                // 減速する
+                /* 右への加速を無効にする */
+
                 player.RightMove = false;
             }
         }
-
-        // ボタンを白色に変化させる（元の色に戻す）
-        image.color = Color.white;
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // ボタンを使える状態でボタンにカーソルを当てると
+        // ボタンにカーソルを当てると
+        // そのボタンの明るさを暗くする（程度：小）
+        // （ボタンが使用可能であるときは有効）
         if (director.CanUseButton)
         {
-            // ボタンを白っぽい灰色に変化させる
             image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
         }
     }
@@ -188,8 +191,7 @@ public class GamePlayingButton : MonoBehaviour,
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         // ボタンからカーソルを外すと
-
-        // ボタンを白色に変化させる（元の色に戻す）
+        // そのボタンの明るさを元に戻す
         image.color = Color.white;
     }
 }

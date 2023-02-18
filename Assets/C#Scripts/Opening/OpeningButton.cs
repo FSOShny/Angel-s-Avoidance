@@ -7,90 +7,94 @@ using UnityEngine.UI;
 public class OpeningButton : MonoBehaviour, 
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    // コンポーネント（イメージ、ディレクター）
     private Image image;
     private OpeningDirector director;
 
     private void Start()
     {
-        // イメージコンポーネントを取得する
+        // 各コンポーネントを取得する
         image = GetComponent<Image>();
-
-        // オープニングディレクターを取得する
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<OpeningDirector>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンを押すと
+        // ボタンを入力すると
+        // そのボタンの明るさを暗くする（程度：中）
+        // （アニメーションのときは無効）
         if (director.AnimTime == 0f)
         {
-            // ボタンを灰色に変化させる
             image.color = Color.gray;
 
-            // パソコンボタンであれば
+            // （ボタンごとに振る舞いを変える）
             if (name == "PC Button")
             {
-                // 現在のプラットフォームをパソコンに更新する
+                /* 現在のプラットフォームをパソコンにする */
+
                 StaticUnits.SmartPhone = false;
 
-                // オープニング画面への遷移を有効にする
+                // オープニング画面を有効にする
                 director.OpeningSwitch = true;
             }
-            // スマホボタンであれば
             else if (name == "Smart Phone Button")
             {
-                // 現在のプラットフォームをスマホに更新する
+                /* 現在のプラットフォームをスマホにする */
+
                 StaticUnits.SmartPhone = true;
 
-                // オープニング画面への遷移を有効にする
+                // オープニング画面を有効にする
                 director.OpeningSwitch = true;
             }
-            // チュートリアルボタンであれば
             else if (name == "Tutorials Button")
             {
-                // ゲームチュートリアルへの遷移を有効にする
+                /* ゲームチュートリアルへ移動する */
+
                 director.TutorialsSwitch = true;
             }
-            // プレイボタンであれば
             else if (name == "Playing Button")
             {
-                // ゲームプレイへの遷移を有効にする
+                /* ゲームプレイへ移動する */
+
                 director.PlayingSwitch = true;
             }
-            // オプションボタンであれば
             else if (name == "Options Button")
             {
-                // ゲームオプションへの遷移を有効にする
+                /* ゲームオプションへ移動する */
+
                 director.OptionsSwitch = true;
             }
-            // シャットダウンボタンであれば
             else if (name == "Shutdown Button")
             {
+
+                /* ゲームをシャットダウンする */
+
+                Application.Quit();
+
                 // （エディターでの反応確認）
                 Debug.Log("Shutdown !!!");
-
-                // アプリケーションをシャットダウンする
-                Application.Quit();
             }
         }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンにカーソルを当てると
+        // ボタンにカーソルを当てると
+        // そのボタンの明るさを暗くする（程度：小）
+        // （アニメーションのときは無効）
         if (director.AnimTime == 0f)
         {
-            // ボタンを白っぽい灰色に変化させる
             image.color = new Color(0.9f, 0.9f, 0.9f, 1.0f);
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        // アニメーション時間外にボタンからカーソルを外すと
+        // ボタンからカーソルを外すと
+        // そのボタンの明るさを元に戻す
+        // （アニメーションのときは無効）
         if (director.AnimTime == 0f)
         {
-            // ボタンを白色に変化させる（元の色に戻す）
             image.color = Color.white;
         }
     }

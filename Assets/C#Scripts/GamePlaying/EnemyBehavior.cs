@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    // 剛体コンポーネント
     private Rigidbody rigid;
-    private Vector3 firstEnemyPos; // エネミーの初期位置
-    private Vector3 enemyMove; // エネミーの移動速度
+
+    // エネミーの初期位置
+    private Vector3 firstEnemyPos;
+
+    // エネミーの移動速度
+    private Vector3 enemyMove;
 
     private void Start()
     {
-        // リジッドボディーコンポーネントを取得する
+        // 剛体コンポーネントを取得する
         rigid = GetComponent<Rigidbody>();
 
-        // エネミーの初期位置を設定する
+        // エネミーの初期位置、移動量を設定する
         firstEnemyPos = transform.position;
-
-        // エネミーの移動量を決める
         enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
 
         // ( (ゲームの時間) / 3 )秒経過したエネミーを破壊する
@@ -25,11 +28,12 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Update()
     {
-        /* エネミーがゾーンから出ると位置と移動量を初期化する */
         if (transform.position.x <= -13f || 13f <= transform.position.x ||
             transform.position.y <= 2.0f || 28f <= transform.position.y ||
             transform.position.z <= -13f || 13f <= transform.position.z)
         {
+            /* エネミーがゾーンから出ると位置と移動量を初期化する */
+
             transform.position = firstEnemyPos;
             enemyMove = -Vector3.one * StaticUnits.EnemyMoveSpeed;
         }
@@ -43,7 +47,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        /* ゾーンやプレイヤーに衝突するとエネミーが反発する */
+        // ゾーンやプレイヤーに衝突するとエネミーが反発する
         if (collision.gameObject.name == "Bottom" || collision.gameObject.name == "Top")
         {
             Repulsion(1, -1, 1);
@@ -69,6 +73,7 @@ public class EnemyBehavior : MonoBehaviour
         float randY = Random.Range(0.75f, 1.25f);
         float randZ = Random.Range(0.75f, 1.25f);
 
+        // エネミーの移動量を設定する
         enemyMove.x *= randX * X;
         enemyMove.y *= randY * Y;
         enemyMove.z *= randZ * Z;
