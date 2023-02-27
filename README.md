@@ -42,10 +42,8 @@
   * 「Visual Studio 2022」（C#コーディング）<br>
   　関連ホームページ：https://visualstudio.microsoft.com/ja/
 
-  * 「Unity Asset Store」<br>
+  * 「Unity Asset Store」（フォント、キャラクターアニメーション）<br>
   　関連ホームページ：https://assetstore.unity.com
-
-  * （なお、UIイラストには「Microsoft PowerPoint」を使用させていただきました。）
 <br />
 
 ## Creator
