@@ -15,8 +15,12 @@
 
 ## Startup
 
-* WebGL版は[こちら](https://lunatic-turtle.com/games/AsA/)から起動できます。<br>
-（このゲームのブラウザキャッシュを削除してから起動するとバージョンが最新になります。）
+* PC版<br>
+　「Releases」にある「アプリケーション（v1.1）」からプレイできます。
+
+* WebGL版<br>
+　[こちら](https://lunatic-turtle.com/games/AsA/)から起動できます。<br>
+　（このゲームのブラウザキャッシュを削除してから起動するとバージョンが最新になります。）
 <br />
 
 ## Operation
