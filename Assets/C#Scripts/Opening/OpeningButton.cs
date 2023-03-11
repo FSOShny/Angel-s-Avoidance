@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,24 +8,31 @@ using UnityEngine.UI;
 public class OpeningButton : MonoBehaviour, 
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // コンポーネント（イメージ、ディレクター）
+    // 効果音
+    [SerializeField] private AudioClip sound;
+
+    // コンポーネント（イメージ、ディレクター、オーディオソース）
     private Image image;
     private OpeningDirector director;
+    private AudioSource audioSource;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<OpeningDirector>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         // ボタンを入力すると
+        // 効果音を出力し
         // そのボタンの明るさを暗くする（程度：中）
         // （アニメーションのときは無効）
         if (director.AnimTime == 0f)
         {
+            audioSource.PlayOneShot(sound);
             image.color = Color.gray;
 
             // （ボタンごとに振る舞いを変える）

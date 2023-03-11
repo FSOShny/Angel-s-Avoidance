@@ -48,12 +48,14 @@ public class CameraBehavior : MonoBehaviour
             else if (Input.GetMouseButton(0))
             {
                 /* そのままマウスを左クリックし続けると
-                   以前のマウスの位置と現在のマウスの位置からカメラの回転量を求める */
+                   マウスの位置の差分からカメラの回転量を求める */
 
+                // X軸回転
                 newCameAng.x += (lastMousePos.y - Input.mousePosition.y) * cameRotSpeed * StaticUnits.Reverse;
-                newCameAng.y += (Input.mousePosition.x - lastMousePos.x) * cameRotSpeed * StaticUnits.Reverse;
+                transform.localEulerAngles = newCameAng;
 
-                // カメラを回転させる
+                // Y軸回転
+                newCameAng.y += (Input.mousePosition.x - lastMousePos.x) * cameRotSpeed * StaticUnits.Reverse;
                 transform.localEulerAngles = newCameAng;
 
                 // 現在のマウスの位置を設定する

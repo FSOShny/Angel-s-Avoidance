@@ -12,15 +12,20 @@ public class GameOptionsButton : MonoBehaviour,
     [SerializeField] private Sprite yellowButton;
     [SerializeField] private Sprite whiteButton;
 
-    // コンポーネント（イメージ、ディレクター）
+    // 効果音
+    [SerializeField] private AudioClip sound;
+
+    // コンポーネント（イメージ、ディレクター、オーディオソース）
     private Image image;
     private GameOptionsDirector director;
+    private AudioSource audioSource;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameOptionsDirector>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -58,7 +63,9 @@ public class GameOptionsButton : MonoBehaviour,
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         // ボタンを入力すると
+        // 効果音を出力し
         // そのボタンの明るさを暗くする（程度：中）
+        audioSource.PlayOneShot(sound);
         image.color = Color.gray;
 
         // （ボタンごとに振る舞いを変える）
