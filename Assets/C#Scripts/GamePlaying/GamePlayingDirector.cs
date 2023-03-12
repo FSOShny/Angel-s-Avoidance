@@ -20,13 +20,14 @@ public class GamePlayingDirector : MonoBehaviour
     [SerializeField] private Sprite energy;
     [SerializeField] private Sprite fatigue;
 
-    // コンポーネント（イメージ、テキスト、ディレクター）
+    // コンポーネント（イメージ、テキスト、オーディオシステム、ディレクター）
     private Image noLivesBar;
     private Image livesBar;
     private Image energyBar;
     private Image upDown;
     private Image forwardBack;
     private TextMeshProUGUI timerText;
+    private AudioSystem audioSystem;
     private GameEndingDirector nextDirector;
 
     // 現在の残り時間
@@ -138,6 +139,7 @@ public class GamePlayingDirector : MonoBehaviour
         upDown = GameObject.Find("UpDown Mode Image").GetComponent<Image>();
         forwardBack = GameObject.Find("ForwardBack Mode Image").GetComponent<Image>();
         timerText = GameObject.Find("Timer Text").GetComponent<TextMeshProUGUI>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
 
         // スタート画面を有効にする
         startUi.SetActive(true);
@@ -188,8 +190,10 @@ public class GamePlayingDirector : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 /* Xキーを入力すると
-                   ポーズ画面を有効にする */
+                   ポーズ画面を有効にする
+                   （効果音再生あり）     */
 
+                audioSystem.Music = 0;
                 pauseSwitch = true;
             }
         }
@@ -233,7 +237,7 @@ public class GamePlayingDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             restartSwitch = false;
-            StartCoroutine(GameRestart(0.3f));
+            StartCoroutine(GameRestart(1.5f));
         }
 
         if (platformSwitch)
@@ -258,7 +262,7 @@ public class GamePlayingDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             openingSwitch = false;
-            StartCoroutine(ToOpening(0.3f));
+            StartCoroutine(ToOpening(0.5f));
         }
 
         if (modeChange)
@@ -360,7 +364,7 @@ public class GamePlayingDirector : MonoBehaviour
 
     private IEnumerator GameRestart(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（1.5秒）
         yield return new WaitForSecondsRealtime(fWT);
 
         // 自身（ゲームプレイシーン）をロードする
@@ -369,7 +373,7 @@ public class GamePlayingDirector : MonoBehaviour
 
     private IEnumerator ToOpening(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（0.5秒）
         yield return new WaitForSecondsRealtime(fWT);
 
         // ゲームの一時停止を解除する

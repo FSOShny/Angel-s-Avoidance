@@ -82,15 +82,16 @@ public class GamePlayingButton : MonoBehaviour,
             // （ボタンごとに振る舞いを変える）
             if (name == "Pause Button")
             {
-                /* ポーズ画面を有効にする */
+                /* ポーズ画面を有効にする（効果音再生あり） */
 
+                audioSystem.Music = 0;
                 director.PauseSwitch = true;
             }
             else if (name == "Continue Button")
             {
                 /* ポーズ画面を無効にする（効果音再生あり） */
 
-                audioSystem.Music = 0;
+                audioSystem.Music = 1;
                 director.ContinueSwitch = true;
 
                 // ボタンの明るさを元に戻す
@@ -100,7 +101,7 @@ public class GamePlayingButton : MonoBehaviour,
             {
                 /* ゲームプレイを再開始する（効果音再生あり） */
 
-                audioSystem.Music = 1;
+                audioSystem.Music = 2;
                 director.RestartSwitch = true;
             }
             // プラットフォームボタンであれば
@@ -108,7 +109,7 @@ public class GamePlayingButton : MonoBehaviour,
             {
                 /* プラットフォーム画面を有効にする（効果音再生あり） */
 
-                audioSystem.Music = 2;
+                audioSystem.Music = 3;
                 director.PlatformSwitch = true;
 
                 // ボタンの明るさを元に戻す
@@ -118,14 +119,14 @@ public class GamePlayingButton : MonoBehaviour,
             {
                 /* オープニングへ移動する（効果音再生あり） */
 
-                audioSystem.Music = 1;
+                audioSystem.Music = 4;
                 director.OpeningSwitch = true;
             }
             else if (name == "PC Button")
             {
                 /* 現在のプラットフォームをパソコンにする（効果音再生あり） */
 
-                audioSystem.Music = 3;
+                audioSystem.Music = 5;
                 StaticUnits.SmartPhone = false;
 
                 // プラットフォーム画面を無効にし、
@@ -137,7 +138,7 @@ public class GamePlayingButton : MonoBehaviour,
             {
                 /* 現在のプラットフォームをスマホにする（効果音再生あり） */
 
-                audioSystem.Music = 3;
+                audioSystem.Music = 5;
                 StaticUnits.SmartPhone = true;
 
                 // プラットフォーム画面を無効にし、

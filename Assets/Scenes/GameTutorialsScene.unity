@@ -32939,10 +32939,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound:
-  - {fileID: 8300000, guid: d1a70f749c9152a468d8c27c8d10804f, type: 3}
-  - {fileID: 8300000, guid: 5d04c55c07f05284183eb38aabb19ce5, type: 3}
-  - {fileID: 8300000, guid: e762e0778efe50948b197469087ff535, type: 3}
-  - {fileID: 8300000, guid: 44397a79a05f9bd4dbeac6c939244c07, type: 3}
+  - {fileID: 8300000, guid: 0fc2f74127f084548a0c1095e5a656aa, type: 3}
+  - {fileID: 8300000, guid: bcc6a1a16b88e8544bd1817ddb362221, type: 3}
+  - {fileID: 8300000, guid: 5f49c2823654e584a9aee6b756757f7d, type: 3}
+  - {fileID: 8300000, guid: 83ae2ce35d1b0f64aaca34e46a813d89, type: 3}
 --- !u!1 &8157471208375047843
 GameObject:
   m_ObjectHideFlags: 0

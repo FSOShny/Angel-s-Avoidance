@@ -105,7 +105,7 @@ public class OpeningDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             tutorialsSwitch = false;
-            StartCoroutine(ToTutorials(0.3f));
+            StartCoroutine(ToTutorials(0.5f));
         }
 
         if (playingSwitch)
@@ -114,7 +114,7 @@ public class OpeningDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             playingSwitch = false;
-            StartCoroutine(ToPlaying(0.3f));
+            StartCoroutine(ToPlaying(1.5f));
         }
 
         if (optionsSwitch)
@@ -123,7 +123,7 @@ public class OpeningDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             optionsSwitch = false;
-            StartCoroutine(ToOptions(0.3f));
+            StartCoroutine(ToOptions(0.5f));
         }
     }
 
@@ -146,7 +146,7 @@ public class OpeningDirector : MonoBehaviour
 
     private IEnumerator ToTutorials(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（0.5秒）
         yield return new WaitForSeconds(fWT);
 
         // ゲームチュートリアルシーンをロードする
@@ -155,7 +155,7 @@ public class OpeningDirector : MonoBehaviour
 
     private IEnumerator ToPlaying(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（1.5秒）
         yield return new WaitForSeconds(fWT);
 
         // ゲームの一時停止を実行する
@@ -168,7 +168,7 @@ public class OpeningDirector : MonoBehaviour
 
     private IEnumerator ToOptions(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（0.5秒）
         yield return new WaitForSeconds(fWT);
 
         // ゲームオプションシーンをロードする

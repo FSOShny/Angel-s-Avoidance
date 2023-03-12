@@ -75,9 +75,8 @@ public class OpeningButton : MonoBehaviour,
             else if (name == "Shutdown Button")
             {
 
-                /* ゲームをシャットダウンする（効果音再生あり） */
+                /* ゲームをシャットダウンする */
 
-                audioSystem.Music = 4;
                 Application.Quit();
 
                 // （エディターでの反応確認）
