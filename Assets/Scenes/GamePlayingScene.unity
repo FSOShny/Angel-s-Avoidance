@@ -3088,7 +3088,6 @@ GameObject:
   m_Component:
   - component: {fileID: 829799587}
   - component: {fileID: 829799588}
-  - component: {fileID: 829799589}
   m_Layer: 0
   m_Name: Game Playing Director
   m_TagString: Director
@@ -3132,102 +3131,6 @@ MonoBehaviour:
   gameClearUi: {fileID: 2063077185}
   energy: {fileID: 21300000, guid: 7b401eb4401fe204ebefe1df4299bec2, type: 3}
   fatigue: {fileID: 21300000, guid: 1aceb08c46f8dd64daed9f711b9321f6, type: 3}
---- !u!82 &829799589
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829799585}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &859600943
 GameObject:
   m_ObjectHideFlags: 0
@@ -8325,11 +8228,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ce2ea80f526347e4bbf7a481bb350514, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -15074,12 +14977,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound:
-  - {fileID: 8300000, guid: bcc6a1a16b88e8544bd1817ddb362221, type: 3}
+  - {fileID: 8300000, guid: fcf922911ff96864eba3a1647f36dd63, type: 3}
   - {fileID: 8300000, guid: 5f49c2823654e584a9aee6b756757f7d, type: 3}
   - {fileID: 8300000, guid: 14ef66c489f3e6b489550b8a17fb2949, type: 3}
   - {fileID: 8300000, guid: 11c406d82052922419baf893e22b8e7a, type: 3}
   - {fileID: 8300000, guid: 83ae2ce35d1b0f64aaca34e46a813d89, type: 3}
   - {fileID: 8300000, guid: e102434ae7b18224681bce604fd119ae, type: 3}
+  - {fileID: 8300000, guid: f9401c34784d0e549989a9ac314e3478, type: 3}
+  - {fileID: 8300000, guid: 6b4c8af214d799b4e9a774735354eb8d, type: 3}
+  - {fileID: 8300000, guid: 429d8a7410a3a8243af04004ff3d9898, type: 3}
+  - {fileID: 8300000, guid: bcc6a1a16b88e8544bd1817ddb362221, type: 3}
+  - {fileID: 8300000, guid: 5504852db718904419ba98afc618d059, type: 3}
+  - {fileID: 8300000, guid: 585caa71727d55c4bb16b32f3e3cf20d, type: 3}
+  - {fileID: 8300000, guid: ea5f5201e79932047b779cbcf39eebcb, type: 3}
 --- !u!4 &7089811210487504560
 Transform:
   m_ObjectHideFlags: 0

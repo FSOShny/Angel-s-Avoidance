@@ -162,7 +162,7 @@ public class GamePlayingDirector : MonoBehaviour
         nowTimeLeft = StaticUnits.GameTime;
 
         // ゲームプレイを開始する
-        StartCoroutine(GameStart(3.0f));
+        StartCoroutine(GameStart(2.0f, 1.0f));
     }
 
     private void Update()
@@ -190,17 +190,17 @@ public class GamePlayingDirector : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 /* Xキーを入力すると
-                   ポーズ画面を有効にする
-                   （効果音再生あり）     */
+                   ポーズ画面を有効にする */
 
-                audioSystem.Music = 0;
                 pauseSwitch = true;
             }
         }
 
         if (pauseSwitch)
         {
-            /* ポーズ画面を有効にする */
+            /* ポーズ画面を有効にする（効果音再生あり） */
+
+            audioSystem.Music = 9;
 
             // ゲームの一時停止を実行する
             Time.timeScale = 0f;
@@ -288,17 +288,17 @@ public class GamePlayingDirector : MonoBehaviour
         // 体力バー（緑色）を表示する
         livesBar.fillAmount = nowPlayerLives / 5.0f;
 
-        if (nowPlayerLives <= 0)
+        if (nowPlayerLives <= 0 && CanUseInterf)
         {
             /* （体力がゼロになると）
                ゲームオーバーになる   */
-
+            
             // インタフェース、ボタンを使用不可にする
             canUseInterf = false;
             canUseButton = false;
 
             // ゲームエンディングへ移動する
-            StartCoroutine(GameOver(2.0f));
+            StartCoroutine(GameOver(1.0f, 1.0f));
         }
 
         if (!fatigueSwitch)
@@ -330,7 +330,7 @@ public class GamePlayingDirector : MonoBehaviour
         // タイマーを更新する
         timerText.text = iTimeLeft.ToString();
 
-        if (nowTimeLeft < 0f)
+        if (nowTimeLeft < 0f && canUseInterf)
         {
             /* （残り時間がゼロになると）
                ゲームクリアになる         */
@@ -340,14 +340,20 @@ public class GamePlayingDirector : MonoBehaviour
             canUseButton = false;
 
             // ゲームエンディングへ移動する
-            StartCoroutine(GameClear(5.0f));
+            StartCoroutine(GameClear(1.0f, 4.0f));
         }
     }
 
-    private IEnumerator GameStart(float fWT)
+    private IEnumerator GameStart(float fWT, float sWT)
     {
-        // 待機処理（3.0秒）
+        // 待機処理（2.0秒）
         yield return new WaitForSecondsRealtime(fWT);
+
+        // （効果音再生あり）
+        audioSystem.Music = 10;
+
+        // 待機処理（1.0秒）
+        yield return new WaitForSecondsRealtime(sWT);
 
         // インタフェースを使用可能にする
         canUseInterf = true;
@@ -383,29 +389,41 @@ public class GamePlayingDirector : MonoBehaviour
         SceneManager.LoadScene("OpeningScene");
     }
 
-    private IEnumerator GameOver(float fWT)
+    private IEnumerator GameOver(float fWT, float sWT)
     {
         // ゲームオーバー画面を有効にし、
         // ゲームの一時停止を実行する
         gameOverUi.SetActive(true);
         Time.timeScale = 0f;
 
-        // 待機処理（2.0秒）
+        // 待機処理（1.0秒）
         yield return new WaitForSecondsRealtime(fWT);
+
+        // （効果音再生あり）
+        audioSystem.Music = 11;
+
+        // 待機処理（1.0秒）
+        yield return new WaitForSecondsRealtime(sWT);
 
         // ボタンを使用可能にする
         canUseButton = true;
     }
 
-    private IEnumerator GameClear(float fWT)
+    private IEnumerator GameClear(float fWT, float sWT)
     {
         // ゲームクリア画面を有効にし、
         // ゲームの一時停止を実行する
         gameClearUi.SetActive(true);
         Time.timeScale = 0f;
 
-        // 待機処理（5.0秒）
+        // 待機処理（1.0秒）
         yield return new WaitForSecondsRealtime(fWT);
+
+        // （効果音再生あり）
+        audioSystem.Music = 12;
+
+        // 待機処理（4.0秒）
+        yield return new WaitForSecondsRealtime(sWT);
 
         // 次のシーンへの変数引き渡しを開始する
         SceneManager.sceneLoaded += GameEndingLoaded;

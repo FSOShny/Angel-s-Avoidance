@@ -62,8 +62,9 @@ public class GamePlayingButton : MonoBehaviour,
                 }
                 else if (name == "Mode Change Button")
                 {
-                    /* 移動モードをチェンジする */
+                    /* 移動モードをチェンジする（効果音再生あり） */
 
+                    audioSystem.Music = 0;
                     director.ModeChange = !director.ModeChange;
                 }
 
@@ -82,9 +83,8 @@ public class GamePlayingButton : MonoBehaviour,
             // （ボタンごとに振る舞いを変える）
             if (name == "Pause Button")
             {
-                /* ポーズ画面を有効にする（効果音再生あり） */
+                /* ポーズ画面を有効にする */
 
-                audioSystem.Music = 0;
                 director.PauseSwitch = true;
             }
             else if (name == "Continue Button")

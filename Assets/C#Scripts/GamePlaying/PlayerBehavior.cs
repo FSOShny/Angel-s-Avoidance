@@ -10,10 +10,11 @@ public class PlayerBehavior : MonoBehaviour
     // プレイヤーオーラ
     [SerializeField] private GameObject playerAura;
 
-    // コンポーネント（剛体、アニメーション、ディレクター）
+    // コンポーネント（剛体、アニメーション、ディレクター、オーディオシステム）
     private Rigidbody rigid;
     private Animator anim;
     private GamePlayingDirector director;
+    private AudioSystem audioSystem;
 
     // プレイヤーのマテリアル
     private Material playerMat;
@@ -101,6 +102,7 @@ public class PlayerBehavior : MonoBehaviour
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
         playerMat = GameObject.Find("MHuman").GetComponent<Renderer>().material;
         came = GameObject.Find("Camera").transform;
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
 
         // プレイヤーオーラを無効にし、
         // プレイヤーのアニメーターを止める
@@ -234,7 +236,10 @@ public class PlayerBehavior : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 /* Eキーを入力すると
-                   移動モードをチェンジする */
+                   移動モードをチェンジする
+                   （効果音再生あり）       */
+
+                audioSystem.Music = 0;
                 director.ModeChange = !director.ModeChange;
             }
 
@@ -281,8 +286,10 @@ public class PlayerBehavior : MonoBehaviour
                 if (director.ChargeTime == 0f)
                 {
                     /* 気力回復時間でないときは
-                       ガードアクションを行う 　*/
+                       ガードアクションを行う
+                       （効果音再生あり）       */
 
+                    audioSystem.Music = 6;
                     GuardAct();
 
                     // 気力回復時間を設定する
@@ -291,8 +298,10 @@ public class PlayerBehavior : MonoBehaviour
                 else
                 {
                     /* 気力回復時間のときは
-                       プレイヤーを疲労状態にする */
+                       プレイヤーを疲労状態にする
+                       （効果音再生あり）         */
 
+                    audioSystem.Music = 7;
                     director.FatigueSwitch = true;
 
                     // ペナルティを有効にし、
@@ -384,6 +393,8 @@ public class PlayerBehavior : MonoBehaviour
     {
         // ノックバックの力を加え、
         // プレイヤーを移動不可にする
+        // （効果音再生あり）
+        audioSystem.Music = 8;
         rigid.AddForce(X, Y, Z, ForceMode.VelocityChange);
         canMove = false;
 
