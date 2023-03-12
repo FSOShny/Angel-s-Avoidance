@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,15 +8,17 @@ using UnityEngine.UI;
 public class OpeningButton : MonoBehaviour, 
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // コンポーネント（イメージ、ディレクター）
+    // コンポーネント（イメージ、ディレクター、オーディオシステム）
     private Image image;
     private OpeningDirector director;
+    private AudioSystem audioSystem;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<OpeningDirector>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
@@ -30,8 +33,9 @@ public class OpeningButton : MonoBehaviour,
             // （ボタンごとに振る舞いを変える）
             if (name == "PC Button")
             {
-                /* 現在のプラットフォームをパソコンにする */
+                /* 現在のプラットフォームをパソコンにする（効果音再生あり） */
 
+                audioSystem.Music = 0;
                 StaticUnits.SmartPhone = false;
 
                 // オープニング画面を有効にする
@@ -39,8 +43,9 @@ public class OpeningButton : MonoBehaviour,
             }
             else if (name == "Smart Phone Button")
             {
-                /* 現在のプラットフォームをスマホにする */
+                /* 現在のプラットフォームをスマホにする（効果音再生あり） */
 
+                audioSystem.Music = 0;
                 StaticUnits.SmartPhone = true;
 
                 // オープニング画面を有効にする
@@ -48,20 +53,23 @@ public class OpeningButton : MonoBehaviour,
             }
             else if (name == "Tutorials Button")
             {
-                /* ゲームチュートリアルへ移動する */
+                /* ゲームチュートリアルへ移動する（効果音再生あり） */
 
+                audioSystem.Music = 1;
                 director.TutorialsSwitch = true;
             }
             else if (name == "Playing Button")
             {
-                /* ゲームプレイへ移動する */
+                /* ゲームプレイへ移動する（効果音再生あり） */
 
+                audioSystem.Music = 2;
                 director.PlayingSwitch = true;
             }
             else if (name == "Options Button")
             {
-                /* ゲームオプションへ移動する */
+                /* ゲームオプションへ移動する（効果音再生あり） */
 
+                audioSystem.Music = 3;
                 director.OptionsSwitch = true;
             }
             else if (name == "Shutdown Button")

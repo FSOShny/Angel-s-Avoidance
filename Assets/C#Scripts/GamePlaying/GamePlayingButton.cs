@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class GamePlayingButton : MonoBehaviour,
     IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // コンポーネント（イメージ、ディレクター、プレイヤー）
+    // コンポーネント（イメージ、ディレクター、プレイヤー、オーディオシステム）
     private Image image;
     private GamePlayingDirector director;
     private PlayerBehavior player;
+    private AudioSystem audioSystem;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class GamePlayingButton : MonoBehaviour,
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GamePlayingDirector>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
@@ -60,8 +62,9 @@ public class GamePlayingButton : MonoBehaviour,
                 }
                 else if (name == "Mode Change Button")
                 {
-                    /* 移動モードをチェンジする */
+                    /* 移動モードをチェンジする（効果音再生あり） */
 
+                    audioSystem.Music = 0;
                     director.ModeChange = !director.ModeChange;
                 }
 
@@ -70,7 +73,7 @@ public class GamePlayingButton : MonoBehaviour,
                 {
                     if (name == "Guard Action Button")
                     {
-                        /* ガードアクションを行う（準備をする） */
+                        /* ガードアクションを行う準備をする */
 
                         player.Guard = true;
                     }
@@ -86,8 +89,9 @@ public class GamePlayingButton : MonoBehaviour,
             }
             else if (name == "Continue Button")
             {
-                /* ポーズ画面を無効にする */
+                /* ポーズ画面を無効にする（効果音再生あり） */
 
+                audioSystem.Music = 1;
                 director.ContinueSwitch = true;
 
                 // ボタンの明るさを元に戻す
@@ -95,15 +99,17 @@ public class GamePlayingButton : MonoBehaviour,
             }
             else if (name == "Restart Button")
             {
-                /* ゲームプレイを再開始する */
+                /* ゲームプレイを再開始する（効果音再生あり） */
 
+                audioSystem.Music = 2;
                 director.RestartSwitch = true;
             }
             // プラットフォームボタンであれば
             else if (name == "Platform Button")
             {
-                /* プラットフォーム画面を有効にする */
+                /* プラットフォーム画面を有効にする（効果音再生あり） */
 
+                audioSystem.Music = 3;
                 director.PlatformSwitch = true;
 
                 // ボタンの明るさを元に戻す
@@ -111,14 +117,16 @@ public class GamePlayingButton : MonoBehaviour,
             }
             else if (name == "Opening Button")
             {
-                /* オープニングへ移動する */
+                /* オープニングへ移動する（効果音再生あり） */
 
+                audioSystem.Music = 4;
                 director.OpeningSwitch = true;
             }
             else if (name == "PC Button")
             {
-                /* 現在のプラットフォームをパソコンにする */
+                /* 現在のプラットフォームをパソコンにする（効果音再生あり） */
 
+                audioSystem.Music = 5;
                 StaticUnits.SmartPhone = false;
 
                 // プラットフォーム画面を無効にし、
@@ -128,8 +136,9 @@ public class GamePlayingButton : MonoBehaviour,
             }
             else if (name == "Smart Phone Button")
             {
-                /* 現在のプラットフォームをスマホにする */
+                /* 現在のプラットフォームをスマホにする（効果音再生あり） */
 
+                audioSystem.Music = 5;
                 StaticUnits.SmartPhone = true;
 
                 // プラットフォーム画面を無効にし、

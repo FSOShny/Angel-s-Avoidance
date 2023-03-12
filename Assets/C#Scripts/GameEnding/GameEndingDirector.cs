@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameEndingDirector : MonoBehaviour
 {
-    // テキストコンポーネント
+    // コンポーネント（テキスト、オーディオシステム）
     private TextMeshProUGUI difficultyText;
     private TextMeshProUGUI damagedText;
     private TextMeshProUGUI fatiguedText;
+    private AudioSystem audioSystem;
 
     // 難易度係数
     private int level = 0;
@@ -57,6 +58,10 @@ public class GameEndingDirector : MonoBehaviour
         difficultyText = GameObject.Find("Difficulty Text").GetComponent<TextMeshProUGUI>();
         damagedText = GameObject.Find("Damaged Text").GetComponent<TextMeshProUGUI>();
         fatiguedText = GameObject.Find("Fatigued Text").GetComponent<TextMeshProUGUI>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
+
+        // （効果音再生あり）
+        audioSystem.Music = 1;
 
         // ゲームの時間に応じて難易度係数を増やす
         if (StaticUnits.GameTime >= 45)
@@ -115,7 +120,7 @@ public class GameEndingDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             openingSwitch = false;
-            StartCoroutine(ToOpening(0.3f));
+            StartCoroutine(ToOpening(0.5f));
         }
 
         // 各プレイ評価を表示する
@@ -126,7 +131,7 @@ public class GameEndingDirector : MonoBehaviour
 
     private IEnumerator ToOpening(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（0.5秒）
         yield return new WaitForSeconds(fWT);
 
         // オープニングシーンをロードする

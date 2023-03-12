@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class GameEndingButton : MonoBehaviour,
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // コンポーネント（イメージ、ディレクター）
+    // コンポーネント（イメージ、ディレクター、オーディオシステム）
     private Image image;
     private GameEndingDirector director;
+    private AudioSystem audioSystem;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameEndingDirector>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
@@ -26,6 +28,9 @@ public class GameEndingButton : MonoBehaviour,
         if (director.AnimTime == 0f)
         {
             image.color = Color.gray;
+
+            // （効果音再生あり）
+            audioSystem.Music = 0;
 
             if (name == "Opening Button")
             {

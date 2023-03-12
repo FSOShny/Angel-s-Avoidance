@@ -21,13 +21,13 @@ public class GameOptionsDirector : MonoBehaviour
 
             // （フラグをオフにしてから処理を行う）
             openingSwitch = false;
-            StartCoroutine(ToOpening(0.3f));
+            StartCoroutine(ToOpening(0.5f));
         }
     }
 
     private IEnumerator ToOpening(float fWT)
     {
-        // 待機処理（0.3秒）
+        // 待機処理（0.5秒）
         yield return new WaitForSeconds(fWT);
 
         // オープニングシーンをロードする

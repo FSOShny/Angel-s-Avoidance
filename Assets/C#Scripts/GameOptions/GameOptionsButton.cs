@@ -12,15 +12,17 @@ public class GameOptionsButton : MonoBehaviour,
     [SerializeField] private Sprite yellowButton;
     [SerializeField] private Sprite whiteButton;
 
-    // コンポーネント（イメージ、ディレクター）
+    // コンポーネント（イメージ、ディレクター、オーディオシステム）
     private Image image;
     private GameOptionsDirector director;
+    private AudioSystem audioSystem;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameOptionsDirector>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
     }
 
     private void Update()
@@ -64,74 +66,86 @@ public class GameOptionsButton : MonoBehaviour,
         // （ボタンごとに振る舞いを変える）
         if (name == "30 Seconds Button")
         {
-            /* ゲームの時間を「30秒」にする */
+            /* ゲームの時間を「30秒」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.GameTime = 30f;
         }
         else if (name == "45 Seconds Button")
         {
-            /* ゲームの時間を「45秒」にする */
+            /* ゲームの時間を「45秒」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.GameTime = 45f;
         }
         else if (name == "60 Seconds Button")
         {
-            /* ゲームの時間を「60秒」にする */
+            /* ゲームの時間を「60秒」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.GameTime = 60f;
         }
         else if (name == "Low Speed Button")
         {
-            /* エネミーの移動速度を「低速」にする */
+            /* エネミーの移動速度を「低速」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.EnemyMoveSpeed = 4;
         }
         else if (name == "Normal Speed Button")
         {
-            /* エネミーの移動速度を「通常」にする */
+            /* エネミーの移動速度を「通常」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.EnemyMoveSpeed = 8;
         }
         else if (name == "High Speed Button")
         {
-            /* エネミーの移動速度を「高速」にする */
+            /* エネミーの移動速度を「高速」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.EnemyMoveSpeed = 12;
         }
         else if (name == "5 Lives Button")
         {
-            /* プレイヤーの体力最大値を「5」にする */
+            /* プレイヤーの体力最大値を「5」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.MaxPlayerLives = 5;
         }
         else if (name == "3 Lives Button")
         {
-            /* プレイヤーの体力最大値を「3」にする */
+            /* プレイヤーの体力最大値を「3」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.MaxPlayerLives = 3;
         }
         else if (name == "2 Lives Button")
         {
-            /* プレイヤーの体力最大値を「2」にする */
+            /* プレイヤーの体力最大値を「2」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.MaxPlayerLives = 2;
         }
         else if (name == "Reverse On Button")
         {
-            /* カメラの反転係数を「オン」にする */
+            /* カメラの反転係数を「オン」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.Reverse = -1;
         }
         else if (name == "Reverse Off Button")
         {
-            /* カメラの反転係数を「オフ」にする */
+            /* カメラの反転係数を「オフ」にする（効果音再生あり） */
 
+            audioSystem.Music = 0;
             StaticUnits.Reverse = 1;
         }
         else if (name == "Opening Button")
         {
-            /* オープニングへ移動する */
+            /* オープニングへ移動する（効果音再生あり） */
 
+            audioSystem.Music = 1;
             director.OpeningSwitch = true;
         }
     }

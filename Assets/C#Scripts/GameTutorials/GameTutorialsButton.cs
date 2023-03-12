@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class GameTutorialsButton : MonoBehaviour,
     IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // コンポーネント（イメージ、ディレクター）
+    // コンポーネント（イメージ、ディレクター、オーディオシステム）
     private Image image;
     private GameTutorialsDirector director;
+    private AudioSystem audioSystem;
 
     private void Start()
     {
         // 各コンポーネントを取得する
         image = GetComponent<Image>();
         director = GameObject.FindGameObjectWithTag("Director").GetComponent<GameTutorialsDirector>();
+        audioSystem = GameObject.FindGameObjectWithTag("AudioSystem").GetComponent<AudioSystem>();
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
@@ -27,6 +29,9 @@ public class GameTutorialsButton : MonoBehaviour,
         // （ボタンごとに振る舞いを変える）
         if (CompareTag("SkipText"))
         {
+            // （効果音再生あり）
+            audioSystem.Music = 0;
+
             if (name == "Skip Text (1)")
             {
                 /* 現在のページを0に設定する */
@@ -74,8 +79,9 @@ public class GameTutorialsButton : MonoBehaviour,
             // （ボタンごとに振る舞いを変える）
             if (name == "Previous Button")
             {
-                /* 前のページ数を設定する */
+                /* 前のページ数を設定する（効果音再生あり） */
 
+                audioSystem.Music = 0;
                 director.NowPage--;
 
                 // 設定したページへ移動する
@@ -83,7 +89,9 @@ public class GameTutorialsButton : MonoBehaviour,
             }
             else if (name == "Next Button")
             {
-                /* 次のページ数を設定する */
+                /* 次のページ数を設定する（効果音再生あり） */
+
+                audioSystem.Music = 0;
                 director.NowPage++;
 
                 // 設定したページへ移動する
@@ -91,20 +99,23 @@ public class GameTutorialsButton : MonoBehaviour,
             }
             else if (name == "Pause Button")
             {
-                /* ポーズ画面を有効にする */
+                /* ポーズ画面を有効にする（効果音再生あり） */
 
+                audioSystem.Music = 1;
                 director.PauseSwitch = true;
             }
             else if (name == "Continue Button")
             {
-                /* ポーズ画面を無効にする */
+                /* ポーズ画面を無効にする（効果音再生あり） */
 
+                audioSystem.Music = 2;
                 director.ContinueSwitch = true;
             }
             else if (name == "Opening Button")
             {
-                /* オープニングへ移動する */
+                /* オープニングへ移動する（効果音再生あり） */
 
+                audioSystem.Music = 3;
                 director.OpeningSwitch = true;
             }
         }

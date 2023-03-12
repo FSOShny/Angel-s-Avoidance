@@ -7,6 +7,8 @@ TagManager:
   - Director
   - Camera
   - SkipText
+  - PageSwitch
+  - AudioSystem
   layers:
   - Default
   - TransparentFX
