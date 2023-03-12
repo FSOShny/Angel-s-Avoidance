@@ -16,7 +16,7 @@
 ## Startup
 
 * PC版（パソコンのみ対応）<br>
-　「Releases」にある「アプリケーション（v1.1）」からプレイできます。
+　「Releases」にある「アプリケーション（v2.1）」からプレイできます。
 
 * WebGL版（パソコン、スマホ対応）<br>
 　[こちら](https://sh-ny-fso.github.io/WebGL_AsA/)から起動できます。<br>
@@ -45,6 +45,9 @@
 
   * 「Visual Studio 2022」（C#コーディング）<br>
   　関連ホームページ：https://visualstudio.microsoft.com/ja/
+   
+  * 「効果音ラボ」（SE）<br>
+  　関連ホームページ：https://soundeffect-lab.info/
 
   * 「Unity Asset Store」（フォント、キャラクターアニメーション）<br>
   　関連ホームページ：https://assetstore.unity.com
@@ -66,4 +69,7 @@
 
 * 2023/12/16（v1.1）<br>
 　ゲームのリリース
+ 
+* 2023/03/13（v2.1）<br>
+　RPの変更（グラフィックスの向上）、SEの追加
 <br />
